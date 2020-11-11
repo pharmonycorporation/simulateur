@@ -1,0 +1,11 @@
+.social-links {
+	overflow: hidden;
+
+	li {
+		float: left;
+		a {
+			color: $black;
+			text-align: center;
+		}
+	}
+}

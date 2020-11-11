@@ -1,0 +1,244 @@
+/*--------------------------------------------------------------
+#	CV home
+--------------------------------------------------------------*/
+/*--------------------------------------------------------------
+#3.0	Menu after slider
+--------------------------------------------------------------*/
+.menu-after-slider {
+	text-align: center;
+
+	@include media-query(991px) {
+		display: none;
+	}
+
+	.navigation {
+		background: $white;
+		margin-bottom: 0;
+		border: 0;
+		border-bottom: 2px solid #e5e5e5;
+		border-radius: 0;
+	}
+
+	ul {
+		display: inline-block;
+		float: none;
+		margin: 0 auto;
+		position: relative;
+		top: 5px;
+	}
+
+	ul li {
+		padding: 0 24px;
+
+		@include media-query(1199px) {
+			padding: 0 20px;
+		}
+	}
+
+	ul li a {
+		font-family: $heading-font;
+		font-size: 14px;
+		font-size: calc-rem-value(14);
+		color: #5b5b5b;
+		padding: 18px 0;
+		position: relative;
+
+		@include media-query(1199px) {
+			padding: 14px 0;
+		}
+
+		&:after {
+			content: "";
+			background: $theme-secondary-color;
+			width: 100%;
+			height: 4px;
+			position: absolute;
+			left: 0;
+			bottom: -4px;
+			opacity: 0;
+			@include transition-time(0.2s);
+		}
+	}
+
+	ul li a i {
+		background: #eee;
+		width: 35px;
+		height: 35px;
+		line-height: 35px;
+		color: #aeaeae;
+		text-align: center;
+		margin-right: 8px;
+		display: inline-block;
+		@include rounded-border();
+
+		@include media-query(1199px) {
+			font-size: 12px;
+			font-size: calc-rem-value(12);
+			width: 30px;
+			height: 30px;
+			line-height: 30px;
+		}
+	}
+
+	ul .current-menu-item a {
+		i {
+			color: $theme-secondary-color;
+		}
+	}
+
+	ul .current-menu-item a:after {
+		opacity: 1;
+	}	
+}
+
+
+
+
+/*--------------------------------------------------------------
+#3.1	about-me
+--------------------------------------------------------------*/
+.about-me {
+	padding-bottom: 0;
+
+	.section-title {
+		text-align: left;
+		margin-bottom: 0;
+	}
+
+	.section-title h2:after {
+		left: 0;
+		@include notransform();
+	}
+
+	.left-col {
+		@include widther(992px) {
+			padding-right: 55px;
+		}
+
+		p {
+			margin-bottom: 20px;
+		}
+	}
+
+	.progress-bar-s1 {
+		margin-top: 75px;
+
+		@include media-query(991px) {
+			margin-top: 40px;
+		}
+	}
+}
+
+
+/*--------------------------------------------------------------
+#3.2	cv-funfact
+--------------------------------------------------------------*/
+.cv-funfact {
+	@extend .agency-funfact;
+	padding-bottom: 100px;
+	position: relative;
+
+	@include media-query(767px) {
+		padding-bottom: 35px;
+	}
+
+	&:after {
+		content: "";
+		@include overlay(transparentize(#050b20, 0.15));
+	}
+
+	.container {
+		position: relative;
+		z-index: 10;
+	}
+
+	h3,
+	p {
+		color: $white;
+	}
+}
+
+
+/*--------------------------------------------------------------
+#3.2	cv-portfolio
+--------------------------------------------------------------*/
+.cv-portfolio {
+	padding-bottom: 0;
+
+	.section-title {
+		margin-bottom: 0;
+	}
+
+	.sorting-filters {
+		text-align: center;
+		margin-bottom: 40px;
+
+		@include media-query(767px) {
+			margin-bottom: 20px;
+		}
+
+		ul {
+			display: inline-block;
+		}
+
+		ul li {
+			display: inline-block;
+			margin-right: 35px;
+
+			@include media-query(767px) {
+				margin-right: 10px;
+			}
+		}
+
+		ul li:last-child {
+			margin-right: 0;
+		}
+
+		ul li a {
+			font-family: $heading-font;
+			font-size: 11px;
+			font-size: calc-rem-value(11);
+			color: $heading-color2;
+			text-transform: uppercase;
+		}
+
+		ul li .current {
+			color: $theme-secondary-color;
+		}
+	}
+}
+
+
+/*--------------------------------------------------------------
+#3.4	cv-partners
+--------------------------------------------------------------*/
+.cv-partners {
+	text-align: center;
+
+	@include media-query(991px) {
+		padding-top: 0;
+	}
+
+	@include media-query(767px) {
+		padding-bottom: 0;
+	}
+
+	img {
+		display: inline-block;
+		max-width: 100%;
+
+		@include media-query(767px) {
+			max-width: 95%;
+		}
+	}
+
+	.content > .col {
+		@include media-query(767px) {
+			margin-bottom: 40px;
+		}
+	}
+}
+
+.home-cv .agency-contact-section {
+	border-top: 1px solid lighten($black, 90%);
+}

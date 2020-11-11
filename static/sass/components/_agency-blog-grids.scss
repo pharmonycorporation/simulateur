@@ -1,0 +1,126 @@
+/*********************************
+= agency blog grids
+*********************************/
+.agency-blog-grids {
+
+	.grid {
+		position: relative;
+
+		&:after {
+			content: "";
+			background-color: #e8e6e6;
+			width: 100%;
+			height: 6px;
+			position: absolute;
+			left: 0;
+			bottom: 0;
+		}
+
+		&:before {
+			content: "";
+			background-color: $theme-primary-color;
+			@include linear-gradient-bg(left, $theme-primary-color, $theme-secondary-color);
+			width: 0;
+			height: 6px;
+			position: absolute;
+			left: 0;
+			bottom: 0;
+			z-index: 10;
+			@include transition-time(0.3s);
+		}
+
+		@include media-query(1199px) {
+			&:after,
+			&:before {
+				height: 4px;
+			}
+		}
+	}
+
+	.grid:hover:before {
+		width: 100%;
+	}
+
+	.entry-details {
+		padding: 30px 25px;
+
+		@include media-query(1199px) {
+			padding: 30px 15px;
+		}
+	}
+
+	.entry-date {
+		font-size: 14px;
+		font-size: calc-rem-value(14);
+	}
+
+	.entry-details h3 {
+		margin: 0.37em 0 0.6em;
+		font-weight: 400;
+	}
+
+	.entry-details h3 a {
+		font-size: 22px;
+		font-size: calc-rem-value(22);
+		color: $heading-color2;
+
+		@include media-query(1199px) {
+			font-size: 20px;
+			font-size: calc-rem-value(20);
+		}
+
+		@include media-query(767px) {
+			font-size: 18px;
+			font-size: calc-rem-value(18);
+		}
+	}
+
+	.entry-details h3 a:hover {
+		color: $theme-primary-color;
+	}
+
+	.entry-details p {
+		@include media-query(1199px) {
+			font-size: 15px;
+			font-size: calc-rem-value(15);
+		}
+	}
+
+	.entry-footer {
+		overflow: hidden;
+		margin-top: 20px;
+
+		.more,
+		.comments {
+			font-family: $heading-font;
+			font-size: 14px;
+			font-size: calc-rem-value(14);
+			font-weight: 400;
+			color: $heading-color2;
+			text-transform: capitalize;
+
+			@include media-query(767px) {
+				font-size: 12px;
+				font-size: calc-rem-value(12);
+			}
+		}
+
+		.more {
+			float: left;
+		}
+
+		.comments {
+			float: right;
+			a {
+				color: #ababab;
+			}
+		}
+
+		.more:hover,
+		.comments a:hover {
+			color: $theme-primary-color !important;
+		}
+	}
+
+
+}

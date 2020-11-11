@@ -1,0 +1,188 @@
+/*********************************
+= app landing pricing grids
+*********************************/
+.app-pricing-grids {
+
+	margin: 0 -30px;
+
+	@include media-query(767px) {
+		margin: 0 -15px;
+	}
+
+	@include media-query(550px) {
+		margin: 0;
+	}
+
+	.grid {
+		width: 33.33%;
+		float: left;
+		text-align: center;
+		padding: 0 15px;
+
+		@include media-query(991px) {
+			width: 50%;
+			margin-bottom: 30px;
+		}
+
+		@include media-query(767px) {
+			padding: 0 7.5px;
+			margin-bottom: 15px;
+		}
+
+		@include media-query(550px) {
+			width: 100%;
+			padding: 0;
+		}
+	}
+
+	.grid-inner {
+		background-color: $white;
+		padding: 45px 20px;
+		position: relative;
+
+		@include media-query(767px) {
+			padding: 35px 15px;
+		}
+
+		&:before {
+			content: "";
+			background-color: $theme-primary-color;
+			@include linear-gradient-bg(left, $theme-primary-color, $theme-secondary-color);
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			left: 0;
+			top: 0;
+			opacity: 0;
+			@include transition-time(0.2s);
+		}
+	}
+
+	.pricing-header,
+	.pricing-details {
+		position: relative;
+		z-index: 10;
+	}
+
+	.pricing-header .package {
+		font-size: 24px;
+		font-size: calc-rem-value(24);
+		color: #666;
+		display: block;
+
+		@include media-query(1199px) {
+			font-size: 20px;
+			font-size: calc-rem-value(20);
+		}
+	}
+
+	.pricing-header .price {
+		font-size: 60px;
+		font-size: calc-rem-value(60);
+		color: $heading-color2;
+		margin: 0.5em 0 10px;
+		display: inline-block;
+		position: relative;
+
+		span {
+			font-size: 24px;
+			font-size: calc-rem-value(24);
+			position: absolute;
+			left: -25px;
+			top: 10px;
+
+			@include media-query(991px) {
+				font-size: 18px;
+				font-size: calc-rem-value(18);
+				position: absolute;
+				left: -15px;
+				top: 8px;
+			}
+
+			@include media-query(767px) {
+				font-size: 16px;
+				font-size: calc-rem-value(16);
+				position: absolute;
+				left: -15px;
+				top: 5px;
+			}
+		}
+
+		@include media-query(1199px) {
+			font-size: 45px;
+			font-size: calc-rem-value(45);
+		}
+
+		@include media-query(991px) {
+			font-size: 38px;
+			font-size: calc-rem-value(38);
+		}
+
+		@include media-query(767px) {
+			font-size: 30px;
+			font-size: calc-rem-value(30);
+			margin-bottom: 0;
+		}
+	}
+
+	.pricing-header .access {
+		display: block;
+	}
+
+	.pricing-details {
+		margin-top: 40px;
+	}
+
+	.pricing-details ul {
+		margin-bottom: 30px;
+	}
+
+	.pricing-details ul li {
+		font-size: 14px;
+		font-size: calc-rem-value(14);
+		margin-bottom: 10px;
+	}
+
+	.pricing-details ul li span {
+		color: $black;
+		font-weight: bold;
+	}
+
+	// .pricing-details .get-started {
+	// 	background-color: $theme-primary-color;
+	// 	@include linear-gradient-bg(left, $theme-primary-color, $theme-secondary-color);
+	// 	height: 50px;
+	// 	line-height: 50px;
+	// 	display: inline-block;
+	// 	font-size: 14px;
+	// 	font-size: calc-rem-value(14);
+	// 	font-weight: bold;
+	// 	padding: 0 35px;
+	// 	color: $white;
+	// 	@include rounded-border(25px);
+
+	// 	@include media-query(1199px) {
+	// 		height: 40px;
+	// 		line-height: 40px;
+	// 		padding: 0 25px;
+	// 	}
+	// }
+
+	> .grid:nth-child(2) .grid-inner,
+	.grid .grid-inner:hover {
+		&:before {
+			opacity: 1;
+		}
+
+		span,
+		h3,
+		li {
+			color: $white;
+		}
+
+		.get-started {
+			background: $white;
+			color: $black;
+		}
+	}
+}

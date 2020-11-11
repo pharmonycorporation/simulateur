@@ -1,0 +1,112 @@
+/*------------------------------------------------------------------
+[Master Stylesheet]
+Theme Name: 	
+Version:        1.0.0
+Author:         themexriver
+URL:            http://themeforest.net/user/themexriver
+-------------------------------------------------------------------*/
+
+
+/*--------------------------------------------------------------
+>>> TABLE OF CONTENTS:
+----------------------------------------------------------------
+#0.1	Theme Reset Style
+#0.2	Global Elements
+#0.3	header
+#0.4	hero
+#0.5	footer
+#0.6	app-landing-latest-features
+#0.7	app-landing-features
+#0.8	app-landing-cta
+#0.9	app-landing-funfact
+#1.0	app-documentation-section
+#1.1	how-app-works
+#1.2	app-screenshot
+#1.3	app-tem-members
+#1.4	app-landing-pricing
+#1.5	app-landing-testimonials
+#1.6	app-landing-faq
+#1.7	app-social-media-section
+#1.8	app-contact-section
+
+
+----------------------------------------------------------------
+	= Agency home
+----------------------------------------------------------------
+#2.0	agency-latest-features
+#2.1	agency-business-solution-skill
+#2.2	agency-services
+#2.3	agency-cta
+#2.4	agency-funfact
+#2.5	agency-projects
+#2.6	agency-faq
+#2.7	agency-blog
+#2.8	agency-testimonials
+#2.9	agency-team
+#2.10	agency-contact-section
+
+
+----------------------------------------------------------------
+	= Cv home
+----------------------------------------------------------------
+#3.0	Menu after slider
+#3.1	about-me
+#3.2	cv-funfact
+#3.2	cv-portfolio
+#3.4	cv-partners
+
+
+----------------------------------------------------------------
+	= Product landing home
+----------------------------------------------------------------
+#4.0	product landing latest features
+#4.1	product-landing-services
+#4.2	product-landing-cta
+#4.3	how-its-work-section
+#4.4	product-section
+#4.5	product-landing-faq
+#4.6	newsletter-section
+
+
+----------------------------------------------------------------*/
+
+
+// helpers
+@import "helpers/variables";
+@import "helpers/mixins";
+@import "helpers/functions";
+
+// base
+@import "base/base";
+
+
+// components
+@import "components/section-title";
+@import "components/buttons";
+@import "components/form";
+@import "components/sticky-header";
+@import "components/social-links";
+@import "components/page-title";
+@import "components/preloader";
+@import "components/app-landing-team-grids";
+@import "components/pricing-grids";
+@import "components/app-accordion";
+@import "components/progress-bar";
+@import "components/agency-project-grids";
+@import "components/agency-blog-grids";
+@import "components/slider-dots";
+@import "components/cv-portfolio-grids";
+@import "components/product-grids";
+
+// layout
+@import "layout/header";
+@import "layout/hero-slider";
+@import "layout/footer";
+
+// page
+@import "page/app-landing";
+@import "page/agency-home";
+@import "page/home-cv";
+@import "page/product-landing-home";
+
+
