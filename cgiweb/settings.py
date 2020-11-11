@@ -75,7 +75,6 @@ WSGI_APPLICATION = 'cgiweb.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-"""
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
@@ -86,14 +85,14 @@ DATABASES = {
         'PORT': '',
     }
 }
-"""
 
-DATABASES = {
+
+"""DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': 'sqlite',
     }
-}
+}"""
 
 
 # Password validation
@@ -134,4 +133,4 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATICFILE_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
