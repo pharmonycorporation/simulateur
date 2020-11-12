@@ -37,7 +37,7 @@ class Licence(models.Model):
     isActive = models.BooleanField(default=False)
     isBuy = models.BooleanField(default=False)
     active = models.BooleanField(default=True)
-    user_nbre = models.IntergerField(default=0)
+    user_nbre = models.IntegerField(default=0)
     firstConnect = models.BooleanField(default=True)
 
     def __str__(self):

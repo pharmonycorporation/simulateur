@@ -105,7 +105,7 @@ def verificationLicence(request, key):
     try:
         licence = Licence.objects.get(key=key)
         if licence.firstConnect == True:
-            if licence.active = True:
+            if licence.active == True:
                 if licence.user_nbre > 0:
                     nbre = licence.user_nbre
                     licence.user_nbre = nbre - 1
@@ -118,7 +118,7 @@ def verificationLicence(request, key):
             else:
                 return JsonResponse({"erreur":"Cette licence n'est pas activee"})
         else:
-            if licence.active = True
+            if licence.active == True:
                 if licence.user_nbre > 0:
                     nbre = licence.user_nbre
                     licence.user_nbre = nbre - 1
@@ -131,4 +131,4 @@ def verificationLicence(request, key):
             else:
                 return JsonResponse({"erreur":"Cette licence n'est pas activee"})
     except:
-        JsonResponse({"erreur":"Cette cle n'est pas valable")
+        JsonResponse({"erreur":"Cette cle n'est pas valable"})
