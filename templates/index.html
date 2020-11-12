@@ -1241,15 +1241,33 @@
                 </div>
                 <!-- Modal Body -->  
                 <div class="modal-body">
-                <div class="body-message">
-                    <h4>Entrez votre adresse mail</h4>
-                    <input type="hidden" name="pack" value="">
-                    <div class="contact-form">
-                        <div>
-                            <input type="email" name="email" class="form-control" placeholder="Email address" required>
+                    <div class="body-message">
+                        <input type="hidden" name="pack" value="">
+                        <div class="contact-form">
+                            <div>
+                                <input type="email" name="email" class="form-control" placeholder="Entrez votre adresse mail" required>
+                            </div>
                         </div>
+                        <div class="row" style="margin-top: 2%;">
+                            <div class="col-md-6">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="paid" id="Radios1" checked value="now">
+                                    <label class="form-check-label" for="Radios1">
+                                      Payer maintenant
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="paid" id="Radios2" value="later">
+                                    <label class="form-check-label" for="Radios2">
+                                      Payer plus tard
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        
                     </div>
-                </div>
                 </div>
                 <!-- Modal Footer -->
                 <div class="modal-footer">
