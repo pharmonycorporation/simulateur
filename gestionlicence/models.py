@@ -10,15 +10,6 @@ class Personne(models.Model):
     def __str__(self):
         return self.phone
 
-class Licence(models.Model):
-    key = models.CharField(max_length=200, unique=True)
-    validity = models.CharField(max_length=10)
-    isActive = models.BooleanField(default=False)
-    isBuy = models.BooleanField(default=False)
-
-    def __str__(self):
-        return self.key
-
 class Application(models.Model):
     version = models.CharField(max_length=25)
     
@@ -28,6 +19,7 @@ class Application(models.Model):
 class DeviceType(models.Model):
     name = models.CharField(max_length=200, unique=True)
     description = models.TextField(null=True, blank=True)
+    active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.name
@@ -40,8 +32,19 @@ class Package(models.Model):
     performance = models.CharField(max_length=255, null=True, blank=True)
     cost = models.FloatField(default=0)
     devicetype = models.ForeignKey(DeviceType, on_delete=models.CASCADE)
-    licence_key = models.OneToOneField(Licence, on_delete=models.CASCADE)
+    active = models.BooleanField(default=True)
 
     def __str__(self):
         return "{}, {}".format(self.name, self.devicetype.name)
+
+class Licence(models.Model):
+    key = models.CharField(max_length=200, unique=True)
+    pack = models.ForeignKey(Package, on_delete=models.CASCADE)
+    validity = models.CharField(max_length=10)
+    isActive = models.BooleanField(default=False)
+    isBuy = models.BooleanField(default=False)
+    active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return "{}, {}".format(self.pack, self.key)
 

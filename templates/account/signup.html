@@ -1,25 +1,27 @@
 {% extends 'base.html' %}
 {% load static  %}
+{% load widget_tweaks %}
 {% block body %}
 <div class="register-container full-height sm-p-t-30">
     <div class="d-flex justify-content-center flex-column full-height ">
-      <img src="assets/img/logo.png" alt="logo" data-src="assets/img/logo.png" data-src-retina="assets/img/logo_2x.png" width="78" height="22">
+      <img src="{% static 'assets/img/logo.png' %}" alt="logo" data-src="{% static 'assets/img/logo.png' %}" data-src-retina="{% static 'assets/img/logo_2x.png' %}" width="78" height="22">
       <h3>Pages makes it easy to enjoy what matters the most in your life</h3>
-      <p>
+      <!-- <p>
         Create a pages account. If you have a facebook account, log into it for this process. Sign in with <a href="#" class="text-info">Facebook</a> or <a href="#" class="text-info">Google</a>
-      </p>
-      <form id="form-register" class="p-t-15" role="form" action="index.html">
+      </p> -->
+      <form id="form-register" class="p-t-15" role="form" action="{% url 'signup' %}" method="POST">
+        {% csrf_token %}
         <div class="row">
           <div class="col-md-6">
             <div class="form-group form-group-default">
               <label>First Name</label>
-              <input type="text" name="fname" placeholder="John" class="form-control" required>
+              {% render_field form.first_name class="form-control" placeholder="Smith" %}
             </div>
           </div>
           <div class="col-md-6">
             <div class="form-group form-group-default">
               <label>Last Names</label>
-              <input type="text" name="lname" placeholder="Smith" class="form-control" required>
+              {% render_field form.last_name class="form-control" placeholder="John " %}
             </div>
           </div>
         </div>
@@ -27,7 +29,7 @@
           <div class="col-md-12">
             <div class="form-group form-group-default">
               <label>Pages User name</label>
-              <input type="text" name="uname" placeholder="yourname.pages.com (this can be changed later)" class="form-control" required>
+              {% render_field form.username class="form-control" placeholder="your username (this can be changed later)" %}
             </div>
           </div>
         </div>
@@ -35,15 +37,23 @@
           <div class="col-md-12">
             <div class="form-group form-group-default">
               <label>Password</label>
-              <input type="password" name="pass" placeholder="Minimum of 4 Charactors" class="form-control" required>
+              {% render_field form.password1 class="form-control" placeholder="Minimum of 8 Charactors" %}
             </div>
           </div>
         </div>
         <div class="row">
+            <div class="col-md-12">
+              <div class="form-group form-group-default">
+                <label>Password</label>
+                {% render_field form.password2 class="form-control" placeholder="Confirm your password" %}
+              </div>
+            </div>
+          </div>
+        <div class="row">
           <div class="col-md-12">
             <div class="form-group form-group-default">
               <label>Email</label>
-              <input type="email" name="email" placeholder="We will send loging details to you" class="form-control" required>
+              {% render_field form.email class="form-control" placeholder="We will send loging details to you" %}
             </div>
           </div>
         </div>
@@ -59,16 +69,16 @@
       </form>
     </div>
   </div>
-  <div class=" full-width">
+<!--  <div class=" full-width">
     <div class="register-container m-b-10 clearfix">
       <div class="m-b-30 sm-m-t-20 sm-p-r-15 sm-p-b-20 clearfix d-flex-md-up">
         <div class="col-md-2 no-padding d-flex align-items-center">
-          <img src="assets/img/demo/pages_icon.png" alt="" class="" data-src="assets/img/demo/pages_icon.png" data-src-retina="assets/img/demo/pages_icon_2x.png" width="60" height="60">
+          <img src="{% static 'assets/img/pages_icon.png' %}" alt="" class="" data-src="{% static 'assets/img/pages_icon.png' %}" data-src-retina="assets/img/demo/pages_icon_2x.png" width="60" height="60">
         </div>
         <div class="col-md-9 no-padding d-flex align-items-center">
           <p class="hinted-text small inline sm-p-t-10">No part of this website or any of its contents may be reproduced, copied, modified or adapted, without the prior written consent of the author, unless otherwise indicated for stand-alone materials.</p>
         </div>
       </div>
-    </div>
-  </div>
+    </div> 
+  </div> -->
 {% endblock %}
