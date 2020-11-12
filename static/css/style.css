@@ -211,7 +211,7 @@ svg * {
 .animated-svg-icon-s1 {
   width: 100%;
   height: 60px;
-  stroke: #4273f0;
+  stroke: #ee118a;
   stroke: url(#grad);
   stroke-width: 2;
 }
@@ -384,7 +384,7 @@ svg * {
 
 .section-title h2:after, .product-landing-section-title h2:after {
   content: "";
-  background-color: #30d4ba;
+  background-color: #e91188;
   width: 30px;
   height: 3px;
   position: absolute;
@@ -917,7 +917,7 @@ svg * {
 .preloader .loader-inner span {
   width: 18px;
   height: 18px;
-  background-color: #30d4ba;
+  background-color: #d6093c;
   position: absolute;
   left: 0;
   top: 0;
@@ -929,14 +929,14 @@ svg * {
 }
 
 .preloader .loader-inner span:nth-child(2) {
-  background-color: #4273f0;
+  background-color: #53061d;
   left: 24px;
   -webkit-animation: secBox 1.5s infinite;
   animation: secBox 1.5s infinite;
 }
 
 .preloader .loader-inner span:nth-child(3) {
-  background-color: #4273f0;
+  background-color: #4e021f;
   top: 24px;
   -webkit-animation: trdBox 1.5s infinite;
   animation: trdBox 1.5s infinite;
@@ -2074,9 +2074,10 @@ svg * {
   position: relative;
 }
 
+/*
 .site-header .navbar-header {
   margin-top: 10px;
-}
+}*/
 
 @media (max-width: 991px) {
   .site-header .navbar-header {
@@ -2104,7 +2105,7 @@ svg * {
 .site-header #navbar > ul > li > a:focus,
 .site-header #navbar > ul > .current-menu-item > a {
   text-decoration: none;
-  color: #4273f0;
+  color: #db1773;
 }
 
 @media screen and (min-width: 992px) {
@@ -2659,12 +2660,12 @@ svg * {
 
 .hero-s1:before {
   content: "";
-  background: -webkit-linear-gradient(left, rgba(66, 115, 240, 0.8), rgba(48, 212, 186, 0.8));
-  background: -moz-linear-gradient(left, rgba(66, 115, 240, 0.8), rgba(48, 212, 186, 0.8));
-  background: -o-linear-gradient(left, rgba(66, 115, 240, 0.8), rgba(48, 212, 186, 0.8));
-  background: -ms-linear-gradient(left, rgba(66, 115, 240, 0.8), rgba(48, 212, 186, 0.8));
-  background: -webkit-gradient(linear, left top, right top, from(rgba(66, 115, 240, 0.8)), to(rgba(48, 212, 186, 0.8)));
-  background: linear-gradient(left, rgba(66, 115, 240, 0.8), rgba(48, 212, 186, 0.8));
+  background: -webkit-linear-gradient(left, rgba(206, 92, 221, 0.808), rgba(240, 10, 60, 0.849));
+  background: -moz-linear-gradient(left, rgba(207, 95, 218, 0.808), rgba(240, 10, 60, 0.849));
+  background: -o-linear-gradient(left, rgba(231, 87, 224, 0.808), rgba(240, 10, 60, 0.849));
+  background: -ms-linear-gradient(left, rgba(213, 74, 231, 0.808), rgba(240, 10, 60, 0.849));
+  background: -webkit-gradient(linear, left top, right top, from(rgba(233, 66, 211, 0.808)), to(rgba(240, 10, 60, 0.849)));
+  background: linear-gradient(left, rgba(204, 71, 221, 0.808), rgba(240, 10, 60, 0.849));
   width: 100%;
   height: 100%;
   position: absolute;
@@ -2675,12 +2676,12 @@ svg * {
 .hero-s1:after {
   content: "";
   opacity: 0;
-  background: -webkit-linear-gradient(left, rgba(48, 212, 186, 0.8), rgba(66, 115, 240, 0.8));
-  background: -moz-linear-gradient(left, rgba(48, 212, 186, 0.8), rgba(66, 115, 240, 0.8));
-  background: -o-linear-gradient(left, rgba(48, 212, 186, 0.8), rgba(66, 115, 240, 0.8));
-  background: -ms-linear-gradient(left, rgba(48, 212, 186, 0.8), rgba(66, 115, 240, 0.8));
-  background: -webkit-gradient(linear, left top, left bottom, from(left), color-stop(rgba(48, 212, 186, 0.8)), to(rgba(66, 115, 240, 0.8)));
-  background: linear-gradient(left, rgba(48, 212, 186, 0.8), rgba(66, 115, 240, 0.8));
+  background: -webkit-linear-gradient(left,rgba(240, 10, 60, 0.849), rgba(77, 121, 73, 0.808));
+  background: -moz-linear-gradient(left, rgba(240, 10, 60, 0.849), rgba(77, 121, 73, 0.808));
+  background: -o-linear-gradient(left, rgba(240, 10, 60, 0.849), rgba(77, 121, 73, 0.808));
+  background: -ms-linear-gradient(left, rgba(240, 10, 60, 0.849), rgba(77, 121, 73, 0.808));
+  background: -webkit-gradient(linear, left top, left bottom, from(left), color-stop(rgba(240, 10, 60, 0.849)), to(rgba(77, 121, 73, 0.808)));
+  background: linear-gradient(left, rgba(240, 10, 60, 0.849), rgba(77, 121, 73, 0.808));
   width: 100%;
   height: 100%;
   position: absolute;
@@ -2822,7 +2823,7 @@ svg * {
 }
 
 .hero-s1 .hero-phone {
-  background: url("../images/app-landing/hero/hero-phone.png") center center/100% no-repeat local;
+  background: url("../images_cgi/LOGOCGI_r.png") center center/100% no-repeat local;
   width: 450px;
   height: 400px;
   position: absolute;
@@ -3880,7 +3881,7 @@ svg * {
 
 .app-landing-features .content:before {
   content: "";
-  background: url("../images/app-landing/features-millde-pic.png") center center/100% no-repeat local;
+  background: url("../images_cgi/meddle.png") center center no-repeat local;
   width: 350px;
   height: 369px;
   position: absolute;
@@ -4191,7 +4192,7 @@ svg * {
 }
 
 .app-documentation-section .img-part {
-  background: url("../images/app-landing/documentation-pic.png") center center/100% no-repeat local;
+  background: url("../images_cgi/cgiAccueil.jpg") center center/100% no-repeat local;
   width: 650px;
   height: 536px;
   position: absolute;
@@ -4298,7 +4299,7 @@ svg * {
 }
 
 .how-app-works .app-mobile {
-  background: url("../images/app-landing/how-app-works-mobile.png") center center/100% no-repeat local;
+  background: url("../images_cgi/1.jpg") center center/100% no-repeat local;
   width: 275px;
   height: 646px;
   position: absolute;
@@ -4352,7 +4353,7 @@ svg * {
 }
 
 .how-app-works .middle-col {
-  background-color: rgba(48, 212, 186, 0.1);
+  background-color: rgba(240, 29, 205, 0.1);
   width: 440px;
   height: 440px;
   -webkit-border-radius: 50%;
@@ -4384,7 +4385,7 @@ svg * {
 }
 
 .how-app-works .middle-col .round-inner {
-  background-color: rgba(66, 115, 240, 0.1);
+  background-color: rgba(238, 20, 39, 0.1);
   width: 80%;
   height: 80%;
   -webkit-border-radius: 50%;
@@ -4403,7 +4404,7 @@ svg * {
 }
 
 .how-app-works .middle-col .dot {
-  background-color: rgba(66, 115, 240, 0.7);
+  background-color: rgba(240, 10, 163, 0.7);
   width: 11px;
   height: 11px;
   -webkit-border-radius: 50%;
@@ -4416,7 +4417,7 @@ svg * {
 
 .how-app-works .middle-col .dot:before {
   content: "";
-  background-color: rgba(48, 212, 186, 0.2);
+  background-color: rgba(233, 18, 47, 0.2);
   width: 23px;
   height: 23px;
   -webkit-border-radius: 50%;
@@ -4600,7 +4601,7 @@ svg * {
 #1.2	app-screenshot
 --------------------------------------------------------------*/
 .app-screenshot {
-  background-color: #f0f1ff;
+  background-color: #f5eded31;
   padding-bottom: 180px;
 }
 
@@ -4697,7 +4698,7 @@ svg * {
 
 .app-screenshot .owl-controls .owl-nav .owl-prev,
 .app-screenshot .owl-controls .owl-nav .owl-next {
-  background-color: rgba(66, 115, 240, 0.8);
+  background-color: rgba(226, 14, 191, 0.8);
   border-radius: 0;
   -webkit-transition: all 0.3s;
   -moz-transition: all 0.3s;
@@ -4708,7 +4709,7 @@ svg * {
 
 .app-screenshot .owl-controls .owl-nav .owl-prev:hover,
 .app-screenshot .owl-controls .owl-nav .owl-next:hover {
-  background-color: #4273f0;
+  background-color: #c9103f;
 }
 
 /*--------------------------------------------------------------

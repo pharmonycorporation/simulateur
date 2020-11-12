@@ -55,7 +55,7 @@
 
 	.content:before {
 		content: "";
-		@include background-style("../images/app-landing/features-millde-pic.png", center center, 100%, no-repeat, local);
+		@include background-style("../images_cgi/10.jpg", center center, 100%, no-repeat, local);
 		width: 350px;
 		height: 369px;
 		position: absolute;
