@@ -5,6 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from .forms import SignUpForm, SigninForm
 from .models import *
+from django.http import JsonResponse
 
 # Create your views here.
 class HomePageView(TemplateView):
@@ -12,7 +13,8 @@ class HomePageView(TemplateView):
 
     def get(self, request, *args, **kwargs):
         packs = Package.objects.filter(active=True)
-        return render(request, self.template_name, {'packs': packs})
+        faqs = Faq.objects.filter(isActive=True)[:3]
+        return render(request, self.template_name, {'packs': packs,'faqs':faqs})
 
     def post(self, request, *args, **kwargs):
         email = request.POST.get('email')
@@ -95,3 +97,38 @@ class SouscriptionView(View):
 def signout(request):
     logout(request)
     return redirect("home")
+
+
+
+def verificationLicence(request, key):
+
+    try:
+        licence = Licence.objects.get(key=key)
+        if licence.firstConnect == True:
+            if licence.active = True:
+                if licence.user_nbre > 0:
+                    nbre = licence.user_nbre
+                    licence.user_nbre = nbre - 1
+                    licence.active = True
+                    licence.firstConnect = False
+                    licence.save()
+                    return JsonResponse({"message":"Cle verifier"})
+                else:
+                    return JsonResponse({"erreur":"Le nomre d'utilisateur est depasse"})
+            else:
+                return JsonResponse({"erreur":"Cette licence n'est pas activee"})
+        else:
+            if licence.active = True:
+                if licence.user_nbre > 0:
+                    nbre = licence.user_nbre
+                    licence.user_nbre = nbre - 1
+                    licence.active = True
+                    licence.firstConnect = False
+                    licence.save()
+                    return JsonResponse({"message":"Cle verifier"})
+                else:
+                    return JsonResponse({"erreur":"Le nomre d'utilisateur est depasse"})
+            else:
+                return JsonResponse({"erreur":"Cette licence n'est pas activee"})
+    except:
+        JsonResponse({"erreur":"Cette cle n'est pas valable")
