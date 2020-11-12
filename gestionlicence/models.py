@@ -3,13 +3,6 @@ from django.contrib.auth.models import User
 from django.conf import settings
 
 # Create your models here.
-class Personne(models.Model):
-    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='personne')
-    phone = models.CharField(max_length=25)
-
-    def __str__(self):
-        return self.phone
-
 class Application(models.Model):
     version = models.CharField(max_length=25)
     
@@ -47,4 +40,20 @@ class Licence(models.Model):
 
     def __str__(self):
         return "{}, {}".format(self.pack, self.key)
+
+class Personne(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='personne')
+    phone = models.CharField(max_length=25)
+    packages = models.ManyToManyField(Package, through='MyPackages', related_name="personnes")
+
+    def __str__(self):
+        return self.user.username
+
+class MyPackages(models.Model):
+    personne = models.ForeignKey(Personne, on_delete=models.CASCADE)
+    package = models.ForeignKey(Package, on_delete=models.CASCADE)
+    date_souscription = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return "{} - {}".format(self.personne.user.username, self.package.name)
 

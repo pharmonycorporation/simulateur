@@ -912,7 +912,7 @@
     <div class="container">
         <div class="row section-title">
             <div class="col col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 ">
-                <h2>Awesome pricing list</h2>
+                <h2>Nos différents packs</h2>
                 <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum. </p>
             </div>
         </div> <!-- end section-title -->
@@ -920,132 +920,65 @@
             <div class="col col-xs-12">
                 <div class="switcher-wrapper">
                     <div class="tablist">
-                        <span class="active">Monthly</span>
-                        <span>Yearly</span>
+                        <span class="active">Mobile</span>
+                        <span>P.C</span>
                     </div>
                     <div class="switch">
                         <div class="slider round"></div>
                     </div>
-                </div>
+                </div> 
 
                 <div class="pricing-tab">
                     <div class="app-pricing-grids active-grids">
-                        <div class="grid">
-                            <div class="grid-inner">
-                                <div class="pricing-header">
-                                    <span class="package">Stater</span>
-                                    <h3 class="price">Free</h3>
-                                    <span class="access">Limited access</span>
-                                </div>
-                                <div class="pricing-details">
-                                    <ul>
-                                        <li><span>100 MB </span>Disk Space</li>
-                                        <li><span>2 Subdo </span>mains</li>
-                                        <li><span>5 Email </span>Accounts</li>
-                                        <li><span>1 Year </span>License</li>
-                                        <li>Phone &amp; Mail Support</li>
-                                    </ul>
-                                    <a data-toggle="modal" data-target=".bs-example-modal-new" href="#" class="app-btn-s1 get-started">Get Started Now</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="grid">
-                            <div class="grid-inner">
-                                <div class="pricing-header">
-                                    <span class="package">Standrad</span>
-                                    <h3 class="price"><span>$</span>12</h3>
-                                    <span class="access">Limited access</span>
-                                </div>
-                                <div class="pricing-details">
-                                    <ul>
-                                        <li><span>100 MB </span>Disk Space</li>
-                                        <li><span>2 Subdo </span>mains</li>
-                                        <li><span>5 Email </span>Accounts</li>
-                                        <li><span>1 Year </span>License</li>
-                                        <li>Phone &amp; Mail Support</li>
-                                    </ul>
-                                    <a href="#" class="app-btn-s1 get-started">Get Started Now</a>
+                        {% for pack in packs %}
+                            {% if pack.devicetype.name == "Mobile" %}
+                            <div class="grid" style="margin-top: 1%;">
+                                <div class="grid-inner">
+                                    <div class="pricing-header">
+                                        <span class="package">Stater</span>
+                                        <h3 class="price">Free</h3>
+                                        <span class="access">Limited access</span>
+                                    </div>
+                                    <div class="pricing-details">
+                                        <ul>
+                                            <li><span>100 MB </span>Disk Space</li>
+                                            <li><span>2 Subdo </span>mains</li>
+                                            <li><span>5 Email </span>Accounts</li>
+                                            <li><span>1 Year </span>License</li>
+                                            <li>Phone &amp; Mail Support</li>
+                                        </ul>
+                                        <a data-toggle="modal" data-id="{{ pack.id }}" href="#" class="app-btn-s1 get-started">Get Started Now</a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="grid">
-                            <div class="grid-inner">
-                                <div class="pricing-header">
-                                    <span class="package">Unlimited</span>
-                                    <h3 class="price"><span>$</span>24</h3>
-                                    <span class="access">Limited access</span>
-                                </div>
-                                <div class="pricing-details">
-                                    <ul>
-                                        <li><span>100 MB </span>Disk Space</li>
-                                        <li><span>2 Subdo </span>mains</li>
-                                        <li><span>5 Email </span>Accounts</li>
-                                        <li><span>1 Year </span>License</li>
-                                        <li>Phone &amp; Mail Support</li>
-                                    </ul>
-                                    <a href="#" class="app-btn-s1 get-started">Get Started Now</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div><br>
+                    <div class="clearfix"></div>
                     <div class="app-pricing-grids">
-                        <div class="grid">
-                            <div class="grid-inner">
-                                <div class="pricing-header">
-                                    <span class="package">Stater</span>
-                                    <h3 class="price"><span>$</span>24</h3>
-                                    <span class="access">Limited access</span>
-                                </div>
-                                <div class="pricing-details">
-                                    <ul>
-                                        <li><span>100 MB </span>Disk Space</li>
-                                        <li><span>2 Subdo </span>mains</li>
-                                        <li><span>5 Email </span>Accounts</li>
-                                        <li><span>1 Year </span>License</li>
-                                        <li>Phone &amp; Mail Support</li>
-                                    </ul>
-                                    <a href="#" class="app-btn-s1 get-started">Get Started Now</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="grid">
-                            <div class="grid-inner">
-                                <div class="pricing-header">
-                                    <span class="package">Standrad</span>
-                                    <h3 class="price"><span>$</span>34</h3>
-                                    <span class="access">Limited access</span>
-                                </div>
-                                <div class="pricing-details">
-                                    <ul>
-                                        <li><span>100 MB </span>Disk Space</li>
-                                        <li><span>2 Subdo </span>mains</li>
-                                        <li><span>5 Email </span>Accounts</li>
-                                        <li><span>1 Year </span>License</li>
-                                        <li>Phone &amp; Mail Support</li>
-                                    </ul>
-                                    <a href="#" class="app-btn-s1 get-started">Get Started Now</a>
+                        {% for pack in packs %}
+                            {% if pack.devicetype.name == "P.C" %}
+                            <div class="grid" style="margin-top: 1%;">
+                                <div class="grid-inner">
+                                    <div class="pricing-header">
+                                        <span class="package">Stater</span>
+                                        <h3 class="price"><span>$</span>24</h3>
+                                        <span class="access">Limited access</span>
+                                    </div>
+                                    <div class="pricing-details">
+                                        <ul>
+                                            <li><span>100 MB </span>Disk Space</li>
+                                            <li><span>2 Subdo </span>mains</li>
+                                            <li><span>5 Email </span>Accounts</li>
+                                            <li><span>1 Year </span>License</li>
+                                            <li>Phone &amp; Mail Support</li>
+                                        </ul>
+                                        <a href="#" data-id="{{ pack.id }}" class="app-btn-s1 get-started">Get Started Now</a>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="grid">
-                            <div class="grid-inner">
-                                <div class="pricing-header">
-                                    <span class="package">Stater</span>
-                                    <h3 class="price"><span>$</span>54</h3>
-                                    <span class="access">Limited access</span>
-                                </div>
-                                <div class="pricing-details">
-                                    <ul>
-                                        <li><span>100 MB </span>Disk Space</li>
-                                        <li><span>2 Subdo </span>mains</li>
-                                        <li><span>5 Email </span>Accounts</li>
-                                        <li><span>1 Year </span>License</li>
-                                        <li>Phone &amp; Mail Support</li>
-                                    </ul>
-                                    <a href="#" class="app-btn-s1 get-started">Get Started Now</a>
-                                </div>
-                            </div>
-                        </div>
+                            {% endif %}
+                        {% endfor %}
                     </div>
                 </div> <!-- end pricing-tab -->
             </div> <!-- end col -->
@@ -1295,7 +1228,8 @@
 <div class="modal fade bs-example-modal-new center-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
     <div class="modal-dialog">
       <!-- Modal Content: begins -->
-        <form class="form" id="email-form">
+        <form class="form" id="email-form" method="POST" action="{% url 'home' %}">
+            {% csrf_token %}
             <div class="modal-content">
                 <!-- Modal Header -->
                 <div class="modal-header">
@@ -1306,9 +1240,10 @@
                 <div class="modal-body">
                 <div class="body-message">
                     <h4>Entrez votre adresse mail</h4>
+                    <input type="hidden" name="pack" value="">
                     <div class="contact-form">
                         <div>
-                            <input type="email"  required name="email" class="form-control" placeholder="Email address">
+                            <input type="email" name="email" class="form-control" placeholder="Email address" required>
                         </div>
                     </div>
                 </div>
@@ -1325,3 +1260,13 @@
     
 </div>  
 {% endblock content %}
+{% block personal_js %}
+<script>
+    $('.get-started').on('click', function(e){
+        e.preventDefault();
+        var dataId = $(this).attr("data-id");
+        $("input[type='hidden'][name='pack']").val(dataId);
+        $('.bs-example-modal-new').modal('show');
+    });
+</script>
+{% endblock %}
