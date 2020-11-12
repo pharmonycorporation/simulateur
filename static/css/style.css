@@ -3881,9 +3881,11 @@ svg * {
 
 .app-landing-features .content:before {
   content: "";
-  background: url("../images_cgi/meddle.png") center center no-repeat local;
+  box-shadow: #db1773;
+  border-color: #db1773;
+  background: url("../images_cgi/4_r.jpg") center center no-repeat local;
   width: 350px;
-  height: 369px;
+  height: 490px;
   position: absolute;
   left: 50%;
   top: 50%;
@@ -4192,7 +4194,7 @@ svg * {
 }
 
 .app-documentation-section .img-part {
-  background: url("../images_cgi/cgiAccueil.jpg") center center/100% no-repeat local;
+  background: url("../images_cgi/cgiAccueil_cj.jpg") center center/100% no-repeat local;
   width: 650px;
   height: 536px;
   position: absolute;
