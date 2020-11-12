@@ -26,7 +26,7 @@ SECRET_KEY = ')w53a!)j*c*v04-^s(lr!0krbrhkiv&$cd5nq^c6srqwna0v7c'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["192.168.100.196"]
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'gestionlicence',
     'widget_tweaks',
+    'paypal.standard.ipn',
 ]
 
 MIDDLEWARE = [
@@ -76,25 +77,25 @@ WSGI_APPLICATION = 'cgiweb.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-"""
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'cgiweb',
+        'NAME': 'cgi',
         'USER': 'romainsame',
         'PASSWORD': 'solaris88MA',
         'HOST': 'localhost',
         'PORT': '',
     }
-}"""
+}
 
-DATABASES = {
+"""DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': 'sqlite',
     }
 }
-
+"""
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -135,3 +136,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+
+PAYPAL_RECEIVER_EMAIL = 'sb-jbx5o3733061@business.example.com'
+
+PAYPAL_TEST = True
