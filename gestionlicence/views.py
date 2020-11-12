@@ -118,7 +118,7 @@ def verificationLicence(request, key):
             else:
                 return JsonResponse({"erreur":"Cette licence n'est pas activee"})
         else:
-            if licence.active = True:
+            if licence.active = True
                 if licence.user_nbre > 0:
                     nbre = licence.user_nbre
                     licence.user_nbre = nbre - 1
