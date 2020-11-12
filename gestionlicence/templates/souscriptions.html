@@ -1,0 +1,42 @@
+{% extends 'gabarit.html' %}
+{% load static %}
+{% block personal_css %}
+<link href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" rel="stylesheet">
+{% endblock %}
+{% block content %}
+<h1>Mes souscriptions</h1>
+<table id="souscript" class="table table-bordered">
+    <thead>
+        <tr>
+            <th>Test</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>test</td>
+        </tr>
+    </tbody>
+</table>
+{% endblock content %}
+{% block personal_js %}
+<script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+<script>
+    function preloader() {
+        if($('.preloader').length) {
+            $('.preloader').delay(100).fadeOut(500, function() {
+
+                if ($(".hero-s1").length) {
+                    $(".hero-s1 .hero-phone").addClass("hero-phone-animation");
+                }
+                if ($(".hero-watch").length) {
+                    $(".hero-watch").addClass("hero-watch-animation");
+                }
+
+            });
+        }
+    };
+    preloader();
+
+    $('#souscript').dataTable();
+</script>
+{% endblock %}

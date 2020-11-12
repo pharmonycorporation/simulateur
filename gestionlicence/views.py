@@ -1,5 +1,5 @@
 from django.shortcuts import render, redirect
-from django.views.generic import View
+from django.views.generic import View, TemplateView
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
@@ -7,10 +7,29 @@ from .forms import SignUpForm, SigninForm
 from .models import *
 
 # Create your views here.
+class HomePageView(TemplateView):
+    template_name = "index.html"
 
+    def get(self, request, *args, **kwargs):
+        packs = Package.objects.filter(active=True)
+        return render(request, self.template_name, {'packs': packs})
 
-def home(request):
-    return render(request, 'index.html')
+    def post(self, request, *args, **kwargs):
+        email = request.POST.get('email')
+        pack_id = request.POST.get('pack')
+        print('my email address')
+        print(email)
+        if email:
+            try:
+                pers = User.objects.get(username=email)
+            except User.DoesNotExist:
+                pers = None
+            print(pers)
+            if pers:
+                pack = Package.objects.get(pk=int(pack_id))
+                pass
+            print('user personne does not exist')
+        print('you dont send email address')
 
 class SignupView(View):
     form_class = SignUpForm
@@ -23,7 +42,7 @@ class SignupView(View):
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
         if form.is_valid():
-            usr_email = User.objects.filter(email=form.cleaned_data['email']).exists()
+            usr_email = User.objects.filter(username=form.cleaned_data['email']).exists()
             if usr_email:
                 response = {
                     'success' : False,
@@ -32,6 +51,7 @@ class SignupView(View):
                 }
             usr = form.save(commit=False)
             usr.is_active = True
+            usr.username = form.cleaned_data['email']
             usr.save()
             if usr:
                 Personne.objects.create(
@@ -52,7 +72,7 @@ class SignInView(View):
 
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
-        username = form["username"].value()
+        username = form["email"].value()
         password = form["password"].value()
         user = authenticate(request, username=username,  password=password)
         if user:
@@ -60,8 +80,17 @@ class SignInView(View):
             return redirect('home')
         return render(request, self.template_name)
 
-class ValidateEmail(View):
-    pass
+class SouscriptionView(View):
+    template_name = "souscriptions.html"
+
+    def get(self, request, *args, **kwargs):
+        usr = request.user
+        pers = usr.personne
+        print(pers)
+        return render(request, self.template_name)
+
+    def post(self, request, *args, **kwargs):
+        pass
 
 def signout(request):
     logout(request)

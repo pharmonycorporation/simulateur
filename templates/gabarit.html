@@ -97,6 +97,7 @@
                             <a href="#"><img src="{% static 'images/default-user.png' %}" width="24px" height="24px" alt></a>
                             <ul>
                                 <li><a href="#"> Profile</a></li>
+                                <li><a href="{% url 'souscriptions' %}">Mes Souscription</a></li>
                                 <li><a href="{% url 'signout' %}"> Signout</a></li>
                             </ul>
                         </div>
@@ -145,7 +146,7 @@
     <!-- end of page-wrapper -->
 
 
-
+    {% block javascript %}
     <!-- All JavaScript files
     ================================================== -->
     <script src="{% static 'js/jquery.min.js' %}"></script>
@@ -156,5 +157,8 @@
 
     <!-- Custom script for this template -->
     <script src="{% static 'js/script.js' %}"></script>
+    {% endblock %}
+    {% block personal_js %}
+    {% endblock %}
 </body>
 </html>
