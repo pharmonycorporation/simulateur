@@ -1,0 +1,27 @@
+{% extends 'gabarit.html' %}
+{% load static %}
+{% block content %}
+    <h4>Pay with PayPal</h4>
+    {{ form.render }}
+{% endblock %}
+{% block personal_js %}
+<script>
+    function preloader() {
+        if($('.preloader').length) {
+            $('.preloader').delay(100).fadeOut(500, function() {
+
+                if ($(".hero-s1").length) {
+                    $(".hero-s1 .hero-phone").addClass("hero-phone-animation");
+                }
+                if ($(".hero-watch").length) {
+                    $(".hero-watch").addClass("hero-watch-animation");
+                }
+
+            });
+        }
+    };
+    preloader();
+
+    $('#souscript').dataTable();
+</script>
+{% endblock %}

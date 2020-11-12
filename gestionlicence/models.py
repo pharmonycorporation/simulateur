@@ -32,7 +32,7 @@ class Package(models.Model):
 
 class Licence(models.Model):
     key = models.CharField(max_length=200, unique=True)
-    pack = models.ForeignKey(Package, on_delete=models.CASCADE)
+    pack = models.ForeignKey(Package, on_delete=models.CASCADE, related_name="licence")
     validity = models.CharField(max_length=10)
     isActive = models.BooleanField(default=False)
     isBuy = models.BooleanField(default=False)

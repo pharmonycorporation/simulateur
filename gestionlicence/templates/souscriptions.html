@@ -8,13 +8,31 @@
 <table id="souscript" class="table table-bordered">
     <thead>
         <tr>
-            <th>Test</th>
+            <th>Package souscrit</th>
+            <th>Montant</th>
+            <th>Nombre d'utilisateur</th>
+            <th>Durée</th>
+            <th>Date de la souscription</th>
+            <th>Actif</th>
         </tr>
     </thead>
     <tbody>
+        {% for package in packages %}
         <tr>
-            <td>test</td>
+            <td>{{ package.package.name }}</td>
+            <td>{{ package.package.cost }}</td>
+            <td>{{ package.package.user_nber }}</td>
+            <td>{{ package.package.year_duration }}&nbsp;Année(s)</td>
+            <td>{{ package.date_souscription|date:'Y-m-d H:i' }}</td>
+            <td>
+                {% if package.package.licence %}
+                <span>Actif</span>
+                {% else %}
+                <span>Inactif</span>
+                {% endif %}
+            </td>
         </tr>
+        {% endfor %}
     </tbody>
 </table>
 {% endblock content %}

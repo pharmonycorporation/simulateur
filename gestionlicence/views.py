@@ -5,6 +5,9 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from .forms import SignUpForm, SigninForm
 from .models import *
+from decimal import Decimal
+from django.urls import reverse
+from paypal.standard.forms import PayPalPaymentsForm
 
 # Create your views here.
 class HomePageView(TemplateView):
@@ -17,19 +20,30 @@ class HomePageView(TemplateView):
     def post(self, request, *args, **kwargs):
         email = request.POST.get('email')
         pack_id = request.POST.get('pack')
-        print('my email address')
-        print(email)
         if email:
             try:
-                pers = User.objects.get(username=email)
-            except User.DoesNotExist:
+                pers = Personne.objects.get(user__email=email)
+            except Personne.DoesNotExist:
                 pers = None
-            print(pers)
             if pers:
                 pack = Package.objects.get(pk=int(pack_id))
-                pass
-            print('user personne does not exist')
-        print('you dont send email address')
+                MyPackages.objects.create(personne=pers, package=pack)
+                paypal_dict = {
+                    "business": "guy.anemena@mbcode.cm",
+                    "amount": pack.cost,
+                    "item_name": pack.name,
+                    "invoice": "112556568968",
+                    "notify_url": request.build_absolute_uri(reverse('paypal-ipn')),
+                    "return": request.build_absolute_uri(reverse('home')),
+                    "cancel_return": request.build_absolute_uri(reverse('home')),
+                    "custom": "premium_plan",  # Custom command to correlate to some function later (optional)
+                }
+
+                form = PayPalPaymentsForm(initial=paypal_dict)
+
+                return render(request, 'payment.html', {'form': form})
+            return redirect('home')
+        return redirect('home')
 
 class SignupView(View):
     form_class = SignUpForm
@@ -84,10 +98,11 @@ class SouscriptionView(View):
     template_name = "souscriptions.html"
 
     def get(self, request, *args, **kwargs):
-        usr = request.user
-        pers = usr.personne
-        print(pers)
-        return render(request, self.template_name)
+        pers = Personne.objects.get(user=request.user)
+        packages = MyPackages.objects.filter(personne=pers)
+        print('list pakages')
+        print(packages)
+        return render(request, self.template_name, {'packages': packages})
 
     def post(self, request, *args, **kwargs):
         pass
