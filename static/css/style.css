@@ -5061,7 +5061,7 @@ svg * {
 }
 
 .app-landing-faq .app-faq-tab {
-  background: url("../images/app-landing/faq-tab.png") center center/cover no-repeat local;
+  background: url("../images_cgi/LOGOCGI_r.png") center center no-repeat local;
   width: 500px;
   height: 530px;
   position: absolute;

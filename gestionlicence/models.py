@@ -37,6 +37,8 @@ class Licence(models.Model):
     isActive = models.BooleanField(default=False)
     isBuy = models.BooleanField(default=False)
     active = models.BooleanField(default=True)
+    user_nbre = models.IntegerField(default=0)
+    firstConnect = models.BooleanField(default=True)
 
     def __str__(self):
         return "{}, {}".format(self.pack, self.key)
@@ -57,3 +59,18 @@ class MyPackages(models.Model):
     def __str__(self):
         return "{} - {}".format(self.personne.user.username, self.package.name)
 
+
+class Faq(models.Model):
+    titre = models.CharField(max_length=50, unique=True)
+    description = models.TextField()
+    isActive = models.BooleanField()
+    date = models.DateField()
+
+
+    def __str__(self):
+        return self.titre
+
+
+
+    class Meta:
+        ordering = ['-date']

@@ -806,105 +806,6 @@
                 <h2>Our Genius Team Members</h2>
             </div>
         </div> <!-- end section-title -->
-
-        <div class="row content app-team-grids">
-            <div class="col col-sm-4 col-xs-6">
-                <div class="grid">
-                    <div class="img-holder">
-                        <img src="{% static 'images/app-landing/team/img-1.jpg' %}" alt class="img img-responsive">
-                    </div>
-                    <div class="details">
-                        <h3>James Powel</h3>
-                        <span class="post">App Developer</span>
-                        <ul class="social-links">
-                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                            <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                            <li><a href="#"><i class="fa fa-behance"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col col-sm-4 col-xs-6">
-                <div class="grid">
-                    <div class="img-holder">
-                        <img src="{% static 'images/app-landing/team/img-2.jpg' %}" alt class="img img-responsive">
-                    </div>
-                    <div class="details">
-                        <h3>Jenifer Lopez</h3>
-                        <span class="post">App Developer</span>
-                        <ul class="social-links">
-                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                            <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                            <li><a href="#"><i class="fa fa-behance"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            <div class="col col-sm-4 col-xs-6">
-                <div class="grid">
-                    <div class="img-holder">
-                        <img src="{% static 'images/app-landing/team/img-3.jpg' %}" alt class="img img-responsive">
-                    </div>
-                    <div class="details">
-                        <h3>Chirly Doe</h3>
-                        <span class="post">App Developer</span>
-                        <ul class="social-links">
-                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                            <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                            <li><a href="#"><i class="fa fa-behance"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="row skill-row">
-            <div class="col col-md-6">
-                <div class="section-title">
-                    <h2>Our Awesome Skills</h2>
-                </div>
-                <p>Lorem Ipsum is simply dummy text of the printing and ypesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s. </p>
-                <p>world's biggest collection of song lyrics and musical knowledge. Earn IQ points when you contribute. world's biggest collection of song lyrics and musical knowledge.</p>
-            </div>
-            <div class="col col-md-6">
-                <div class="progress-bar-s1">
-                    <div class="skill">
-                        <h6>HTML</h6>
-                        <div class="progress">
-                            <div class="progress-bar" data-percent="85"></div>
-                        </div>
-                    </div>
-                    <div class="skill">
-                        <h6>CSS</h6>
-                        <div class="progress">
-                            <div class="progress-bar" data-percent="98"></div>
-                        </div>
-                    </div>
-                    <div class="skill">
-                        <h6>Photoshop</h6>
-                        <div class="progress">
-                            <div class="progress-bar" data-percent="92"></div>
-                        </div>
-                    </div>
-                    <div class="skill">
-                        <h6>WordPress</h6>
-                        <div class="progress">
-                            <div class="progress-bar" data-percent="92"></div>
-                        </div>
-                    </div>
-                    <div class="skill">
-                        <h6>Illustrator</h6>
-                        <div class="progress">
-                            <div class="progress-bar" data-percent="92"></div>
-                        </div>
-                    </div>
-                </div>                        
-            </div>
-            
-        </div>
     </div> <!-- end container --> 
 </section>
 <!-- end app-tem-members -->    
@@ -1083,7 +984,8 @@
 
 
 <!-- start app-landing-faq -->
-<section class="app-landing-faq section-padding parallax" data-bg-image="{% static 'images/app-landing/faq-bg.jpg' %}" data-speed="5">
+{% if faqs %}
+<section class="app-landing-faq section-padding parallax" data-bg-image="{% static 'images_cgi/LOGOCGI.png' %}" data-speed="5">
     <div class="container">
         <div class="row content">
             <div class="col col-md-6">
@@ -1091,44 +993,25 @@
                     <h2>Learn more from our FAQ</h2>
                 </div>
                 <div class="panel-group faq-accordion app-accordion" id="accordion">
+                {% for faq in faqs %}
                     <div class="panel panel-default">
                         <div class="panel-heading">
-                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse-one" aria-expanded="true">1. How can we edit this App? </a>
+                            <a data-toggle="collapse" data-parent="#accordion" href="#collapse-one" aria-expanded="true">{{forloop.counter}}. {{ faq.titre}} </a>
                         </div>
                         <div id="collapse-one" class="panel-collapse collapse in">
                             <div class="panel-body">
-                                <p>Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum.is simply dummy xt of the printing massa sit amit.</p>
+                                <p>{{ faq.description }}</p>
                             </div>
                         </div>
                     </div>
-
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse-two">2. How can we install this app?</a>
-                        </div>
-                        <div id="collapse-two" class="panel-collapse collapse">
-                            <div class="panel-body">
-                                <p>Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum.is simply dummy xt of the printing massa sit amit.</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <a class="collapsed" data-toggle="collapse" data-parent="#accordion" href="#collapse-three">3. How can i send request to developer? </a>
-                        </div>
-                        <div id="collapse-three" class="panel-collapse collapse">
-                            <div class="panel-body">
-                                <p>Lorem Ipsum is simply dummy text of the printing and type setting industry. Lorem Ipsum.is simply dummy xt of the printing massa sit amit.</p>
-                            </div>
-                        </div>
-                    </div>
+                {% endfor %}
                 </div> <!-- end accordion -->                        
             </div>
             <div class="app-faq-tab"></div>
         </div>
     </div>
 </section>
+{% endif %}
 <!-- start app-landing-faq -->
 
 
