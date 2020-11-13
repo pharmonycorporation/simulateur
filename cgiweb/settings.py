@@ -42,9 +42,11 @@ INSTALLED_APPS = [
     'gestionlicence',
     'widget_tweaks',
     'paypal.standard.ipn',
+    'whitenoise'
 ]
 
 MIDDLEWARE = [
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -153,3 +155,4 @@ EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'romainsame86@gmail.com' 
 EMAIL_HOST_PASSWORD = '+solaris88MA+' 
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
