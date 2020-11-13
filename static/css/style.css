@@ -441,12 +441,12 @@ svg * {
 
 .app-btn-s1 {
   background-color: #30d4ba;
-  background: -webkit-linear-gradient(left, #30d4ba, #4273f0);
-  background: -moz-linear-gradient(left, #30d4ba, #4273f0);
-  background: -o-linear-gradient(left, #30d4ba, #4273f0);
-  background: -ms-linear-gradient(left, #30d4ba, #4273f0);
-  background: -webkit-gradient(linear, left top, right top, from(#30d4ba), to(#4273f0));
-  background: linear-gradient(left, #30d4ba, #4273f0);
+  background: -webkit-linear-gradient(left, #e91188, #e4c0d4);
+  background: -moz-linear-gradient(left, #e91188, #e4c0d4);
+  background: -o-linear-gradient(left, #e91188, #e4c0d4);
+  background: -ms-linear-gradient(left, #e91188, #e4c0d4);
+  background: -webkit-gradient(linear, left top, right top, from(#e91188), to(#e4c0d4));
+  background: linear-gradient(left, #e91188, #e4c0d4);
   height: 50px;
   line-height: 50px;
   display: inline-block;
@@ -1262,12 +1262,12 @@ svg * {
 .app-pricing-grids .grid-inner:before {
   content: "";
   background-color: #30d4ba;
-  background: -webkit-linear-gradient(left, #30d4ba, #4273f0);
-  background: -moz-linear-gradient(left, #30d4ba, #4273f0);
-  background: -o-linear-gradient(left, #30d4ba, #4273f0);
-  background: -ms-linear-gradient(left, #30d4ba, #4273f0);
-  background: -webkit-gradient(linear, left top, left bottom, from(left), color-stop(#30d4ba), to(#4273f0));
-  background: linear-gradient(left, #30d4ba, #4273f0);
+  background: -webkit-linear-gradient(left, #e91188, #ee118a);
+  background: -moz-linear-gradient(left, #e91188, #ee118a);
+  background: -o-linear-gradient(left, #e91188, #ee118a);
+  background: -ms-linear-gradient(left, #e91188, #ee118a);
+  background: -webkit-gradient(linear, left top, left bottom, from(left), color-stop(#e91188), to(#ee118a));
+  background: linear-gradient(left, #e91188, #ee118a);
   width: 100%;
   height: 100%;
   position: absolute;
@@ -3479,7 +3479,7 @@ svg * {
 #1.2	footer
 --------------------------------------------------------------*/
 .site-footer {
-  background-color: #30d4ba;
+  background-color: #e91188;
   padding: 45px 0;
 }
 
@@ -4867,12 +4867,12 @@ svg * {
 
 .app-landing-pricing .slider {
   background-color: #30d4ba;
-  background: -webkit-linear-gradient(left, #30d4ba, #4273f0);
-  background: -moz-linear-gradient(left, #30d4ba, #4273f0);
-  background: -o-linear-gradient(left, #30d4ba, #4273f0);
-  background: -ms-linear-gradient(left, #30d4ba, #4273f0);
-  background: -webkit-gradient(linear, left top, left bottom, from(left), color-stop(#30d4ba), to(#4273f0));
-  background: linear-gradient(left, #30d4ba, #4273f0);
+  background: -webkit-linear-gradient(left, #e91188, #ee118a);
+  background: -moz-linear-gradient(left, #e91188, #ee118a);
+  background: -o-linear-gradient(left, #e91188, #ee118a);
+  background: -ms-linear-gradient(left, #e91188, #ee118a);
+  background: -webkit-gradient(linear, left top, left bottom, from(left), color-stop(#e91188), to(#ee118a));
+  background: linear-gradient(left, #e91188, #ee118a);
   position: absolute;
   top: 0;
   left: 0;
@@ -4944,7 +4944,7 @@ svg * {
 .app-landing-testimonials .client-quote {
   font-size: 14px;
   font-size: 0.875rem;
-  border: 1px solid #30d4ba;
+  border: 1px solid #e91188;
   padding: 30px 30px 55px;
   position: relative;
 }
@@ -4954,7 +4954,7 @@ svg * {
   content: "\f10d";
   font-size: 25px;
   font-size: 1.5625rem;
-  color: #30d4ba;
+  color: #e91188;
   position: absolute;
   left: 19px;
   top: -15px;
@@ -4967,7 +4967,7 @@ svg * {
 .app-landing-testimonials .client-info img {
   background-color: #fff;
   padding: 8px;
-  border: 2px solid #30d4ba;
+  border: 2px solid #e91188;
   -webkit-border-radius: 50%;
   -moz-border-radius: 50%;
   -o-border-radius: 50%;
@@ -5022,12 +5022,12 @@ svg * {
 
 .app-landing-faq:before {
   content: "";
-  background: -webkit-linear-gradient(left, rgba(48, 212, 186, 0.9), rgba(66, 115, 240, 0.9));
-  background: -moz-linear-gradient(left, rgba(48, 212, 186, 0.9), rgba(66, 115, 240, 0.9));
-  background: -o-linear-gradient(left, rgba(48, 212, 186, 0.9), rgba(66, 115, 240, 0.9));
-  background: -ms-linear-gradient(left, rgba(48, 212, 186, 0.9), rgba(66, 115, 240, 0.9));
-  background: -webkit-gradient(linear, left top, right top, from(rgba(48, 212, 186, 0.9)), to(rgba(66, 115, 240, 0.9)));
-  background: linear-gradient(left, rgba(48, 212, 186, 0.9), rgba(66, 115, 240, 0.9));
+  background: -webkit-linear-gradient(left, rgba(226, 14, 191, 0.8), rgba(226, 14, 191, 0.8));
+  background: -moz-linear-gradient(left, rgba(226, 14, 191, 0.8),rgba(226, 14, 191, 0.8));
+  background: -o-linear-gradient(left,rgba(226, 14, 191, 0.8), rgba(66, 115, 240, 0.9));
+  background: -ms-linear-gradient(left,rgba(226, 14, 191, 0.8), rgba(66, 115, 240, 0.9));
+  background: -webkit-gradient(linear, left top, right top, from(rgba(226, 14, 191, 0.8)), to(rgba(226, 14, 191, 0.8)));
+  background: linear-gradient(left, rgba(226, 14, 191, 0.8), rgba(226, 14, 191, 0.8));
   width: 100%;
   height: 100%;
   position: absolute;
@@ -5148,13 +5148,13 @@ svg * {
 
 .app-social-media-section .social-links li a:hover,
 .app-social-media-section .social-links li:first-child a {
-  background-color: #30d4ba;
-  background: -webkit-linear-gradient(left, #30d4ba, #4273f0);
-  background: -moz-linear-gradient(left, #30d4ba, #4273f0);
-  background: -o-linear-gradient(left, #30d4ba, #4273f0);
-  background: -ms-linear-gradient(left, #30d4ba, #4273f0);
-  background: -webkit-gradient(linear, left top, left bottom, from(left), color-stop(#30d4ba), to(#4273f0));
-  background: linear-gradient(left, #30d4ba, #4273f0);
+  background-color: #e91188;
+  background: -webkit-linear-gradient(left, #e91188, #ee118a);
+  background: -moz-linear-gradient(left, #e91188, #ee118a);
+  background: -o-linear-gradient(left,  #e91188, #ee118a);
+  background: -ms-linear-gradient(left,  #e91188, #ee118a);
+  background: -webkit-gradient(linear, left top, left bottom, from(left), color-stop(#e91188), to(#ee118a));
+  background: linear-gradient(left, #e91188, #ee118a);
   color: #fff;
 }
 
@@ -5422,12 +5422,12 @@ svg * {
 .app-contact-section .contact-block .contact-form .submit-btn .app-btn-s1:before, .agency-contact-section .contact-block .contact-form .submit-btn .app-btn-s1:before {
   content: "";
   background-color: #30d4ba;
-  background: -webkit-linear-gradient(left, #4273f0, #30d4ba);
-  background: -moz-linear-gradient(left, #4273f0, #30d4ba);
-  background: -o-linear-gradient(left, #4273f0, #30d4ba);
-  background: -ms-linear-gradient(left, #4273f0, #30d4ba);
-  background: -webkit-gradient(linear, left top, right top, from(#4273f0), to(#30d4ba));
-  background: linear-gradient(left, #4273f0, #30d4ba);
+  background: -webkit-linear-gradient(left, #e91188, #ee118a);
+  background: -moz-linear-gradient(left, #e91188, #ee118a);
+  background: -o-linear-gradient(left, #e91188, #ee118a);
+  background: -ms-linear-gradient(left, #e91188, #ee118a);
+  background: -webkit-gradient(linear, left top, right top, from(#e91188), to(#ee118a));
+  background: linear-gradient(left, #e91188, #ee118a);
   width: 100%;
   height: 100%;
   -webkit-border-radius: 25;
@@ -5457,12 +5457,12 @@ svg * {
 
 .app-contact-section .contact-block .contact-form .submit-btn .app-btn-s1:hover, .agency-contact-section .contact-block .contact-form .submit-btn .app-btn-s1:hover {
   background-color: #30d4ba;
-  background: -webkit-linear-gradient(left, #30d4ba, #4273f0);
-  background: -moz-linear-gradient(left, #30d4ba, #4273f0);
-  background: -o-linear-gradient(left, #30d4ba, #4273f0);
-  background: -ms-linear-gradient(left, #30d4ba, #4273f0);
-  background: -webkit-gradient(linear, left top, left bottom, from(left), color-stop(#30d4ba), to(#4273f0));
-  background: linear-gradient(left, #30d4ba, #4273f0);
+  background: -webkit-linear-gradient(left, #e91188, #ee118a);
+  background: -moz-linear-gradient(left, #e91188, #ee118a);
+  background: -o-linear-gradient(left, #e91188, #ee118a);
+  background: -ms-linear-gradient(left, #e91188, #ee118a);
+  background: -webkit-gradient(linear, left top, left bottom, from(left), color-stop(#e91188), to(#ee118a));
+  background: linear-gradient(left, #e91188, #ee118a);
   color: #fff;
 }
 
