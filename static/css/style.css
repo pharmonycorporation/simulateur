@@ -1803,18 +1803,18 @@ svg * {
 }
 
 .dots-style1 .owl-controls .owl-dots .active span {
-  background: #4273f0;
-  background: -webkit-linear-gradient(left, #30d4ba, #4273f0);
-  background: -moz-linear-gradient(left, #30d4ba, #4273f0);
-  background: -o-linear-gradient(left, #30d4ba, #4273f0);
-  background: -ms-linear-gradient(left, #30d4ba, #4273f0);
-  background: -webkit-gradient(linear, left top, right top, from(#30d4ba), to(#4273f0));
-  background: linear-gradient(left, #30d4ba, #4273f0);
-  -webkit-box-shadow: 0 0 0 4px rgba(48, 212, 186, 0.5);
-  -moz-box-shadow: 0 0 0 4px rgba(48, 212, 186, 0.5);
-  -o-box-shadow: 0 0 0 4px rgba(48, 212, 186, 0.5);
-  -ms-box-shadow: 0 0 0 4px rgba(48, 212, 186, 0.5);
-  box-shadow: 0 0 0 4px rgba(48, 212, 186, 0.5);
+  background: #ec098e;
+  background: -webkit-linear-gradient(left, #9807db, #e60bc1);
+  background: -moz-linear-gradient(left, #9607c2, #db0e75);
+  background: -o-linear-gradient(left, #8407d6, #c90c8a);
+  background: -ms-linear-gradient(left, #8016e2, #e00aab);
+  background: -webkit-gradient(linear, left top, right top, from(#30d4ba), to(#ec0c87));
+  background: linear-gradient(left, #9c07c2, #d40c92);
+  -webkit-box-shadow: 0 0 0 4px rgba(129, 9, 199, 0.5);
+  -moz-box-shadow: 0 0 0 4px rgba(119, 5, 148, 0.5);
+  -o-box-shadow: 0 0 0 4px rgba(173, 12, 194, 0.5);
+  -ms-box-shadow: 0 0 0 4px rgba(206, 18, 223, 0.5);
+  box-shadow: 0 0 0 4px rgba(204, 10, 211, 0.5);
 }
 
 @media (max-width: 767px) {
