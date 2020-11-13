@@ -5,13 +5,9 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from .forms import SignUpForm, SigninForm
 from .models import *
-<<<<<<< HEAD
-from django.http import JsonResponse
-=======
 from decimal import Decimal
 from django.urls import reverse
 from paypal.standard.forms import PayPalPaymentsForm
->>>>>>> 0f0d3c2fe6cb0f93c7ed7ad716bdf106afb45f29
 
 # Create your views here.
 class HomePageView(TemplateView):
