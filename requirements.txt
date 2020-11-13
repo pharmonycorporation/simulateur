@@ -25,9 +25,9 @@ django-js-asset==1.2.2
 django-mailchimp==0.1.30
 django-model-utils==4.0.0
 django-mptt==0.11.0
+django-paypal==1.0.0
 django-polymorphic==2.1.2
 django-realtime==1.1
-dj-database-url==0.5.0
 django-rest-framework==0.1.0
 django-restframework==0.0.1
 django-sekizai==1.1.0
