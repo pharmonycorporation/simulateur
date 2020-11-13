@@ -10,6 +10,8 @@ from decimal import Decimal
 from django.urls import reverse
 from paypal.standard.forms import PayPalPaymentsForm
 import secrets
+from django.conf import settings 
+from django.core.mail import send_mail 
 
 # Create your views here.
 class HomePageView(TemplateView):
@@ -44,6 +46,12 @@ class HomePageView(TemplateView):
                         "cancel_return": request.build_absolute_uri(reverse('payment_cancelled')),
                         "custom": "premium_plan",  
                     }
+
+                    subject = 'commande du pack cgi'
+                    message = f'Hi {request.user.username}, merci davoir souscrit a notre pack.'
+                    email_from = settings.EMAIL_HOST_USER 
+                    recipient_list = [email, ] 
+                    send_mail( subject, message, email_from, recipient_list )
 
                     form = PayPalPaymentsForm(initial=paypal_dict)
 
@@ -131,6 +139,12 @@ def payment_done(request, key):
 
     Licence.objects.create(pack=pack, key=key, user_nbre=pack.user_nber, validity=pack.year_duration, isBuy=True, isActive=True)
     #envoyer un mail contenant la licence du pack souscrit
+    subject = 'commande du pack cgi'
+    message = f'Hi {request.user.username}, merci davoir souscrit a notre pack.'
+    email_from = settings.EMAIL_HOST_USER 
+    recipient_list = [email, ] 
+    send_mail( subject, message, email_from, recipient_list )
+    
     return render(request, 'payment_done.html')
 
 def payment_canceled(request):
