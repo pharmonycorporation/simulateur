@@ -27,7 +27,7 @@ SECRET_KEY = ')w53a!)j*c*v04-^s(lr!0krbrhkiv&$cd5nq^c6srqwna0v7c'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["cgitchad.herokuapp.com"]
 
 
 # Application definition
