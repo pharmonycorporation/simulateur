@@ -140,3 +140,10 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 PAYPAL_RECEIVER_EMAIL = 'sb-jbx5o3733061@business.example.com'
 
 PAYPAL_TEST = True
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'romainsame86@gmail.com' 
+EMAIL_HOST_PASSWORD = '+solaris88MA+' 

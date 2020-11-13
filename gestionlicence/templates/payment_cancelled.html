@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% load static  %}
+{% block body %}
+<div class="d-flex justify-content-center full-height full-width align-items-center">
+    <div class="error-container text-center">
+      <h1 class="error-number" style="color: red;">DESOLE</h1>
+      <h2 class="semi-bold">Votre opération a été annulée</h2>
+      <p class="p-b-10">A bientôt pour l'achat de votre code pénal. <a href="{% url 'home' %}">Retour à l'accueil</a>
+      </p>
+      <div class="error-container-innner text-center">
+        
+      </div>
+    </div>
+  </div>
+  <div class="pull-bottom sm-pull-bottom full-width d-flex align-items-center justify-content-center">
+    <div class="error-container">
+      <div class="error-container-innner">
+        <div class="p-b-30 sm-m-t-20 sm-p-r-15 sm-p-b-20 clearfix d-flex-md-up row no-margin">
+          <div class="col-md-3 no-padding d-flex align-items-center justify-content-center">
+            <img alt="" data-src="{% static 'images_cgi/LOGOCGI_r.png' %}" data-src-retina="{% static 'images_cgi/LOGOCGI_r.png' %}" height="60" src="{% static 'images_cgi/LOGOCGI_r.png' %}" width="60">
+          </div>
+          <div class="col-md-9 no-padding d-flex align-items-center justify-content-center">
+            <p class="small no-margin flex-1">Create a pages account. If you have a facebook account, log into it for this process. Sign in with <a href="#">Facebook</a> or <a href="#">Google</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+{% endblock %}

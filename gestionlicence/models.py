@@ -24,6 +24,7 @@ class Package(models.Model):
     year_duration = models.IntegerField(default=0)
     performance = models.CharField(max_length=255, null=True, blank=True)
     cost = models.FloatField(default=0)
+    version = models.ForeignKey(Application, on_delete=models.CASCADE)
     devicetype = models.ForeignKey(DeviceType, on_delete=models.CASCADE)
     active = models.BooleanField(default=True)
 
@@ -55,6 +56,7 @@ class MyPackages(models.Model):
     personne = models.ForeignKey(Personne, on_delete=models.CASCADE)
     package = models.ForeignKey(Package, on_delete=models.CASCADE)
     date_souscription = models.DateTimeField(auto_now_add=True)
+    is_paid = models.BooleanField(default=False)
 
     def __str__(self):
         return "{} - {}".format(self.personne.user.username, self.package.name)

@@ -3,38 +3,150 @@
 {% block personal_css %}
 <link href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.min.css" rel="stylesheet">
 {% endblock %}
-{% block content %}
-<h1>Mes souscriptions</h1>
-<table id="souscript" class="table table-bordered">
-    <thead>
-        <tr>
-            <th>Package souscrit</th>
-            <th>Montant</th>
-            <th>Nombre d'utilisateur</th>
-            <th>Durée</th>
-            <th>Date de la souscription</th>
-            <th>Actif</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for package in packages %}
-        <tr>
-            <td>{{ package.package.name }}</td>
-            <td>{{ package.package.cost }}</td>
-            <td>{{ package.package.user_nber }}</td>
-            <td>{{ package.package.year_duration }}&nbsp;Année(s)</td>
-            <td>{{ package.date_souscription|date:'Y-m-d H:i' }}</td>
-            <td>
-                {% if package.package.licence %}
-                <span>Actif</span>
+{% block header %}
+<header class="site-header header-style-1">
+    <nav class="navigation navbar navbar-default">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="open-btn">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'images_cgi/LOGOCGI.png' %}" alt width="99" height="75"></a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse navbar-right navigation-holder">
+                <button class="close-navbar"><i class="fa fa-close"></i></button>
+                
+                <ul class="nav navbar-nav">
+                    <li class=""><a href="#home"></a></li>
+                    <li><a href="#services"></a></li>
+                    <li><a href="#features"></a></li>
+                    <li><a href="#screenshots"></a></li>
+                    <li><a href="#testimonials"></a></li>
+                    <li><a href="#contact">Mes Souscriptions</a></li>
+                </ul>
+            </div><!-- end of nav-collapse -->
+
+            <div class="lang-social navbar-right">
+                {% if user.is_authenticated %}
+                <div class="lang">
+                    <a href="#"><img src="{% static 'images/default-user.png' %}" width="24px" height="24px" alt></a>
+                    <ul>
+                        <li><a href="#"> Profile</a></li>
+                        <li><a href="{% url 'souscriptions' %}">Mes Souscription</a></li>
+                        <li><a href="{% url 'signout' %}"> Signout</a></li>
+                    </ul>
+                </div>
                 {% else %}
-                <span>Inactif</span>
+                <div class="social-links-wrapper">
+                    <ul class="social-links">
+                        <li><a href="{% url 'signin' %}">Se connecter</a></li>
+                        <li><a href="{% url 'signup' %}">S'inscrire</a></li>
+                    </ul>
+                </div>
                 {% endif %}
-            </td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
+            </div>
+        </div><!-- end of container -->
+    </nav>
+</header>
+{% endblock %}
+{% block content %}
+<section class="app-landing-pricing section-padding" id="pricing" style="background-color: #d09a9a;">
+    <div class="container">
+        <div class="row section-title">
+            <div class="col col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 ">
+                <h2>Mes Souscriptions</h2>
+            </div>
+        </div> <!-- end section-title -->
+        <div class="row content">
+            <div class="col col-xs-12">    
+                <table id="souscript" class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Package souscrit</th>
+                            <th>Montant</th>
+                            <th>Utilisateur</th>
+                            <th>Durée</th>
+                            <th>Date de la souscription</th>
+                            <th>Payer</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for package in packages %}
+                        <tr>
+                            <td>{{ package.package.name }}</td>
+                            <td>{{ package.package.cost }}</td>
+                            <td>{{ package.package.user_nber }}</td>
+                            <td>{{ package.package.year_duration }}&nbsp;Année(s)</td>
+                            <td>{{ package.date_souscription|date:'Y-m-d H:i' }}</td>
+                            <td style="text-align: center;">
+                                {% if package.is_paid %}
+                                <span>Oui</span>
+                                {% else %}
+                                <span>Non</span>
+                                {% endif %}
+                            </td>
+                            <td style="text-align: center;">
+                                {% if package.is_paid %}
+                                Aucune
+                                {% else %}
+                                <a href="#" class="ge-started" data-id="{{ package.package.id }}"><i class="fa fa-credit-card"></i></a>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div> <!-- end col -->
+        </div> <!-- end row -->
+    </div> <!-- end container --> 
+</section>
+<!-- start app-landing-pricing -->
+
+<div class="modal fade bs-example-modal-new center-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <!-- Modal Content: begins -->
+        <form class="form" id="email-form" method="POST" action="{% url 'home' %}">
+            {% csrf_token %}
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="gridSystemModalLabel">Achat d'une Licence</h4>
+                </div>
+                <!-- Modal Body -->  
+                <div class="modal-body">
+                    <div class="body-message">
+                        <input type="hidden" name="pack" value="">
+                        <div class="contact-form">
+                            <div>
+                                <input type="email" name="email" class="form-control" placeholder="Entrez votre adresse mail" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6 hidden">
+                            <div class="form-check form-check-inline">
+                                <input class="form-check-input" type="radio" name="paid" id="Radios1" checked value="now">
+                                <label class="form-check-label" for="Radios1">
+                                  Payer maintenant
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Modal Footer -->
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-success" >Validate</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </form>
+      <!-- Modal Content: ends -->
+    </div>
+    
+</div>
 {% endblock content %}
 {% block personal_js %}
 <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
@@ -56,5 +168,12 @@
     preloader();
 
     $('#souscript').dataTable();
+
+    $('#souscript').on('click', 'a.ge-started', function(e){
+        e.preventDefault();
+        var dataId = $(this).attr("data-id");
+        $("input[type='hidden'][name='pack']").val(dataId);
+        $('.bs-example-modal-new').modal('show');
+    });
 </script>
 {% endblock %}

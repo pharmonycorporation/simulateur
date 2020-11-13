@@ -1,27 +1,53 @@
-{% extends 'gabarit.html' %}
-{% load static %}
-{% block content %}
-    <h4>Pay with PayPal</h4>
-    {{ form.render }}
-{% endblock %}
-{% block personal_js %}
-<script>
-    function preloader() {
-        if($('.preloader').length) {
-            $('.preloader').delay(100).fadeOut(500, function() {
-
-                if ($(".hero-s1").length) {
-                    $(".hero-s1 .hero-phone").addClass("hero-phone-animation");
-                }
-                if ($(".hero-watch").length) {
-                    $(".hero-watch").addClass("hero-watch-animation");
-                }
-
-            });
-        }
-    };
-    preloader();
-
-    $('#souscript').dataTable();
-</script>
+{% extends 'base.html' %}
+{% load static  %}
+{% block body %}
+<div class="login-wrapper ">
+    <!-- START Login Background Pic Wrapper-->
+    <div class="bg-pic">
+      <!-- START Background Pic-->
+      <img src="{% static 'images_cgi/paiement.png' %}" data-src="assets/img/demo/new-york-city-buildings-sunrise-morning-hd-wallpaper.jpg" data-src-retina="assets/img/demo/new-york-city-buildings-sunrise-morning-hd-wallpaper.jpg" alt="" class="lazy">
+      <!-- END Background Pic-->
+      <!-- START Background Caption-->
+      <div class="bg-caption pull-bottom sm-pull-bottom text-white p-l-20 m-b-20">
+        <!-- <h2 class="semi-bold text-white">
+                  Pages make it easy to enjoy what matters the most in the life</h2>
+        <p class="small">
+          images Displayed are solely for representation purposes only, All work copyright of respective owner, otherwise © 2013-2014 REVOX.
+        </p> -->
+      </div>
+      <!-- END Background Caption-->
+    </div>
+    <!-- END Login Background Pic Wrapper-->
+    <!-- START Login Right Container-->
+    <div class="login-container bg-white">
+      <div class="p-l-50 m-l-20 p-r-50 m-r-20 p-t-50 m-t-30 sm-p-l-15 sm-p-r-15 sm-p-t-40">
+        <h5>Sélectionner le moyen de paiement de votre choix</h5>
+        <!-- START Login Form -->
+        
+        <table class="table table-borderless">
+            <tbody>
+                <tr>
+                    <td>Pay with PayPal</td>
+                    <td>
+                        {{ form.render }}
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <!--END Login Form-->
+        <div class="pull-bottom sm-pull-bottom">
+          <div class="m-b-30 p-r-80 sm-m-t-20 sm-p-r-15 sm-p-b-20 clearfix">
+            <div class="col-sm-3 col-md-2 no-padding">
+              <img alt="" class="m-t-5" data-src="{% static 'images_cgi/LOGOCGI_r.png' %}" data-src-retina="{% static 'images_cgi/LOGOCGI_r.png' %}" height="60" src="{% static 'images_cgi/LOGOCGI_r.png' %}" width="60">
+            </div>
+            <div class="col-sm-9 no-padding m-t-10">
+              
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- END Login Right Container-->
+  </div>
 {% endblock %}
