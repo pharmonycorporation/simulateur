@@ -2794,7 +2794,8 @@ hr.dotted {
 ------------------------------------
 */
 .bg-white {
-  background-color: #fff;
+  /* background-color: #fff; */
+  background-color: #d09a9a;
 }
 .bg-transparent {
   background-color: transparent !important;

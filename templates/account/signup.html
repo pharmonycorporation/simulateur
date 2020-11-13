@@ -1,11 +1,20 @@
 {% extends 'base.html' %}
 {% load static  %}
 {% load widget_tweaks %}
+{% block title %} CGI - Création de compte {% endblock %}
 {% block body %}
 <div class="register-container full-height sm-p-t-30">
     <div class="d-flex justify-content-center flex-column full-height ">
-      <img src="{% static 'assets/img/logo.png' %}" alt="logo" data-src="{% static 'assets/img/logo.png' %}" data-src-retina="{% static 'assets/img/logo_2x.png' %}" width="78" height="22">
-      <h3>Pages makes it easy to enjoy what matters the most in your life</h3>
+      <img src="{% static 'images_cgi/LOGOCGI_r.png' %}" alt="logo" data-src="{% static 'images_cgi/LOGOCGI_r.png' %}" data-src-retina="{% static 'images_cgi/LOGOCGI_r.png' %}" width="78" height="50">
+      <h3>Formulaire de création de compte</h3>
+      <p>
+        {% for message in messages %}
+            <div class="alert alert-danger">
+                <a class="close" href="#" data-dismiss="alert">×</a>
+                {{ message }}
+            </div>
+        {% endfor %}
+      </p>
       <!-- <p>
         Create a pages account. If you have a facebook account, log into it for this process. Sign in with <a href="#" class="text-info">Facebook</a> or <a href="#" class="text-info">Google</a>
       </p> -->
@@ -58,14 +67,14 @@
           </div>
         </div>
         <div class="row m-t-10">
-          <div class="col-lg-6">
+          <!-- <div class="col-lg-6">
             <p><small>I agree to the <a href="#" class="text-info">Pages Terms</a> and <a href="#" class="text-info">Privacy</a>.</small></p>
-          </div>
+          </div> -->
           <div class="col-lg-6 text-right">
             <a href="#" class="text-info small">Help? Contact Support</a>
           </div>
         </div>
-        <button class="btn btn-primary btn-cons m-t-10" type="submit">Create a new account</button>
+        <button class="btn btn-primary btn-cons m-t-10" type="submit">Créer un nouveau compte</button>
       </form>
     </div>
   </div>

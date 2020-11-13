@@ -5,13 +5,11 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from .forms import SignUpForm, SigninForm
 from .models import *
-<<<<<<< HEAD
 from django.http import JsonResponse
-=======
 from decimal import Decimal
 from django.urls import reverse
 from paypal.standard.forms import PayPalPaymentsForm
->>>>>>> 0f0d3c2fe6cb0f93c7ed7ad716bdf106afb45f29
+import secrets
 
 # Create your views here.
 class HomePageView(TemplateView):
@@ -25,30 +23,38 @@ class HomePageView(TemplateView):
     def post(self, request, *args, **kwargs):
         email = request.POST.get('email')
         pack_id = request.POST.get('pack')
-        if email:
+        paid = request.POST.get('paid')
+        if request.user.is_authenticated:
             try:
                 pers = Personne.objects.get(user__email=email)
             except Personne.DoesNotExist:
                 pers = None
             if pers:
-                pack = Package.objects.get(pk=int(pack_id))
-                MyPackages.objects.create(personne=pers, package=pack)
-                paypal_dict = {
-                    "business": "guy.anemena@mbcode.cm",
-                    "amount": pack.cost,
-                    "item_name": pack.name,
-                    "invoice": "112556568968",
-                    "notify_url": request.build_absolute_uri(reverse('paypal-ipn')),
-                    "return": request.build_absolute_uri(reverse('home')),
-                    "cancel_return": request.build_absolute_uri(reverse('home')),
-                    "custom": "premium_plan",  # Custom command to correlate to some function later (optional)
-                }
+                key = secrets.token_urlsafe(32)
+                if paid == "now":
+                    pack = Package.objects.get(pk=int(pack_id))
+                    MyPackages.objects.create(personne=pers, package=pack)
+                    Licence.objects.create(pack=pack, key=key, user_nbre=pack.user_nber, validity=pack.year_duration)
+                    paypal_dict = {
+                        "business": "guy.anemena@mbcode.cm",
+                        "amount": pack.cost,
+                        "item_name": pack.name,
+                        "invoice": key,
+                        "notify_url": request.build_absolute_uri(reverse('paypal-ipn')),
+                        "return": request.build_absolute_uri(reverse('payment_done', args=[key])),
+                        "cancel_return": request.build_absolute_uri(reverse('payment_cancelled')),
+                        "custom": "premium_plan",  
+                    }
 
-                form = PayPalPaymentsForm(initial=paypal_dict)
+                    form = PayPalPaymentsForm(initial=paypal_dict)
 
-                return render(request, 'payment.html', {'form': form})
-            return redirect('home')
-        return redirect('home')
+                    return render(request, 'payment.html', {'form': form})
+                else :
+                    pack = Package.objects.get(pk=int(pack_id))
+                    MyPackages.objects.create(personne=pers, package=pack)
+                    Licence.objects.create(pack=pack, key=key, user_nbre=pack.user_nber, validity=pack.year_duration)
+            return redirect('signin')
+        return redirect('signin')
 
 class SignupView(View):
     form_class = SignUpForm
@@ -77,8 +83,9 @@ class SignupView(View):
                     phone = form.cleaned_data['phone'],
                     user = usr,
                 )
-            return render(request, self.template_name)
-        pass
+            return redirect('signup')
+        messages.error(request, form.errors)
+        return redirect('signup')
 
 
 class SignInView(View):
@@ -91,12 +98,13 @@ class SignInView(View):
 
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
-        username = form["email"].value()
+        username = form["username"].value()
         password = form["password"].value()
         user = authenticate(request, username=username,  password=password)
         if user:
             login(request, user)
             return redirect('home')
+        messages.error(request, "Vos informations de connexion ne sont pas correctes")
         return render(request, self.template_name)
 
 class SouscriptionView(View):
@@ -105,8 +113,6 @@ class SouscriptionView(View):
     def get(self, request, *args, **kwargs):
         pers = Personne.objects.get(user=request.user)
         packages = MyPackages.objects.filter(personne=pers)
-        print('list pakages')
-        print(packages)
         return render(request, self.template_name, {'packages': packages})
 
     def post(self, request, *args, **kwargs):
@@ -116,7 +122,17 @@ def signout(request):
     logout(request)
     return redirect("home")
 
+def payment_done(request, key):
+    licence = Licence.objects.get(key=key)
+    if licence:
+        licence.isBuy = True
+        licence.isActive = True
+        licence.save()
+    return render(request, 'payment_done.html')
 
+
+def payment_canceled(request):
+    return render(request, 'payment_cancelled.html')
 
 def verificationLicence(request, key):
 
