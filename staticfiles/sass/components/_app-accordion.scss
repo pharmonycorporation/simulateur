@@ -1,0 +1,89 @@
+/*********************************
+= app-accordion
+*********************************/
+.app-accordion {
+	margin-bottom: 0;
+
+	.panel {
+		background-color: transparent;
+		border: 0;
+		box-shadow: none;
+	}
+
+	.panel-default > .panel-heading	{
+		background-color: transparent;
+		padding: 0;
+
+		a {
+			font-family: $heading-font;
+			background-color: $white;
+			font-size: 22px;
+			font-size: calc-rem-value(22);
+			color: $heading-color;
+			padding: 15px 25px;
+			display: block;
+			position: relative;
+
+			@include media-query(1199px) {
+				font-size: 18px;
+				font-size: calc-rem-value(18);
+			}
+
+			@include media-query(767px) {
+				font-size: 16px;
+				font-size: calc-rem-value(16);
+			}
+		}
+
+		a:after {
+			font-family: "FontAwesome";
+			content: "\f103";
+			font-size: 22px;
+			font-size: calc-rem-value(22);
+			color: $theme-secondary-color;
+			position: absolute;
+			right: 25px;
+			top: 50%;
+			@include translatingY();
+
+			@include media-query(1199px) {
+				font-size: 18px;
+				font-size: calc-rem-value(18);
+			}
+
+			@include media-query(767px) {
+				display: none;
+			}
+		}
+	}
+
+	.panel-default > .panel-heading .collapsed {
+		background-color: transparent;
+		color: $white;
+	}
+
+	.panel-default > .panel-heading .collapsed:after {
+		color: $white;
+	}
+
+	.panel-default >.panel-heading +.panel-collapse >.panel-body {
+		background-color: $white;
+		border: 0;
+		padding: 0 25px 8px;
+	}
+
+	.panel-body p {
+		font-size: 18px;
+		font-size: calc-rem-value(18);
+
+		@include media-query(1199px) {
+			font-size: 16px;
+			font-size: calc-rem-value(16);
+		}	
+
+		@include media-query(767px) {
+			font-size: 14px;
+			font-size: calc-rem-value(14);
+		}
+	}
+}

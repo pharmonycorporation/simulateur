@@ -1,0 +1,601 @@
+/*--------------------------------------------------------------
+	#	Product landing home
+--------------------------------------------------------------*/
+/*--------------------------------------------------------------
+#4.0	product landing latest features
+--------------------------------------------------------------*/
+.product-landing-latest-features {
+	@extend .agency-latest-features;
+	border-top: 1px solid lighten($black, 90%);
+}
+
+
+/*--------------------------------------------------------------
+#4.1	product-landing-services
+--------------------------------------------------------------*/
+.product-landing-services {
+
+	.product-landing-section-title {
+		text-align: left;
+	}
+
+	.container {
+		position: relative;
+		padding: 50px 15px 150px;
+
+		@include media-query(1199px) {
+			padding: 50px 15px 0;
+		}
+
+		@include media-query(991px) {
+			padding: 0 15px;
+		}
+	}
+
+	.services {
+		max-width: 400px;
+
+		.icon {
+			min-height: 80px;
+
+			@include media-query(767px) {
+				min-height: 50px;
+			}
+		}
+
+		.grid {
+			width: 33.33%;
+			float: left;
+			text-align: center;
+		}
+
+		h3 {
+			font-size: 16px;
+			font-size: calc-rem-value(16);
+			color: #999;
+			margin: 0.87em 0 0;
+			line-height: 1.5em;
+			text-transform: uppercase;
+
+			@include media-query(767px) {
+				font-size: 12px;
+				font-size: calc-rem-value(12);
+			}
+		}
+
+		.product-landing-btn {
+			margin-top: 40px;
+		}
+	}
+
+	.services-watch {
+		@include background-style("../images/product-landing/services-watch.png", center center, 100%, no-repeat, local);
+		width: 570px;
+		height: 593px;
+		position: absolute;
+		left: -150px;
+		top: 50%;
+		@include translatingY();
+		opacity: 0;
+
+		@include media-query(1199px) {
+			width: 420px;
+			height: 437px;
+		}
+
+		@include media-query(991px) {
+			display: none;
+		}
+	}
+
+	.services-watch-animation {
+		left: -50px;
+		opacity: 1;
+		@include transition-time(3.5s);
+	}
+}
+
+
+/*--------------------------------------------------------------
+#4.2	product-landing-cta
+--------------------------------------------------------------*/
+.product-landing-cta {
+	@extend .app-landing-cta;
+	height: 100vh;
+	@include background-style("../images/product-landing/video-bg.jpg", center center, cover, no-repeat, local);
+	position: relative;
+
+	@include media-query(991px) {
+		background-color: $theme-primary-color;
+	}
+
+	&:before {
+		@include widther(992px) {
+			content: "";
+			@include overlay(transparentize($black, 0.2));
+			opacity: 0;
+			@include transition-time(1s);
+		}
+	}
+
+	@include media-query(991px) {
+		height: auto;
+		background-image: none;
+	}
+
+	.container {
+		@include widther(992px) {
+			margin-top: 200px;
+			@include transition-time(3s);
+		}		
+	}
+
+	h2 {
+		color: $white;
+		font-weight: 200;
+		@include transition-time(1s);
+
+		@include widther(992px) {
+			opacity: 0;
+		}
+	}
+
+	.video-play {
+		background-color: $theme-secondary-color;
+		@include transition-time(1s);
+
+		@include widther(992px) {
+			opacity: 0;
+		}
+
+		i {
+			color: $white;
+		}
+	}
+}
+
+.active-cta-text {
+	&:before,
+	h2,
+	.video-play {
+		opacity: 1;
+	}
+
+	.container {
+		margin-top: 150px;
+	}
+}
+
+
+/*--------------------------------------------------------------
+#4.3	how-its-work-section
+--------------------------------------------------------------*/
+.p-landing-how-its-work-section {
+
+	.product-landing-section-title {
+		@include media-query(767px) {
+			margin-bottom: 0;
+		}
+	}
+
+	.content {
+		position: relative;
+		margin-top: 155px;
+
+		@include media-query(1199px) {
+			margin-top: 100px;
+		}
+
+		@include media-query(991px) {
+			margin-top: 0;
+		}
+	}
+
+	.content > .col {
+		padding-left: 160px;
+
+		@include media-query(1199px) {
+			padding-left: 135px;
+		}
+
+		@include media-query(991px) {
+			padding-left: 15px;
+		}
+	}
+
+	.content > .col > .box:nth-child(2) .icon {
+		top: -12px;
+
+		.line {
+			width: 85px;
+			top: 25px;
+			left: -88px;
+		}
+	}
+
+	.content > .col > .box:nth-child(3) .icon {
+		top: -10px;
+
+		.line {
+			top: 18px;
+		}
+	}
+
+
+	.box {
+		padding: 0 75px;
+		position: relative;
+		margin-bottom: 50px;
+
+		@include media-query(1199px) {
+			padding: 0 0 0 75px;
+		}
+
+		@include media-query(767px) {
+			padding: 0 0 0 65px;
+			margin-bottom: 35px;
+		}
+	}
+
+	.content > .col > .box:nth-child(3) {
+		margin-bottom: 0;
+	}
+
+	.box .icon {
+		width: 80px;
+		position: absolute;
+		left: 0;
+		top: 0;
+
+		@include media-query(767px) {
+			width: 60px;
+
+			img {
+				max-width: 40px;
+			}
+		}
+	}
+
+	.dtails h3 {
+		font-size: 18px;
+		font-size: calc-rem-value(18);
+		color: $heading-color2;
+		margin: 0 0 0.78em;
+
+		@include media-query(767px) {
+			font-size: 16px;
+			font-size: calc-rem-value(16);
+		}
+	}
+
+	.dtails p {
+		margin: 0;
+	}
+
+	.left-watches {
+		@include background-style("../images/product-landing/how-its-work-watchs.png", center center, 100%, no-repeat, local);
+		width: 656px;
+		height: 577px;
+		position: absolute;
+		left: 15px;
+		top: -85px;
+
+		@include media-query(1199px) {
+			width: 568px;
+			height: 500px;
+			top: -65px;
+			left: -10px;
+		}
+
+		@include media-query(991px) {
+			display: none;
+		}
+	}
+
+	.box .line {
+		width: 120px;
+		border-bottom: 2px dotted #959595;
+		height: 2px;
+		position: absolute;
+		left: -130px;
+		top: 15px;
+
+		@include media-query(991px) {
+			display: none;
+		}
+	}
+
+	.line .dot {
+		background-color: transparentize($theme-secondary-color, 0.1);
+		width: 11px;
+		height: 11px;
+		@include rounded-border();
+		position: absolute;
+		left: 0;
+		top: -5px;
+		z-index: 10;
+
+		&:before {
+			content: "";
+			background-color: transparentize($theme-primary-color, 0.6);
+			width: 23px;
+			height: 23px;
+			@include rounded-border();
+			position: absolute;
+			left: -6px;
+			top: -6px;
+			-webkit-animation: dotAnimation 1s infinite alternate;
+			animation: dotAnimation 1s infinite alternate;
+			z-index: 10;
+		}
+	}
+}
+
+
+/*--------------------------------------------------------------
+#4.4	product-section
+--------------------------------------------------------------*/
+.product-section {
+	background-color: #f2f2f2;
+	padding-bottom: 70px;
+
+	@include media-query(767px) {
+		padding-bottom: 50px;
+	}
+
+	.product-grids > .col {
+		margin-bottom: 30px;
+
+		@include media-query(600px) {
+			width: 100%;
+		}
+	}
+}
+
+
+/*--------------------------------------------------------------
+#4.5	product-landing-faq
+--------------------------------------------------------------*/
+.product-landing-faq {
+	background-color: #f2f2f2;
+	overflow: hidden;
+
+	.content {
+		position: relative;
+	}
+
+	.product-landing-section-title h2 {
+		text-align: left;
+		margin: 0;
+		padding-bottom: 0;
+
+		@include widther(767px) {
+			padding-right: 200px;
+		}
+	}
+
+	.panel-default > .panel-heading .collapsed,
+		.panel-default > .panel-heading a,
+	.panel-default > .panel-heading .collapsed:after {
+		color: $theme-secondary-color;
+	}
+
+	.faq-watch {
+		@include background-style("../images/product-landing/faq-watch.png", center center, cover, no-repeat, local);
+		width: 502px;
+		height: 524px;
+		position: absolute;
+		right: 0;
+		bottom: -170px;
+		opacity: 0;
+
+		@include media-query(1199px) {
+			width: 400px;
+			height: 418px;
+		}
+
+		@include media-query(991px) {
+			display: none;
+		}
+	}
+
+	.faq-watch-animation {
+		bottom: -70px;
+		opacity: 1;
+		@include transition-time(3.5s);
+	}
+}
+
+
+/*--------------------------------------------------------------
+#4.6	newsletter-section
+--------------------------------------------------------------*/
+.newsletter-section {
+
+	.product-landing-section-title .col {
+		@include widther(1200px) {
+			padding: 0 100px;
+		}
+	}
+
+	.product-landing-section-title h2 {
+		margin: 0 0 0.2em;
+	}
+
+	.news-letter-form {
+		text-align: center;
+		padding: 0 35px;
+
+		@include media-query(1199px) {
+			padding: 0;
+		}
+
+		@include media-query(991px) {
+			padding: 0 55px;
+		}
+
+		@include media-query(767px) {
+			padding: 0;
+		}
+	}
+
+	.news-letter-form p {
+		font-size: 12px;
+		font-size: calc-rem-value(12);
+		color: $black;
+		margin: 0;
+
+		a {
+			color: $theme-secondary-color;
+			text-decoration: underline;
+		}
+	}
+
+	form {
+		margin-bottom: 30px;
+		overflow: hidden;
+	}
+
+	form > div:first-child {
+		width: 468px;
+		float: left;
+
+		@include media-query(1199px) {
+			width: 420px;
+		}
+
+		@include media-query(767px) {
+			width: 100%;
+			float: none;
+		}
+	}
+
+	form > div:last-child {
+		width: 175px;
+		float: right;
+
+		@include media-query(767px) {
+			width: 130px;
+			float: none;
+			margin: 15px auto 0;
+		}
+	}
+
+	form input,
+	form button {
+		height: 60px;
+		border: 0;
+		outline: 0;
+		box-shadow: none;
+		@include rounded-border(35px);
+
+		@include media-query(991px) {
+			height: 50px;
+		}
+
+		@include media-query(767px) {
+			height: 45px;
+		}
+	}
+
+	form input {
+		background-color: #ecedee;
+		padding: 6px 45px;
+
+		@include media-query(991px) {
+			padding: 6px 25px;
+		}
+	}
+
+	form input:focus {
+		box-shadow: none;
+	}
+
+	form button {
+		font-family: $heading-font;
+		background: $theme-secondary-color;
+		@include linear-gradient-bg(left, $theme-primary-color, $theme-secondary-color);
+		width: 100%;	
+		font-size: 14px;
+		font-size: calc-rem-value(14);
+		font-weight: 400;
+		color: $white;
+		@include transition-time(0.3s);
+	}
+
+	form button:hover {
+		color: $black;
+	}
+
+	.social-links-wrapper {
+		text-align: center;
+		margin-top: 70px;
+
+		@include media-query(1199px) {
+			margin-top: 50px;
+		}
+
+		@include media-query(991px) {
+			margin-top: 30px;
+		}
+	}
+
+	.social-links {
+		display: inline-block;
+	}
+
+	.social-links li a {
+		width: 62px;
+		height: 62px;
+		line-height: 62px;
+		font-size: 30px;
+		font-size: calc-rem-value(30);
+		color: #c0c0c0;
+		display: block;
+		@include rounded-border();
+
+		@include media-query(991px) {
+			width: 50px;
+			height: 50px;
+			line-height: 50px;
+			font-size: 22px;
+			font-size: calc-rem-value(22);
+		}
+
+		@include media-query(767px) {
+			width: 45px;
+			height: 45px;
+			line-height: 45px;
+			font-size: 18px;
+			font-size: calc-rem-value(18);
+		}
+	}
+
+	.social-links li {
+		margin-right: 5px;
+	}
+
+	.social-links li:last-child {
+		margin-right: 0;
+	}
+
+	.social-links li a:hover,
+	.social-links li:first-child a {
+		background-color: $theme-primary-color;
+		@include linear-gradient-bg(left, $theme-primary-color, $theme-secondary-color);
+		color: $white;
+	}
+}
+
+.product-landing-testimonials {
+	@extend .agency-testimonials;
+	padding-bottom: 150px;
+
+	@include media-query(991px) {
+		padding-bottom: 100px;
+	}
+
+	@include media-query(767px) {
+		padding-bottom: 70px;
+	}
+}

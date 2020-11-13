@@ -1,0 +1,41 @@
+/*********************************
+= agency project grids
+*********************************/
+.agency-project-grids {
+
+	.grid .img-holder {
+		margin-bottom: 25px;
+	}
+
+	.img-holder img {
+		width: 100%;
+	}
+
+	.grid h3 {
+		font-size: 22px;
+		font-size: calc-rem-value(22);
+		font-weight: 400;
+		color: $heading-color2;
+		margin: 0 0 0.5em;
+
+		@include media-query(991px) {
+			font-size: 18px;
+			font-size: calc-rem-value(18);
+		}
+	}
+
+	.grid .view {
+		font-size: 14px;
+		font-size: calc-rem-value(14);
+		font-weight: 400;
+		color: $theme-secondary-color;
+		text-decoration: underline;
+
+		i {
+			font-size: 14px;
+			font-size: calc-rem-value(14);
+			display: inline-block;
+			padding-left: 10px;
+		}
+	}
+}

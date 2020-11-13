@@ -1,0 +1,32 @@
+/*---------------------------
+	Fonts
+----------------------------*/
+@import url('https://fonts.googleapis.com/css?family=Arimo|Montserrat:200,400,700,800');
+
+// fonts
+
+$arimo: 'Arimo', sans-serif;
+$montserrat: 'Montserrat', sans-serif;
+
+$base-font: $arimo;
+$heading-font: $montserrat;
+
+$base-font-size: 16;
+
+
+// color
+$mid-gray: #848484;
+$mid-gray2: #333;
+$white: #fff;
+$black: #000;
+$color1: #30d4ba;
+$color2: #4273f0;
+$light-sky: #f0f1ff;
+
+$theme-primary-color: $color1;
+$theme-secondary-color: $color2;
+$body-bg-color: $white;
+$text-color: $mid-gray;
+$heading-color: $black;
+$heading-color2: $mid-gray2;
+$section-bg-color: $light-sky;

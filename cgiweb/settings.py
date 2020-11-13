@@ -142,7 +142,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
-
+STATIC_ROOT = os.path.normpath(os.path.join(BASE_DIR, 'staticfiles'))
 PAYPAL_RECEIVER_EMAIL = 'sb-jbx5o3733061@business.example.com'
 
 PAYPAL_TEST = True

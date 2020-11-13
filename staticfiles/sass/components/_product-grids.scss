@@ -1,0 +1,57 @@
+/*********************************
+= product landing product grids
+*********************************/
+.product-grids {
+
+
+	.grid {
+		background-color: $white;
+		text-align: center;
+		padding: 60px 25px;
+
+		@include media-query(767px) {
+			padding: 35px 15px;
+		}
+	}
+
+	.img-holder {
+		margin-bottom: 40px;
+
+		@include media-query(767px) {
+			margin-bottom: 30px;
+		}
+	}
+
+	.img-holder img {
+		display: inline-block;
+
+		@include media-query(767px) {
+			max-width: 170px;
+		}
+	}
+
+	.grid h3 {
+		font-size: 20px;
+		font-size: calc-rem-value(20);
+		margin: 0 0 0.55em;
+
+		@include media-query(767px) {
+			font-size: 18px;
+			font-size: calc-rem-value(18);
+		}
+	}
+
+	.price {
+		font-family: $heading-font;
+		font-weight: bold;
+		display: block;
+		color: $theme-primary-color;
+		margin-bottom: 25px;
+		padding-top: 7px;
+	}
+
+	.product-landing-btn-s2 {
+		font-size: 14px;
+		font-size: calc-rem-value(14);
+	}
+}

@@ -1,0 +1,301 @@
+/*--------------------------------------------------------------
+#1.2	footer
+--------------------------------------------------------------*/
+.site-footer {
+	background-color: $theme-primary-color;
+	padding: 45px 0;
+
+	@include media-query(1199px) {
+		padding: 40px 0;
+	}
+
+	.footer-logo-wrapper {
+		@include media-query(767px) {
+			text-align: center;
+			margin-bottom: 20px;
+
+			img {
+				display: inline-block;
+			}
+		}
+	}
+
+	.copyright-info-wrapper {
+		text-align: center;
+	}
+
+	.copyright-info {
+		font-size: 12px;
+		font-size: calc-rem-value(12);
+		line-height: 38px;
+		color: $white;
+		margin: 0;
+
+		a {
+			color: $white;
+		}
+	}
+
+	.social-links-wrapper {
+		text-align: right;
+		@include media-query(767px) {
+			text-align: center;
+		}
+	}
+
+	.social-links {
+		display: inline-block;
+		line-height: 38px;
+	}
+
+	.social-links a {
+		font-size: 14px;
+		font-size: calc-rem-value(14);
+		color: $white;
+	}
+
+	.social-links li {
+		margin-right: 20px;
+
+		@include media-query(991px) {
+			width: 28px;
+		}
+	}
+
+	.social-links li:last-child {
+		margin-right: 0;
+	}
+
+	.social-links li a:hover {
+		color: $theme-secondary-color;
+	}
+}
+
+/***********************************
+	= product landing page footer
+**********************************/
+.product-landing-footer {
+	@include background-style("../images/product-landing/footer-bg.jpg", center center, cover, no-repeat, local);
+	padding: 100px 0;
+	position: relative;
+
+	@include media-query(991px) {
+		padding: 80px 0;
+	}
+
+	@include media-query(767px) {
+		padding: 70px 0;
+	}
+
+	&:before {
+		content: "";
+		@include overlay(transparentize($black, 0.1));
+	}
+
+	> .container > .row > .col {
+		@include media-query(991px) {
+			min-height: 254px;
+		}
+
+		@include media-query(600px) {
+			width: 100%;
+			min-height: auto;
+			margin-bottom: 50px;
+
+			&:last-child {
+				margin-bottom: 0;
+			}
+		}
+	}
+
+
+	li,
+	a,
+	p {
+		font-size: 14px;
+		font-size: calc-rem-value(14);
+		color: $white;
+	}
+
+	.widget h3 {
+		font-size: 22px;
+		font-size: calc-rem-value(22);
+		font-weight: 200;
+		color: $white;
+		padding-bottom: 8px;
+		margin: 0 0 1em;
+		position: relative;
+
+		@include media-query(767px) {
+			font-size: 18px;
+			font-size: calc-rem-value(18);
+		}
+
+		&:after {
+			content: "";
+			background-color: $theme-primary-color;
+			width: 28px;
+			height: 1px;
+			position: absolute;
+			left: 0;
+			bottom: 0;
+		}
+	}
+
+	/*** about widget ***/
+	.about-widget {
+		.logo {
+			margin-bottom: 20px;
+
+			@include media-query(767px) {
+				margin-bottom: 10px;
+			}
+		}
+
+		p,
+		a {
+			font-size: 14px;
+			font-size: calc-rem-value(14);
+		}
+
+		.social-links a {
+			color: $white;
+		}
+
+		.social-links li {
+			margin-right: 10px;
+		}
+
+		.social-links li:last-child {
+			margin-right: 10px;
+		}
+
+		p {
+			margin-bottom: 15px;
+		}
+	}
+
+	/*** contact widget ***/
+	.contact-widget {
+		li {
+			padding-left: 40px;
+			position: relative;
+			margin-bottom: 15px;
+		}
+
+		li i {
+			position: absolute;
+			left: 0;
+			top: 0;
+		}
+
+		ul li:last-child {
+			margin-bottom: 0;
+		}
+	}
+
+	/*** site map widget ***/
+	.site-map-widget ul {
+
+		li {
+			margin-bottom: 10px;
+		}
+
+		li:last-child {
+			margin-bottom: 0;
+		}
+
+		a:hover {
+			color: $theme-secondary-color;
+		}
+	}
+
+	/*** newsletter widget ***/
+	.newsletter-widget {
+		@include media-query(767px) {
+			max-width: 320px;
+		}
+
+		form {
+			overflow: hidden;
+			margin-bottom: 20px;
+		}
+
+		form > div:first-child {
+			width: 60%;
+			float: left;
+
+			@include media-query(767px) {
+				width: 65%;
+			}
+		}
+
+		form > div:last-child {
+			width: 38%;
+			float: right;
+
+			@include media-query(767px) {
+				width: 32%;
+			}
+		}
+
+		form input {
+			background-color: transparent;
+			border-color: $white;
+			color: $white;
+			@include rounded-border(20px);
+		}
+
+		form .btn {
+			background-color: $theme-primary-color;
+			@include linear-gradient-bg(left, $theme-primary-color, $theme-secondary-color);
+			color: $white;
+			padding: 7px 20px;
+			border: 0;
+			@include rounded-border(20px);
+
+			@include media-query(767px) {
+				width: 100%;
+				font-size: 12px;
+				padding: 10px 15px;
+			}
+		}
+
+		form .btn:hover {
+			background-color: darken($theme-primary-color, 10%);
+		}
+
+		p {
+			font-size: 14px;
+			color: $white;
+		}
+
+		/*** flicker widget ***/
+		.flickr-photo {
+			margin-top: 30px;
+			@include media-query(767px) {
+				max-width: 290px;
+			}
+		}
+
+		.flickr-photo ul {
+			overflow: hidden;
+			padding-right: 35px;
+
+			@include media-query(991px) {
+				padding-right: 0;
+				margin: 20px 0 0;
+			}
+
+			li {
+				width: 15%;
+				float: left;
+				padding: 0 1%;
+			}
+
+			img {
+				max-width: 100%;
+			}
+		}
+	}	
+}

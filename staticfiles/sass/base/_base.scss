@@ -1,0 +1,256 @@
+/*--------------------------------------------------------------
+#0.1    Theme Reset Style
+--------------------------------------------------------------*/
+html {
+    font-size: $base-font-size + px;
+}
+
+body {
+    font-family: $base-font;
+    background-color: $body-bg-color;
+    font-size: $base-font-size + px;
+    font-size: 1rem;
+    color: $text-color;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+    
+    @include media-query( 991px ) {
+        font-size: 15px;
+        font-size: calc-rem-value(15);
+    }
+
+    @include media-query( 767px ) {
+        font-size: 14px;
+        font-size: calc-rem-value(14);
+    }
+}
+
+p {
+    color: $text-color;
+    line-height: 1.8em;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: $heading-font;
+    color: $heading-color;
+}
+
+ul {
+    list-style-type: none;
+    padding-left: 0;
+    margin: 0;
+}
+
+a {
+    text-decoration: none;
+    @include transition-time(0.2s);
+}
+
+a:hover,
+a:focus {
+    text-decoration: none;
+}
+
+
+/*--------------------------------------------------------------
+#0.2    Global Elements
+--------------------------------------------------------------*/
+.page-wrapper {
+    position: relative;
+    overflow: hidden;
+}
+
+.wow {
+    visibility: hidden;
+}
+
+.fi:before {
+    margin: 0;
+}
+
+.section-padding {
+    padding: 95px 0 100px;
+
+    @include media-query( 767px ) {
+        padding: 70px 0 80px;
+    }
+}
+
+
+/** for popup image ***/
+.mfp-wrap {
+    background-color: transparentize($black, 0.1);
+    z-index: 99999;
+}
+
+.mfp-with-zoom .mfp-container,
+.mfp-with-zoom.mfp-bg {
+    opacity: 0;
+    -webkit-backface-visibility: hidden;
+    -webkit-transition: all 0.3s ease-out;
+    -moz-transition: all 0.3s ease-out;
+    -o-transition: all 0.3s ease-out;
+    transition: all 0.3s ease-out;
+}
+
+.mfp-with-zoom.mfp-ready .mfp-container {
+    opacity: 1;
+}
+.mfp-with-zoom.mfp-ready.mfp-bg {
+    opacity: 0.8;
+}
+
+.mfp-with-zoom.mfp-removing .mfp-container,
+.mfp-with-zoom.mfp-removing.mfp-bg {
+    opacity: 0;
+}
+
+/*** for fancybox video ***/
+.fancybox-overlay {
+  background: rgba(0, 0, 0, 0.9);
+  z-index: 9999 !important;
+}
+
+.fancybox-wrap {
+  z-index: 99999 !important;
+}
+
+
+/*** style for svg elements ***/
+svg * {
+    fill: none;
+}
+
+/** app landing page features icon ***/
+.animated-svg-icon-s1 {
+    width: 100%;
+    height: 60px;
+    stroke: $theme-secondary-color;
+    stroke:url(#grad);
+    stroke-width: 2;
+
+    @include media-query(1199px) {
+        height: 50px;
+    }
+
+    @include media-query(767px) {
+        height: 40px;
+    }
+}
+
+/** app landing page features icon ***/
+.animated-svg-icon-s2 {
+    width: 100%;
+    height: 65px;
+    stroke:url(#grad);
+    stroke-width: 1.4;
+
+    @include media-query(1199px) {
+        height: 50px;
+    }
+
+    @include media-query(767px) {
+        height: 40px;
+    }
+}
+
+/** app landing how app works icon ***/
+.animated-svg-icon-s3 {
+    width: 100%;
+    height: 60px;
+    stroke:url(#grad);
+    stroke-width: 2;
+
+    @include media-query(1199px) {
+        height: 50px;
+    }
+
+    @include media-query(991px) {
+        height: 40px;
+    }
+}
+
+/** Agency services icon ***/
+.animated-svg-icon-s4 {
+    width: 100%;
+    height: 60px;
+    stroke:url(#grad);
+    stroke-width: 1.6;
+
+    @include media-query(1199px) {
+        height: 50px;
+    }
+
+    @include media-query(991px) {
+        height: 40px;
+    }
+}
+
+/** Agency fun-fact icon ***/
+.animated-svg-icon-s5 {
+    width: 100%;
+    stroke:url(#grad);
+}
+
+/** Product landing services icon ***/
+.animated-svg-icon-s6 {
+    width: 100%;
+    height: 58px;
+    stroke: $theme-secondary-color;
+    stroke-width: 2px;
+
+    @include media-query(767px) {
+        height: 45px;
+    }
+}
+
+
+/*** contact form error handling ***/
+#contact-form,
+#contact-form2 {
+    .error-handling-messages {
+        margin-top: 15px;
+        padding: 0;
+    }
+
+    label.error {
+        color: red;
+        font-size: calc-rem-value(14);
+        font-weight: normal;
+        margin: 5px 0 0 0;
+    }
+
+    #loader {
+        display: none;
+    }
+
+    #success,
+    #error {
+        width: 100%;
+        color: $white;
+        padding: 5px 10px;
+        font-size: 16px;
+        text-align: center;
+        display: none;
+
+        @include media-query(767px)  {
+            font-size: 15px;
+        }
+    }
+
+    #success {
+        background-color: lighten(green, 5%);
+        border-left: 5px solid green;
+        margin-bottom: 5px;
+    }
+
+    #error {
+        background-color: lighten(red, 5%);
+        border-left: 5px solid red;
+    }
+}

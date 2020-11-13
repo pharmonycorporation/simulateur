@@ -1,0 +1,89 @@
+/*********************************
+= app landing team grids 
+*********************************/
+.app-team-grids .grid {
+	text-align: center;
+	position: relative;
+	overflow: hidden;
+
+	.details {
+		width: 100%;
+		padding-bottom: 10px;
+		position: absolute;
+		left: 0;
+		bottom: -70px;
+		@include transition-time(0.5s);
+
+		&:after {
+			content: "";
+			@include background-style("../images/app-landing/team/shadow.png", center center, cover, no-repeat, local);
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			left: 0;
+			top: 0;
+			opacity: 0;
+			@include transition-time(0.5s);
+		}
+	}
+
+	&:hover .details {
+		bottom: 0;
+		&:after {
+			opacity: 1;
+		}
+	}
+
+	.details h3,
+	.details .post,
+	.details a {
+		color: $white;
+	}
+
+	.details h3 {
+		font-family: $base-font;
+		font-size: 24px;
+		font-size: calc-rem-value(24);
+		margin: 0 0 0.25em;
+
+		@include media-query(1199px) {
+			font-size: 20px;
+			font-size: calc-rem-value(20);
+		}
+
+		@include media-query(1199px) {
+			font-size: 18px;
+			font-size: calc-rem-value(18);
+		}
+	}
+
+	.details .post {
+		font-size: 14px;
+		font-size: calc-rem-value(14);
+		display: block;
+
+		@include media-query(991px) {
+			font-size: 12px;
+			font-size: calc-rem-value(12);
+		}
+	}
+
+	.social-links {
+		margin-top: 60px;
+		display: inline-block;
+		position: relative;
+		z-index: 10;
+
+		li {
+			margin-right: 25px;
+
+			@include media-query(991px) {
+				margin-right: 15px;
+			}
+		}
+
+		li:last-child {
+			margin-right: 0;
+		}
+	}
+}

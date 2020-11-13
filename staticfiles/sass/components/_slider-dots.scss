@@ -1,0 +1,26 @@
+/*********************************
+= Slider dots style
+*********************************/
+.dots-style1 .owl-controls .owl-dots .owl-dot span {
+	background: #dfdddd;
+	width: 11px;
+	height: 11px;
+	margin: 0 12px 0 0;
+	@include transition-time(0.2s);
+
+	@include media-query(767px) {
+		width: 9px;
+		height: 9px;
+		margin: 0 9px 0 0;
+	}
+}
+
+.dots-style1 .owl-controls .owl-dots .active span {
+	background: $theme-secondary-color;
+	@include linear-gradient-bg(left, $theme-primary-color, $theme-secondary-color);
+	@include round-box-shadow(transparentize($theme-primary-color, 0.5), 0, 4px);
+
+	@include media-query(767px) {
+		@include round-box-shadow(transparentize($theme-primary-color, 0.5), 0, 3px);
+	}
+}

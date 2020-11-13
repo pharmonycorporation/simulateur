@@ -1,0 +1,41 @@
+.sticky {
+	width: 100%;
+	position: fixed;
+	left: 0;
+	top: -100px;
+	z-index: 9999;
+	opacity: 0;
+	@include transition-time(0.8s);
+}
+
+.sticky-on {
+	opacity: 1;
+	top: 0;
+}
+
+.header-style-2 nav.sticky {
+	background-color: $theme-primary-color;
+	@include linear-gradient-bg(left, $theme-primary-color, $theme-secondary-color);
+
+	.side-menu-inner {
+		display: none;
+	}
+
+	@include widther(992px) {
+		.container {
+			padding-bottom: 25px;
+		}
+		
+		.navbar-nav {
+			display: none;
+		}
+	}
+}
+
+.home-cv .home-cv-sticky {
+	width: 100%;
+	position: fixed;
+	left: 0;
+	top: 0;
+	z-index: 999;
+}

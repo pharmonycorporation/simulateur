@@ -1,0 +1,692 @@
+/*--------------------------------------------------------------
+#0.4	hero
+--------------------------------------------------------------*/
+.hero {
+	width: 100%;
+	position: relative;
+	height: 600px;
+	overflow: hidden;
+
+	@include media-query(991px) {
+		height: 500px;
+	}
+
+	@include media-query(767px) {
+		height: 400px;
+	}
+
+	.container {
+		height: 100%;
+		display: table;
+
+		.row {
+			display: table-cell;
+			vertical-align: middle;
+		}
+	}
+
+	.hero-info {
+		@include media-query(767px) {
+			padding: 0;
+		}
+	}
+}
+
+
+/***************************
+	= app landing hero
+***************************/
+.hero-s1 {
+	&:before {
+		content: "";
+		@include linear-gradient-overlay(left, transparentize($theme-secondary-color, 0.2), transparentize($theme-primary-color, 0.2));
+	}
+
+	&:after {
+		content: "";
+		opacity: 0;
+		@include linear-gradient-overlay(left, transparentize($theme-primary-color, 0.2), transparentize($theme-secondary-color, 0.2));
+		-webkit-animation: overlayAnimation 1s forwards;
+		animation: overlayAnimation 5s infinite alternate forwards;
+	}
+
+	.container {
+		position: relative;
+	}
+
+	/*** hero info ***/
+	.hero-info {
+		position: relative;
+		z-index: 10;
+
+		@include media-query(767px) {
+			padding: 0;
+		}
+	}
+
+	.hero-info h1,
+	.hero-info h4,
+	.hero-info a {
+		color: $white;
+	}
+
+	.hero-info h4 {
+		font-size: 24px;
+		font-size: calc-rem-value(24);
+		line-height: 1.3em;
+		margin: 0;
+
+		@include media-query(1199px) {
+			font-size: 20px;
+			font-size: calc-rem-value(20);
+		}
+
+		@include media-query(767px) {
+			font-size: 17px;
+			font-size: calc-rem-value(17);
+		}
+	}
+
+	.hero-info h1 {
+		font-size: 60px;
+		font-size: calc-rem-value(60);
+		font-weight: bold;
+		line-height: 1.3em;
+		margin: 0.75em 0 0.8em;
+		text-transform: capitalize;
+
+		@include media-query(1199px) {
+			font-size: 45px;
+			font-size: calc-rem-value(45);
+		}
+
+		@include media-query(767px) {
+			font-size: 32px;
+			font-size: calc-rem-value(32);
+		}
+
+		span {
+			font-weight: 200;
+			text-transform: uppercase;
+		}
+	}
+
+	.hero-info .btns a {
+		height: 48px;
+		line-height: 45px;
+		font-size: 14px;
+		font-size: calc-rem-value(14);
+		text-align: center;
+		padding: 0 22px;
+		display: inline-block;
+		border: 2px solid $white;
+		@include rounded-border(40px);
+		text-transform: capitalize;
+
+		i {
+			font-size: 18px;
+			font-size: calc-rem-value(18);
+			display: inline-block;
+			padding-left: 5px;
+
+			@include media-query(767px) {
+				font-size: 15px;
+				font-size: calc-rem-value(15);
+			}
+		}
+
+		@include media-query(767px) {
+			height: 40px;
+			line-height: 40px;
+			font-size: 12px;
+			font-size: calc-rem-value(12);
+			padding: 0 15px;
+			border: 1px solid $white;
+		}
+	}
+
+	.hero-info .btns a:hover {
+		background-color: $white;
+		color: $text-color;
+
+		i {
+			color: $theme-primary-color;
+		}
+	}
+
+	.hero-info .btns a:first-child {
+		margin-right: 15px;
+
+		@include media-query(767px) {
+			margin-right: 5px;
+		}
+	}
+
+	.hero-phone {
+		@include background-style("../images/app-landing/hero/hero-phone.png", center center, 100%, no-repeat, local);
+		width: 450px;
+		height: 400px;
+		position: absolute;
+		right: 0;
+		bottom: -100px;
+		z-index: 10;
+		@include transition-time(7s);
+
+		@include media-query(1199px) {
+			width: 350px;
+			height: 312px;
+		}
+
+		@include media-query(991px) {
+			display: none;
+		}
+	}
+
+	.hero-phone-animation {
+		bottom: 0;
+	}
+
+}
+
+@-webkit-keyframes overlayAnimation {
+	from {
+		opacity: 1;
+	}
+
+	to {
+		opacity: 0;
+	}
+}
+
+@keyframes overlayAnimation {
+	from {
+		opacity: 1;
+	}
+
+	to {
+		opacity: 0
+	}
+}
+
+.overlayAnimation {
+	-webkit-animation: overlayAnimation 1s;
+	animation: overlayAnimation 1s;
+}
+
+
+/***************************
+	= home agency hero
+***************************/
+.hero-s2 {
+	height: 100vh;
+	min-height: 850px;
+	position: relative;
+
+	@include media-query(1199px) {
+		min-height: 600px;
+	}
+
+	@include media-query(991px) {
+		min-height: 500px;
+	}
+
+	&:before {
+		content: "";
+		background: transparentize($black, 0.9) url("../images/agency/hero-pattern.png") repeat local center; 
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		left: 0;
+		top: 0;
+	}
+
+
+	.hero-info h1,
+	.hero-info h4,
+	.hero-info a {
+		color: $white;
+	}
+
+	.hero-info h4 {
+		font-size: 24px;
+		font-size: calc-rem-value(24);
+		font-weight: 200;
+		line-height: 1.3em;
+		margin: 0;
+
+		@include media-query(1199px) {
+			font-size: 20px;
+			font-size: calc-rem-value(20);
+		}
+
+		@include media-query(767px) {
+			font-size: 17px;
+			font-size: calc-rem-value(17);
+		}
+	}
+
+	.hero-info h1 {
+		font-size: 60px;
+		font-size: calc-rem-value(60);
+		line-height: 1.3em;
+		margin: 0.2em 0 0.8em;
+		text-transform: capitalize;
+
+		@include widther(1200px) {
+			padding-right: 45px;
+		}
+
+		@include widther(992px) {
+			padding-right: 105px;
+		}
+
+		@include media-query(1199px) {
+			font-size: 45px;
+			font-size: calc-rem-value(45);
+		}
+
+		@include media-query(767px) {
+			font-size: 32px;
+			font-size: calc-rem-value(32);
+		}
+
+		span {
+			font-weight: 200;
+			text-transform: uppercase;
+		}
+
+		.agency-typed-element {
+			font-weight: normal;
+			text-transform: capitalize;
+		}
+	}
+}
+
+
+/***************************
+	= home cv hero
+***************************/
+.home-cv .hero {
+	height: 850px;
+
+	@include media-query(1199px) {
+		height: 800px;
+	}
+
+	@include media-query(991px) {
+		height: 700px;
+		margin-top: 68px;
+	}
+
+	@include media-query(767px) {
+		height: 500px;
+	}
+
+	@include media-query(400px) {
+		height: 450px;
+	}
+
+	&:before {
+		content: "";
+		@include linear-gradient-overlay(left, transparentize($theme-primary-color, 0.1), transparentize($theme-secondary-color, 0.1));
+	}
+
+	.container {
+		padding: 0 15px;
+		text-align: center;
+		position: relative;
+		z-index: 10;
+	}
+
+	.personal-pic {
+		width: 220px;
+		height: 220px;
+		margin: 70px auto 0;
+		position: relative;
+
+		@include media-query(1199px) {
+			width: 180px;
+			height: 180px;
+			margin: 50px auto 0;
+		}
+
+		@include media-query(991px) {
+			width: 150px;
+			height: 150px;
+			margin: 50px auto 0;
+		}
+
+		@include media-query(767px) {
+			width: 100px;
+			height: 100px;
+			margin: 50px auto 0;
+		}
+
+		@include media-query(400px) {
+			width: 80px;
+			height: 80px;
+			margin: 40px auto 0;
+		}
+
+		&:before {
+			background: red;
+			@include linear-gradient-bg(top, $theme-secondary-color, $theme-primary-color);
+			content: "";
+			width: 108%;
+			height: 108%;
+			position: absolute;
+			left: -4%;
+			top: -4%;
+			@include rounded-border();
+		}
+
+		img {
+			@include rounded-border();
+			position: relative;
+			z-index: 10;
+		}
+	}
+
+	h2 {
+		font-size: 55px;
+		font-size: calc-rem-value(55);
+		font-weight: 200;
+		color: $white;
+		margin: 1em 0 0.48em;
+		
+		@include media-query(1199px) {
+			font-size: 45px;
+			font-size: calc-rem-value(45);
+		}
+		
+		@include media-query(991px) {
+			font-size: 40px;
+			font-size: calc-rem-value(40);
+		}
+		
+		@include media-query(767px) {
+			font-size: 30px;
+			font-size: calc-rem-value(30);
+		}
+		
+		@include media-query(400px) {
+			font-size: 25px;
+			font-size: calc-rem-value(25);
+		}
+	}
+
+	h1,
+	h1 span {
+		font-size: 72px;
+		font-size: calc-rem-value(72);
+		font-weight: bold;
+		color: $white;
+		margin: 0;
+
+		@include media-query(1199px) {
+			font-size: 60px;
+			font-size: calc-rem-value(60);
+		}
+
+		@include media-query(991px) {
+			font-size: 55px;
+			font-size: calc-rem-value(55);
+		}
+
+		@include media-query(767px) {
+			font-size: 40px;
+			font-size: calc-rem-value(40);
+		}
+
+		@include media-query(400px) {
+			font-size: 30px;
+			font-size: calc-rem-value(30);
+		}
+	}
+
+	.cv-typed-element {
+		display: inline-block;
+	}
+
+	.typed-cursor {
+		font-size: 72px;
+		font-size: calc-rem-value(72);
+		font-weight: normal;
+		color: $white;
+		
+		@include media-query(1199px) {
+			font-size: 60px;
+			font-size: calc-rem-value(60);
+		}
+
+		@include media-query(991px) {
+			font-size: 55px;
+			font-size: calc-rem-value(55);
+		}
+
+		@include media-query(767px) {
+			font-size: 40px;
+			font-size: calc-rem-value(40);
+		}
+	}
+
+	.social-links {
+		display: inline-block;
+		margin-top: 50px;
+
+		@include media-query(1199px) {
+			margin-top: 30px;
+		}
+
+		@include media-query(400px) {
+			margin-top: 20px;
+		}
+
+		li {
+			margin-right: 35px;
+			@include media-query(991px) {
+				margin-right: 25px;
+			}
+		}
+
+		li:last-child {
+			margin-right: 0;
+		}
+
+		li,
+		a {
+			width: auto;
+		}
+
+		li a {
+			font-size: 20px;
+			padding-right: 2px;
+			color: $white;
+
+			@include media-query(1199px) {
+				font-size: 15px;
+			}
+		}
+	}
+}	
+
+
+/***************************
+	= product landing hero
+***************************/
+.product-landing-hero {
+	height: 750px;
+
+	@include media-query(1199px) {
+		height: 650px;
+	}
+
+	@include media-query(991px) {
+		height: 550px;
+	}
+
+	@include media-query(767px) {
+		height: 450px;
+	}
+
+	> .container {
+		position: relative;
+	}
+
+	.title {
+		font-size: 60px;
+		font-size: calc-rem-value(60);
+		font-weight: bold;
+		color: $heading-color2;
+		line-height: 1.2em;
+		margin: 0 0 0.1em;
+		text-transform: capitalize;
+
+		@include media-query(1199px) {
+			font-size: 45px;
+			font-size: calc-rem-value(45);
+		}
+
+		@include media-query(991px) {
+			font-size: 40px;
+			font-size: calc-rem-value(40);
+		}
+
+		@include media-query(767px) {
+			font-size: 30px;
+			font-size: calc-rem-value(30);
+		}
+
+		span {
+			color: $theme-secondary-color;
+			font-weight: 200;
+			text-transform: uppercase;
+		}
+	}
+
+	.title + p {
+		font-size: 18px;
+		font-size: calc-rem-value(18);
+		padding-right: 125px;
+
+		@include media-query(1199px) {
+			padding-right: 30px;
+		}
+
+		@include media-query(991px) {
+			font-size: 16px;
+			font-size: calc-rem-value(16);
+			padding-right: 0;
+		}
+
+		@include media-query(767px) {
+			font-size: 15px;
+			font-size: calc-rem-value(15);
+		}
+	}
+
+	.product-info {
+		padding-top: 20px;
+		margin-bottom: 45px;
+
+		@include media-query(991px) {
+			margin-bottom: 25px;
+		}
+	}
+
+	.product-info h5 {
+		font-size: 18px;
+		font-size: calc-rem-value(18);
+		color: $heading-color2;
+		font-weight: bold;
+		margin: 0;
+
+		@include media-query(991px) {
+			font-size: 16px;
+			font-size: calc-rem-value(16);
+		}
+
+		span {
+			font-size: 14px;
+			font-size: calc-rem-value(14);
+			font-weight: 700;
+			color: #fd1d19;
+			display: inline-block;
+			margin-left: 20px;
+			-webkit-animation: newtextanimation 0.5s infinite;
+			animation: newtextanimation 0.5s infinite;
+		}
+	}
+
+	@-webkit-keyframes newtextanimation {
+		0% {
+			color: fd1d19; 
+		}
+
+		50% {
+			color: #00de4e; 
+		}
+	}
+
+	@keyframes newtextanimation {
+		0% {
+			color: fd1d19; 
+		}
+
+		50% {
+			color: #00de4e; 
+		}
+	}
+
+
+	.product-info p {
+		font-size: 14px;
+		font-size: calc-rem-value(14);
+	}
+
+	.product-info .price {
+		font-size: 24px;
+		font-size: calc-rem-value(24);
+
+		@include media-query(991px) {
+			font-size: 20px;
+			font-size: calc-rem-value(20);
+		}
+	}
+
+	.agency-btn-s1:hover {
+		color: $white;
+	}
+
+	.hero-watch {
+		@include background-style("../images/product-landing/hero-watch.png", center center, 100%, no-repeat, local);
+		width: 474px;
+		height: 529px;
+		position: absolute;
+		right: -100px;
+		top: 50%;
+		@include translatingY();
+		opacity: 0;
+
+		@include media-query(1199px) {
+			width: 374px;
+			height: 417px;
+		}
+
+		@include media-query(991px) {
+			width: 274px;
+			height: 306px;
+		}
+
+		@include media-query(767px) {
+			display: none;
+		}
+
+	}
+
+	.hero-watch-animation {
+		right: 0;
+		opacity: 1;
+		@include transition-time(3.5s);
+	}
+}

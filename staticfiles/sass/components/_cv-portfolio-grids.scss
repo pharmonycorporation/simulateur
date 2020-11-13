@@ -1,0 +1,127 @@
+/*** cv portfolio grid ***/
+.cv-portfolio-grids {
+	margin: 0 -7.5px;
+
+	.grid {
+		width: 33.33%;
+		float: left;
+		padding: 0 7.5px 15px;
+		overflow: hidden;
+
+		@include media-query(767px) {
+			padding: 0 5px 10px;
+		}
+
+		@include media-query(500px) {
+			width: 50%;
+		}
+
+		.box-inner {
+			position: relative;
+			overflow: hidden;
+		}
+
+		i {
+			width: 65px;
+			height: 65px;
+			line-height: 65px;
+			color: $white;
+			text-align: center;
+			border: 2px solid $white;
+			position: absolute;
+			left: 50%;
+			top: 50%;
+			opacity: 0;
+			z-index: 99;
+			@include center-by-translating();
+			@include transition-time(0.05s)
+
+			@include media-query(1199px) {
+				width: 55px;
+				height: 55px;
+				line-height: 55px;
+			}
+
+			@include media-query(991px) {
+				width: 40px;
+				height: 40px;
+				line-height: 40px;
+			}
+
+			@include media-query(767px) {
+				width: 35px;
+				height: 35px;
+				line-height: 35px;
+				border: 1px solid $white;
+			}
+		}
+
+		i:before {
+			font-size: 20px;
+			font-size: calc-rem-value(20);
+			
+			@include media-query(991px) {
+				font-size: 14px;
+				font-size: calc-rem-value(14);
+			}
+		}
+
+		a {
+			display: block;
+			z-index: 10;
+		}
+
+		img {
+			width: 100%;
+			@include transition-time(0.5s);
+		}
+	}
+
+	.grid:hover img {
+		-webkit-transform: scale(1.1,1.1);
+		-transform: scale(1.1,1.1);
+	}
+
+	.grid .box-inner:after {
+		content: "";
+		background-color: transparentize($theme-primary-color, 0.3);
+		@include linear-gradient-bg(left, transparentize($theme-primary-color, 0.2), transparentize($theme-secondary-color, 0.2));
+		width: 100%;
+		height: 100%;
+		position: absolute;
+		left: 0;
+		top: 0;
+		opacity: 0;
+		@include transition-time(0.3s)
+	}
+
+	.grid:hover .box-inner:after {
+		opacity: 1;
+	}
+
+	.width2 {
+		width: 66.66%;
+
+		@include media-query(500px) {
+			width: 50%;
+		}
+	}
+
+	.box-inner:hover i {
+		opacity: 1;
+	}
+
+	.grid:hover {
+		.top-border:before,
+		.bottom-border:before {
+			width: 100%;
+		}
+
+		.top-border:after,
+		.bottom-border:after {
+			height: 100%;
+		}
+	}
+
+
+}
