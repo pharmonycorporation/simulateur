@@ -55,6 +55,7 @@ class MyPackages(models.Model):
     personne = models.ForeignKey(Personne, on_delete=models.CASCADE)
     package = models.ForeignKey(Package, on_delete=models.CASCADE)
     date_souscription = models.DateTimeField(auto_now_add=True)
+    is_paid = models.BooleanField(default=False)
 
     def __str__(self):
         return "{} - {}".format(self.personne.user.username, self.package.name)

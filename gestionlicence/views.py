@@ -30,18 +30,17 @@ class HomePageView(TemplateView):
             except Personne.DoesNotExist:
                 pers = None
             if pers:
-                key = secrets.token_urlsafe(32)
                 if paid == "now":
+                    key = secrets.token_hex(16)
                     pack = Package.objects.get(pk=int(pack_id))
                     MyPackages.objects.create(personne=pers, package=pack)
-                    Licence.objects.create(pack=pack, key=key, user_nbre=pack.user_nber, validity=pack.year_duration)
                     paypal_dict = {
                         "business": "guy.anemena@mbcode.cm",
                         "amount": pack.cost,
                         "item_name": pack.name,
                         "invoice": key,
                         "notify_url": request.build_absolute_uri(reverse('paypal-ipn')),
-                        "return": request.build_absolute_uri(reverse('payment_done', args=[key])),
+                        "return": request.build_absolute_uri(reverse('payment_done', args=[pack.id])),
                         "cancel_return": request.build_absolute_uri(reverse('payment_cancelled')),
                         "custom": "premium_plan",  
                     }
@@ -52,7 +51,7 @@ class HomePageView(TemplateView):
                 else :
                     pack = Package.objects.get(pk=int(pack_id))
                     MyPackages.objects.create(personne=pers, package=pack)
-                    Licence.objects.create(pack=pack, key=key, user_nbre=pack.user_nber, validity=pack.year_duration)
+                    
             return redirect('signin')
         return redirect('signin')
 
@@ -123,13 +122,16 @@ def signout(request):
     return redirect("home")
 
 def payment_done(request, key):
-    licence = Licence.objects.get(key=key)
-    if licence:
-        licence.isBuy = True
-        licence.isActive = True
-        licence.save()
-    return render(request, 'payment_done.html')
+    pack = Package.objects.get(pk=int(key))
+    key = secrets.token_urlsafe(32)
 
+    myPack = MyPackages.objects.filter(personne=request.user.personne, package=pack, is_paid=False).first()
+    myPack.is_paid = True
+    myPack.save()
+
+    Licence.objects.create(pack=pack, key=key, user_nbre=pack.user_nber, validity=pack.year_duration, isBuy=True, isActive=True)
+    #envoyer un mail contenant la licence du pack souscrit
+    return render(request, 'payment_done.html')
 
 def payment_canceled(request):
     return render(request, 'payment_cancelled.html')
