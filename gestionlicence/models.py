@@ -24,6 +24,7 @@ class Package(models.Model):
     year_duration = models.IntegerField(default=0)
     performance = models.CharField(max_length=255, null=True, blank=True)
     cost = models.FloatField(default=0)
+    version = models.ForeignKey(Application, on_delete=models.CASCADE)
     devicetype = models.ForeignKey(DeviceType, on_delete=models.CASCADE)
     active = models.BooleanField(default=True)
 
