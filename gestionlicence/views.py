@@ -13,7 +13,6 @@ import secrets
 from django.conf import settings 
 from django.core.mail import send_mail 
 import re
-import braintree
 import json
 from django.conf import settings
 
@@ -128,7 +127,7 @@ def achat(request, pk):
 
         form = PayPalPaymentsForm(initial=paypal_dict)
 
-        return render(request, 'payment.html', {'form': form, 'braintree_client_token': braintree_client_token})
+        return render(request, 'payment.html', {'form': form})
                 
     return redirect('signin')
 

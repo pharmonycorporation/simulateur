@@ -749,28 +749,28 @@
     if ($("#contact-form").length) {
         $("#contact-form").validate({
             rules: {
-                name: {
+                nom: {
                     required: true,
                     minlength: 2
                 },
                 email: "required",
                 
-                topic: {
+                message: {
                     required: true
                 }
             },
 
             messages: {
-                name: "Please enter your name",
-                email: "Please enter your email",
-                topic: "Select your consult topic",
+                nom: "S'il vous plaît entrez votre nom",
+                email: "S'il vous plaît entrez votre email",
+                message: "Sélectionnez votre sujet de consultation",
             },
 
             submitHandler: function (form) {
                 $("#loader").css("display", "inline-block");
                 $.ajax({
                     type: "POST",
-                    url: "mail.php",
+                    url: "/envoimail/",
                     data: $(form).serialize(),
                     success: function () {
                         $( "#loader").hide();
