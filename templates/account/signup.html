@@ -4,8 +4,8 @@
 {% block title %} CGI - Création de compte {% endblock %}
 {% block body %}
 <div class="register-container full-height sm-p-t-30">
-    <div class="d-flex justify-content-center flex-column full-height ">
-      <img src="{% static 'images_cgi/LOGOCGI_r.png' %}" alt="logo" data-src="{% static 'images_cgi/LOGOCGI_r.png' %}" data-src-retina="{% static 'images_cgi/LOGOCGI_r.png' %}" width="78" height="50">
+    <div class="d-flex justify-content-center flex-column full-height">
+      <img src="{% static 'images_cgi/LOGOCGI_r.png' %}" style="height: 70px;" alt="logo" data-src="{% static 'images_cgi/LOGOCGI_r.png' %}" data-src-retina="{% static 'images_cgi/LOGOCGI_r.png' %}" width="78" height="50">
       <h3>Formulaire de création de compte</h3>
       <p>
         {% for message in messages %}
@@ -23,14 +23,14 @@
         <div class="row">
           <div class="col-md-6">
             <div class="form-group form-group-default">
-              <label>First Name</label>
-              {% render_field form.first_name class="form-control" placeholder="Smith" %}
+              <label>Nom</label>
+              {% render_field form.first_name class="form-control" placeholder="Votre nom" %}
             </div>
           </div>
           <div class="col-md-6">
             <div class="form-group form-group-default">
-              <label>Last Names</label>
-              {% render_field form.last_name class="form-control" placeholder="John " %}
+              <label>Prenom</label>
+              {% render_field form.last_name class="form-control" placeholder="Votre prenom " %}
             </div>
           </div>
         </div>
@@ -38,31 +38,31 @@
           <div class="col-md-12">
             <div class="form-group form-group-default">
               <label>Email</label>
-              {% render_field form.email class="form-control" placeholder="We will send loging details to you" %}
+              {% render_field form.email class="form-control" placeholder="Votre email" %}
             </div>
           </div>
         </div>
         <div class="row">
           <div class="col-md-12">
             <div class="form-group form-group-default">
-              <label>Password</label>
-              {% render_field form.password1 class="form-control" placeholder="Minimum of 8 Charactors" %}
+              <label>Mot de passe</label>
+              {% render_field form.password1 class="form-control" placeholder="8 caractères au minimum" %}
             </div>
           </div>
         </div>
         <div class="row">
             <div class="col-md-12">
               <div class="form-group form-group-default">
-                <label>Password</label>
-                {% render_field form.password2 class="form-control" placeholder="Confirm your password" %}
+                <label>Confirmer votre mot de passe</label>
+                {% render_field form.password2 class="form-control" placeholder="Confirmer votre mot de passe" %}
               </div>
             </div>
         </div>
         <div class="row">
           <div class="col-md-12">
             <div class="form-group form-group-default">
-              <label>Phone Number</label>
-              {% render_field form.phone class="form-control" placeholder="Phone number Ex: +xxx ..." %}
+              <label>Numéro de téléphone</label>
+              {% render_field form.phone class="form-control" placeholder="Numéro de téléphone" %}
             </div>
           </div>
         </div>
@@ -71,23 +71,10 @@
             <p><small>I agree to the <a href="#" class="text-info">Pages Terms</a> and <a href="#" class="text-info">Privacy</a>.</small></p>
           </div> -->
           <div class="col-lg-6 text-right">
-            <a href="#" class="text-info small">Help? Contact Support</a>
           </div>
         </div>
-        <button class="btn btn-primary btn-cons m-t-10" type="submit">Créer un nouveau compte</button>
+        <button class="btn btn-primary btn-cons m-t-10" style="background-color: #e91188;" type="submit">Créer un nouveau compte</button>
       </form>
     </div>
   </div>
-<!--  <div class=" full-width">
-    <div class="register-container m-b-10 clearfix">
-      <div class="m-b-30 sm-m-t-20 sm-p-r-15 sm-p-b-20 clearfix d-flex-md-up">
-        <div class="col-md-2 no-padding d-flex align-items-center">
-          <img src="{% static 'assets/img/pages_icon.png' %}" alt="" class="" data-src="{% static 'assets/img/pages_icon.png' %}" data-src-retina="assets/img/demo/pages_icon_2x.png" width="60" height="60">
-        </div>
-        <div class="col-md-9 no-padding d-flex align-items-center">
-          <p class="hinted-text small inline sm-p-t-10">No part of this website or any of its contents may be reproduced, copied, modified or adapted, without the prior written consent of the author, unless otherwise indicated for stand-alone materials.</p>
-        </div>
-      </div>
-    </div> 
-  </div> -->
 {% endblock %}

@@ -4189,14 +4189,31 @@ svg * {
   /*** content part ***/
 }
 
+.prevColor{
+  color: #c90c8a;
+}
+
+.nextColor{
+  color: #c90c8a;
+}
+
+.carousel-indicators li{
+  background-color: #c90c8a;
+}
+
+.carousel-indicators .active{
+  background-color: #8d0cc9;
+}
+
 .app-documentation-section > .container > .row {
   position: relative;
+  flex-wrap: nowrap;
 }
 
 .app-documentation-section .img-part {
-  background: url("../images_cgi/cgiAccueil_cj.jpg") center center/100% no-repeat local;
+  /*background: url("../desktop_cgi/re/desktop_3.png") center center/100% no-repeat local;*/
   width: 650px;
-  height: 536px;
+  height: 436px;
   position: absolute;
   left: 0;
   bottom: 0;

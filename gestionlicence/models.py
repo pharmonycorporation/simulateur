@@ -5,6 +5,7 @@ from django.conf import settings
 # Create your models here.
 class Application(models.Model):
     version = models.CharField(max_length=25)
+    archive = models.FileField(upload_to='archives')
     
     def __str__(self):
         return self.version

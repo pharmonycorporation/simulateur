@@ -25,3 +25,12 @@ class SignUpForm(UserCreationForm):
         if not email:
             raise forms.ValidationError('Email not found.')
         return email"""
+
+
+
+class ContactForm(forms.Form):
+
+    nom = forms.CharField(max_length=100, label='nom')
+    email = forms.EmailField()
+    message = forms.CharField(widget=forms.Textarea)
+    

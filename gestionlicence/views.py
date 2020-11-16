@@ -3,7 +3,7 @@ from django.views.generic import View, TemplateView
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
-from .forms import SignUpForm, SigninForm
+from .forms import SignUpForm, SigninForm, ContactForm
 from .models import *
 from django.http import JsonResponse
 from decimal import Decimal
@@ -12,6 +12,10 @@ from paypal.standard.forms import PayPalPaymentsForm
 import secrets
 from django.conf import settings 
 from django.core.mail import send_mail 
+import re
+import braintree
+import json
+from django.conf import settings
 
 # Create your views here.
 class HomePageView(TemplateView):
@@ -90,9 +94,44 @@ class SignupView(View):
                     phone = form.cleaned_data['phone'],
                     user = usr,
                 )
-            return redirect('signup')
+            return redirect('home')
         messages.error(request, form.errors)
         return redirect('signup')
+
+def achat(request, pk):
+    if request.user.is_authenticated:
+        
+        key = secrets.token_hex(16)
+        pack = Package.objects.get(pk=int(pk))
+        MyPackages.objects.create(personne=request.user.personne, package=pack)
+        taux_conversion = 0.0015
+        
+        amount = (pack.cost * taux_conversion)
+
+        paypal_dict = {
+            "business": "guy.anemena@mbcode.cm",
+            "amount": amount,
+            "item_name": pack.name,
+            "invoice": key,
+            "notify_url": request.build_absolute_uri(reverse('paypal-ipn')),
+            "return": request.build_absolute_uri(reverse('payment_done', args=[pk])),
+            "cancel_return": request.build_absolute_uri(reverse('payment_cancelled')),
+            "custom": "premium_plan",  
+            "currency_code": "EUR"
+        }
+
+        """subject = 'commande du pack cgi'
+        message = f'Hi {request.user.username}, merci davoir souscrit a notre pack.'
+        email_from = settings.EMAIL_HOST_USER 
+        recipient_list = [email, ] 
+        send_mail( subject, message, email_from, recipient_list )"""
+
+        form = PayPalPaymentsForm(initial=paypal_dict)
+
+        return render(request, 'payment.html', {'form': form, 'braintree_client_token': braintree_client_token})
+                
+    return redirect('signin')
+
 
 
 class SignInView(View):
@@ -139,46 +178,91 @@ def payment_done(request, key):
 
     Licence.objects.create(pack=pack, key=key, user_nbre=pack.user_nber, validity=pack.year_duration, isBuy=True, isActive=True)
     #envoyer un mail contenant la licence du pack souscrit
-    subject = 'commande du pack cgi'
+    """subject = 'commande du pack cgi'
     message = f'Hi {request.user.username}, merci davoir souscrit a notre pack.'
     email_from = settings.EMAIL_HOST_USER 
     recipient_list = [email, ] 
-    send_mail( subject, message, email_from, recipient_list )
+    send_mail( subject, message, email_from, recipient_list )"""
     
     return render(request, 'payment_done.html')
 
 def payment_canceled(request):
     return render(request, 'payment_cancelled.html')
 
-def verificationLicence(request, key):
+def verificationLicence(key):
 
     try:
-        licence = Licence.objects.get(key=key)
-        if licence.firstConnect == True:
-            if licence.active == True:
-                if licence.user_nbre > 0:
-                    nbre = licence.user_nbre
-                    licence.user_nbre = nbre - 1
-                    licence.active = True
-                    licence.firstConnect = False
-                    licence.save()
-                    return JsonResponse({"message":"Cle verifier"})
-                else:
-                    return JsonResponse({"erreur":"Le nomre d'utilisateur est depasse"})
+        licence = Licence.objects.get(key=str(key))
+        if licence.active == True:
+            if licence.user_nbre > 0:
+                nbre = licence.user_nbre
+                licence.user_nbre = nbre - 1
+                licence.active = True
+                licence.firstConnect = False
+                licence.save()
+                reponse = dict()
+                reponse['message'] = "Cle verifiee"
+                version = licence.pack.version.version
+                reponse['version'] = version
+                return JsonResponse(reponse)
             else:
-                return JsonResponse({"erreur":"Cette licence n'est pas activee"})
+                return JsonResponse({"erreur":"Le nombre d'utilisateur est depasse"})
         else:
-            if licence.active == True:
-                if licence.user_nbre > 0:
-                    nbre = licence.user_nbre
-                    licence.user_nbre = nbre - 1
-                    licence.active = True
-                    licence.firstConnect = False
-                    licence.save()
-                    return JsonResponse({"message":"Cle verifier"})
-                else:
-                    return JsonResponse({"erreur":"Le nomre d'utilisateur est depasse"})
-            else:
-                return JsonResponse({"erreur":"Cette licence n'est pas activee"})
+            return JsonResponse({"erreur":"Cette licence n'est pas activee"})
     except:
-        JsonResponse({"erreur":"Cette cle n'est pas valable"})
+        return JsonResponse({"erreur":"Cette cle n'est pas valable"})
+
+
+
+def send(mailContent, senderMail="kenmognethimotee@gmail.com", subject=''):
+    regex = r"^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$"
+    if re.search(regex,senderMail):
+        send_mail(subject=subject,message=mailContent, recipient_list=[senderMail],from_email=settings.EMAIL_HOST_USER)
+        return JsonResponse({"message":"mail envoyer"})
+    else:
+        return JsonResponse({"erreur":"Mail invalid"})
+
+
+class Mail(View):
+
+    def post(self, request):
+        print(request.POST)
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            message = form.cleaned_data.get('message')
+            nom = form.cleaned_data.get('nom')
+            mail = form.cleaned_data.get('email')
+            return send(message,senderMail=mail)
+        else:
+            return JsonResponse({"erreur":"formulaire nom valide"})
+
+
+class LicenceView(View):
+
+    def get(self, request, key):
+        #key = request.POST['key']
+        return verificationLicence(key)
+
+class LatestVersion(View):
+
+    def get(self, request):
+
+        try:
+            application = Application.objects.latest('version')
+            version = application.version
+            fichier_url = application.archive.url
+
+            return JsonResponse({"version":version, "fichier":fichier_url})
+        except:
+            return JsonResponse({"erreur":"Pas de derniere version"})
+
+
+class Contact(View):
+
+
+    def post(self, request):
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            pass
+        else:
+            pass

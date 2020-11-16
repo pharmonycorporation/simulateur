@@ -96,9 +96,9 @@
                         {% if user.is_authenticated %}
                         <div class="lang">
                             <a href="#"><img src="{% static 'images/default-user.png' %}" width="24px" height="24px" alt></a>
-                            <ul>
+                            <ul style="width: 150px;">
                                 <li><a href="#"> Profile</a></li>
-                                <li><a href="{% url 'souscriptions' %}">Mes Souscription</a></li>
+                                <li><a href="{% url 'souscriptions' %}">Mes Souscriptions</a></li>
                                 <li><a href="{% url 'signout' %}"> Déconnexion</a></li>
                             </ul>
                         </div>

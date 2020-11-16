@@ -32,6 +32,28 @@
                         {{ form.render }}
                     </td>
                 </tr>
+                <tr>
+                  <td></td>
+                  <td>
+                    <form autocomplete="off">
+                      {% if braintree_error %}
+                        <div class="alert alert-danger fade in">
+                            <button class="close" data-dismiss="alert">&times;</button>
+                            {{ braintree_error|safe }}
+                        </div>
+                      {% endif %}
+                      <div class="braintree-notifications"></div>
+                      <div id="braintree-dropin"></div>
+                      <input style="background-color: #0783ca" id="submit-button" class="btn btn-success btn-lg btn-block" type="button" value="Pay now!" />
+                    </form>
+                  </td>
+                </tr>
+                <tr>
+                  <td></td>
+                  <td style="text-align: center;">
+                    <a href="{% url 'home' %}" class="btn btn-primary btn-cons m-t-10" style="background-color: #e91188;">Payer plustard</a>
+                  </td>
+                </tr>
             </tbody>
         </table>
         
@@ -50,4 +72,36 @@
     </div>
     <!-- END Login Right Container-->
   </div>
+{% endblock %}
+{% block personal_js %}
+<script src="https://js.braintreegateway.com/web/dropin/1.18.0/js/dropin.min.js"></script>
+<script>
+  <script>
+    var braintree_client_token = "{{ braintree_client_token }}";
+    var button = document.querySelector('#submit-button');
+
+    braintree.dropin.create({
+      authorization: braintree_client_token,
+      container: '#braintree-dropin',
+      card: {
+        cardholderName: {
+            required: false
+        }
+      }
+    }, function (createErr, instance) {
+        button.addEventListener('click', function () {
+            instance.requestPaymentMethod(function (err, payload) {
+                $.ajax({
+                    type: 'POST',
+                    url: '{% url "payment" %}',
+                    data: {'paymentMethodNonce': payload.nonce,
+                            'csrfmiddlewaretoken': '{{ csrf_token }}'}
+                }).done(function (result) {
+                   //do accordingly
+                });
+            });
+        });
+    });
+</script>
+</script>
 {% endblock %}

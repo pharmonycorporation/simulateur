@@ -62,7 +62,7 @@
     <div class="container">
         <div class="row section-title">
             <div class="col col-lg-8 col-lg-offset-2">
-                <h2>Les services</h2>
+                <h2>Les Fonctionnalités</h2>
             </div>
         </div> <!-- end section-title -->
 
@@ -191,8 +191,8 @@
                         </svg>
                     </div>
                     <div class="details">
-                        <h3>Soulignement de texte</h3>
-                        <p>Vous pouvez souligne les portion de texte qui vous intéresse. </p>
+                        <h3>Surlignement de texte</h3>
+                        <p>Vous pouvez surligne les portion de texte qui vous intéresse. </p>
                     </div>
                 </div>
 
@@ -224,7 +224,7 @@
                     </div>
                     <div class="details">
                         <h3>Ajouter aux favoris</h3>
-                        <p>Gardez en comme favoris vos documents pour les consultes plus tard. </p>
+                        <p>Gardez en favoris vos documents pour les consultes plus tard. </p>
                     </div>
                 </div>
             </div> <!-- end col -->
@@ -275,7 +275,7 @@
                         </svg>
                     </div>
                     <div class="details">
-                        <h3>Recherche selon des mots clés</h3>
+                        <h3>Recherche par mots clés</h3>
                         <p>Recherchez dans des documents selon des mots clés.</p>
                     </div>
                 </div>
@@ -350,7 +350,7 @@
                         </svg>                              
                     </div>
                     <div class="details">
-                        <h3>Consulter des notes</h3>
+                        <h3>Consultation et ajout des notes</h3>
                         <p>Vous pouvez consulter les notes que vous avez prise. </p>
                     </div>
                 </div>
@@ -388,7 +388,7 @@
         <div class="row">
             <div class="col col-sm-6 col-sm-offset-3">
                 <a href="https://www.youtube.com/embed/v=5ekPf639alg?autoplay=1" class="video-play" data-type="iframe"><i class="fa fa-play"></i>></i></a>
-                <h2><span>Comment calculer</span> le revenu <span>des impots</span></h2>
+                <h2><span>A la découverte</span> de l'application <span>CGI</span></h2>
             </div>
         </div>
     </div> <!-- end container -->
@@ -396,56 +396,155 @@
 <!-- end app-landing-cta -->
 
 
-<!-- start app-landing-funfact -->
-<section class="app-landing-funfact section-padding">
-    <div class="container start-count">    
-        <div class="row content">
-            <div class="col col-sm-3 col-xs-6">
-                <div class="box">
-                    <h3><span class="counter" data-count="856">00</span></h3>
-                    <p>Line code</p>
-                </div>
-            </div>
-            <div class="col col-sm-3 col-xs-6">
-                <div class="box">
-                    <h3><span class="counter" data-count="1">00</span>k</h3>
-                    <p>Telechargement mobile</p>
-                </div>
-            </div>
-            <div class="col col-sm-3 col-xs-6">
-                <div class="box">
-                    <h3><span class="counter" data-count="185">00</span></h3>
-                    <p>Telechargement desktop</p>
-                </div>
-            </div>
-            <div class="col col-sm-3 col-xs-6">
-                <div class="box">
-                    <h3><span class="counter" data-count="54">00</span></h3>
-                    <p>Telechargement total</p>
-                </div>
-            </div>
-        </div> <!-- end row -->
 
-        <div class="row">
-            <div class="col col-xs-12">
-                <div class="mobile-holder">
-                </div>
+<!-- start app-landing-pricing -->
+<section class="app-landing-pricing section-padding" id="pricing">
+    <div class="container">
+        <div class="row section-title">
+            <div class="col col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 ">
+                <h2>Nos différents packs</h2>
+                <p>Vous pouvez acquérir notre application grace à nos packs mobile et desktop afin de pouvoir utiliser pleinement notre solution. </p>
             </div>
-        </div>
-    </div> <!-- end container -->
+        </div> <!-- end section-title -->
+        <div class="row content">
+            <div class="col col-xs-12">
+                <div class="switcher-wrapper">
+                    <div class="tablist">
+                        <span class="active">Mobile</span>
+                        <span>P.C</span>
+                    </div>
+                    <div class="switch">
+                        <div class="slider round"></div>
+                    </div>
+                </div> 
+
+                <div class="pricing-tab">
+                    <div class="app-pricing-grids active-grids">
+                        {% for pack in packs %}
+                            {% if pack.devicetype.name == "MOBILE" %}
+                            <div class="grid" style="margin-top: 1%;">
+                                <div class="grid-inner">
+                                    <div class="pricing-header">
+                                        <span class="package">{{ pack.name }}</span>
+                                        <h6 class="price" style="font-size: 30px;">{{ pack.cost }} FCFA</h6>
+                                        <span class="access">{{ pack.year_duration }} an(s)</span>
+                                    </div>
+                                    <div class="pricing-details">
+                                        <ul>
+                                            <li><span>{{ pack.user_nber }} </span>Utilisateur(s)</li>
+                                            <li><span>{{ pack.version }} </span>version</li>
+                                            <li><span>{{ pack.devicetype.name }} </span>Support</li>
+                                            <li><span>{{ pack.year_duration }} an(s) </span>License</li>
+                                            <li>Phone &amp; Mail Support</li>
+                                        </ul>
+                                        <a href="{% url 'achat' pack.id %}" class="app-btn-s1 get-started">Acheter</a>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div><br>
+                    <div class="clearfix"></div>
+                    <div class="app-pricing-grids">
+                        {% for pack in packs %}
+                            {% if pack.devicetype.name == "PC" %}
+                            <div class="grid" style="margin-top: 1%;">
+                                <div class="grid-inner">
+                                    <div class="pricing-header">
+                                        <span class="package">{{ pack.name }}</span>
+                                        <h6 class="price" style="font-size: 30px;">{{ pack.cost }} FCFA</h6>
+                                        <span class="access">{{ pack.year_duration }} an(s)</span>
+                                    </div>
+                                    <div class="pricing-details">
+                                        <ul>
+                                            <li><span>{{ pack.user_nber }} </span>Utilisateur(s)</li>
+                                            <li><span>{{ pack.version }} </span>version</li>
+                                            <li><span>{{ pack.devicetype.name }} </span>Support</li>
+                                            <li><span>{{ pack.year_duration }} an(s) </span>License</li>
+                                            <li>Phone &amp; Mail Support</li>
+                                        </ul>
+                                        <a href="{% url 'achat' pack.id %}" class="app-btn-s1 get-started">Acheter</a>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div> <!-- end pricing-tab -->
+            </div> <!-- end col -->
+        </div> <!-- end row -->
+    </div> <!-- end container --> 
 </section>
+<!-- start app-landing-pricing -->
+
 <!-- end app-landing-funfact -->
 
 
 <!-- start app-documentation-section -->
 <section class="app-documentation-section">
-    <div class="container">    
-        <div class="row">
-            <div class="img-part"></div>
-            <div class="col col-md-5 col-md-offset-7 content-part">
+    <div class="container">  
                 <div class="section-title">
                     <h2>Obtenez une documentation détaillée sur l'application</h2>
-                </div>
+                </div>  
+        <div class="row">
+            <div class="img-part">
+
+                <div id="myCarousel" class="carousel slide" data-ride="carousel">
+  <!-- Indicators -->
+  <ol class="carousel-indicators">
+    <li data-target="#myCarousel" data-slide-to="0"></li>
+    <li data-target="#myCarousel" data-slide-to="1"></li>
+    <li data-target="#myCarousel" data-slide-to="2"></li>
+    <li data-target="#myCarousel" data-slide-to="3" class="active"></li>
+    <li data-target="#myCarousel" data-slide-to="4"></li>
+    <li data-target="#myCarousel" data-slide-to="5"></li>
+    <li data-target="#myCarousel" data-slide-to="6"></li>
+  </ol>
+
+  <!-- Wrapper for slides -->
+  <div class="carousel-inner">
+    <div class="item active">
+      <img src="{% static 'desktop_cgi/re/desktop_1.png' %}" alt="CGI">
+    </div>
+
+    <div class="item">
+      <img src="{% static 'desktop_cgi/re/desktop_2.png' %}" alt="CGI">
+    </div>
+
+    <div class="item">
+      <img src="{% static 'desktop_cgi/re/desktop_3.png' %}" alt="CGI">
+    </div>
+
+    <div class="item">
+      <img src="{% static 'desktop_cgi/re/desktop_4.png' %}" alt="CGI">
+    </div>
+
+    <div class="item">
+      <img src="{% static 'desktop_cgi/re/desktop_5.png' %}" alt="CGI">
+    </div>
+
+    <div class="item">
+      <img src="{% static 'desktop_cgi/re/desktop_6.png' %}" alt="CGI">
+    </div>
+
+    <div class="item">
+      <img src="{% static 'desktop_cgi/re/desktop_7.png' %}" alt="CGI">
+    </div>
+  </div>
+
+  <!-- Left and right controls -->
+  <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left prevColor"></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="right carousel-control" href="#myCarousel" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right nextColor"></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+
+            </div>
+            <div class="col col-md-5 col-md-offset-7 content-part">
                 <div class="box">
                     <div class="icon">
                         <svg version="1.1" id="app-documentation-icon" class="animated-svg-icon-s2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="59.271px" height="62.438px" viewBox="226.365 225.062 59.271 62.438" enable-background="new 226.365 225.062 59.271 62.438" xml:space="preserve">
@@ -474,8 +573,8 @@
                         </svg>                                
                     </div>
                     <div class="details">
-                        <h3>Documentation Vidéo</h3>
-                        <p>Vous verrez toutes les étapes de fonctinonemnt de notre solution sur notre chaine youtube. Vous pouvez la télécharger ou consulter directement sur cette plateforme.</p>
+                        <h3>Pouvoir change la police et la couleur de fond</h3>
+                        <p>L'utilisateur peut change la taille des caractere selon ses desir et la couleur de l'application selon sa convenance .</p>
                     </div>
                 </div>
                 <div class="box">
@@ -500,8 +599,8 @@
                         </svg>                           
                     </div>
                     <div class="details">
-                        <h3>Documentation texte</h3>
-                        <p>Vous trouverez une documentation assez fournie sur le fonctionnament de notre solution en ligne ou directement sur notre application.</p>
+                        <h3>Envoyer des messages de suggestions</h3>
+                        <p>En plus de de pouvoir faire tous ce que la version mobile propose l'utilisateur peut aussi des messages de recommendation.</p>
                     </div>
                 </div>
             </div>
@@ -748,7 +847,7 @@
     <div class="container">
         <div class="row section-title">
             <div class="col col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 ">
-                <h2>Vue de nos différentes captures d'écran</h2>
+                <h2>Captures d'écran de l'application</h2>
                 <p>Répérer vous facilement en navigant de manière aisée dans notre application et faites des recherches ciblées rapides.</p>
             </div>
         </div> <!-- end section-title -->
@@ -797,90 +896,71 @@
 
 
 <!-- start app-tem-members -->
-
-<!-- end app-tem-members -->    
-
-
-<!-- start app-landing-pricing -->
-<section class="app-landing-pricing section-padding" id="pricing">
+<!-- start app-tem-members -->
+<section class="app-tem-members section-padding">
     <div class="container">
-        <div class="row section-title">
+        <div class="row section-title team-section-title">
             <div class="col col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 ">
-                <h2>Nos différents packs</h2>
-                <p>Vous pouvez acquérir notre application grace à nos packs mobile et desktop afin de pouvoir utiliser pleinement notre solution. </p>
+                <h2>Notre équipe</h2>
             </div>
         </div> <!-- end section-title -->
-        <div class="row content">
-            <div class="col col-xs-12">
-                <div class="switcher-wrapper">
-                    <div class="tablist">
-                        <span class="active">Mobile</span>
-                        <span>P.C</span>
-                    </div>
-                    <div class="switch">
-                        <div class="slider round"></div>
-                    </div>
-                </div> 
 
-                <div class="pricing-tab">
-                    <div class="app-pricing-grids active-grids">
-                        {% for pack in packs %}
-                            {% if pack.devicetype.name == "MOBILE" %}
-                            <div class="grid" style="margin-top: 1%;">
-                                <div class="grid-inner">
-                                    <div class="pricing-header">
-                                        <span class="package">{{ pack.name }}</span>
-                                        <h6 class="price" style="font-size: 30px;">{{ pack.cost }} FCFA</h6>
-                                        <span class="access">{{ pack.year_duration }} an(s)</span>
-                                    </div>
-                                    <div class="pricing-details">
-                                        <ul>
-                                            <li><span>{{ pack.user_nber }} </span>Utilisateur(s)</li>
-                                            <li><span>{{ pack.version }} </span>version</li>
-                                            <li><span>{{ pack.devicetype.name }} </span>Support</li>
-                                            <li><span>{{ pack.year_duration }} an(s) </span>License</li>
-                                            <li>Phone &amp; Mail Support</li>
-                                        </ul>
-                                        <a data-toggle="modal" data-id="{{ pack.id }}" href="#" class="app-btn-s1 get-started">Get Started Now</a>
-                                    </div>
-                                </div>
-                            </div>
-                            {% endif %}
-                        {% endfor %}
-                    </div><br>
-                    <div class="clearfix"></div>
-                    <div class="app-pricing-grids">
-                        {% for pack in packs %}
-                            {% if pack.devicetype.name == "PC" %}
-                            <div class="grid" style="margin-top: 1%;">
-                                <div class="grid-inner">
-                                    <div class="pricing-header">
-                                        <span class="package">{{ pack.name }}</span>
-                                        <h6 class="price" style="font-size: 30px;">{{ pack.cost }} FCFA</h6>
-                                        <span class="access">{{ pack.year_duration }} an(s)</span>
-                                    </div>
-                                    <div class="pricing-details">
-                                        <ul>
-                                            <li><span>{{ pack.user_nber }} </span>Utilisateur(s)</li>
-                                            <li><span>{{ pack.version }} </span>version</li>
-                                            <li><span>{{ pack.devicetype.name }} </span>Support</li>
-                                            <li><span>{{ pack.year_duration }} an(s) </span>License</li>
-                                            <li>Phone &amp; Mail Support</li>
-                                        </ul>
-                                        <a data-toggle="modal" data-id="{{ pack.id }}" href="#" class="app-btn-s1 get-started">Get Started Now</a>
-                                    </div>
-                                </div>
-                            </div>
-                            {% endif %}
-                        {% endfor %}
-                    </div>
-                </div> <!-- end pricing-tab -->
-            </div> <!-- end col -->
-        </div> <!-- end row -->
+        <div class="row content app-team-grids">
+           <div class="col col-sm-4 col-xs-6">
+               <div class="grid">
+                   <div class="img-holder">
+                       <img src="{% static 'images_cgi/BOROHOUL-YOSSATAM-3-350x290.jpg' %}" alt class="img img-responsive">
+                   </div>
+                   <div class="details">
+                       <h3>BOROHOUL Yossatam</h3>
+                       <span class="post">Gérant, Conseil Fiscal agréé CEMAC</span>
+                       <ul class="social-links">
+                           <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                       </ul>
+                   </div>
+               </div>
+           </div>
+           <div class="col col-sm-4 col-xs-6">
+               <div class="grid">
+                   <div class="img-holder">
+                       <img src="{% static 'images/app-landing/team/img-2.jpg' %}" alt class="img img-responsive">
+                   </div>
+                   <div class="details">
+                       <h3>Mme MBAKOP</h3>
+                       <span class="post">MBCONSULTING</span>
+                       <ul class="social-links">
+                           <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                           <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                           <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                           <li><a href="#"><i class="fa fa-behance"></i></a></li>
+                       </ul>
+                   </div>
+               </div>
+           </div>
+           <!-- <div class="col col-sm-4 col-xs-6">
+               <div class="grid">
+                   <div class="img-holder">
+                       <img src="{% static 'images/app-landing/team/img-3.jpg' %}" alt class="img img-responsive">
+                   </div>
+                   <div class="details">
+                       <h3>Romain Same</h3>
+                       <span class="post">Developpeur</span>
+                       <ul class="social-links">
+                           <li><a href="#"><i class="fa fa-facebook"></i></a></li>
+                           <li><a href="#"><i class="fa fa-twitter"></i></a></li>
+                           <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
+                           <li><a href="#"><i class="fa fa-behance"></i></a></li>
+                       </ul>
+                   </div>
+               </div>
+           </div> -->
+        </div>
+
     </div> <!-- end container --> 
 </section>
-<!-- start app-landing-pricing -->
+<!-- end app-tem-members -->    
 
+<!-- end app-tem-members -->    
 
 <!-- start app-landing-testimonials -->
 <section class="app-landing-testimonials section-padding"  id="testimonials">
@@ -901,15 +981,15 @@
                         </div>
                         <div class="client-info">
                             <div class="img-holder">
-                                <img src="{% static 'images_cgi/MrGui_r.png' %}" alt>
+                                <img src="{% static 'images_cgi/BOROHOUL-YOSSATAM-3-350x290.jpg' %}" width="77" height="77" alt>
                             </div>
                             <div class="client-details">
-                                <h5>Guy Arnaud </h5>
-                                <span>Promoteur financier.</span>
+                                <h5>BOROHOUL Yossatam </h5>
+                                <span>Gérant, Conseil Fiscal agréé CEMAC</span>
                             </div>
                         </div>
                     </div>
-                    <div class="box">
+                    <!-- <div class="box">
                         <div class="client-quote">
                             <p>“Il est un indispensable pour réussir. Permet de démarrer sur un bon pied, de préparer son organisation pour mettre toutes les chances de son côté.”</p>
                         </div>
@@ -922,7 +1002,7 @@
                                 <span>IT Ingenieur .</span>
                             </div>
                         </div>
-                    </div>
+                    </div>  -->
                 </div> <!-- end app-landing-testimonials-slider -->
             </div> <!-- end col -->
         </div> <!-- end content -->
@@ -961,33 +1041,6 @@
 </section>
 {% endif %}
 <!-- start app-landing-faq -->
-
-
-<!-- start app-social-media-section -->
-<section class="app-social-media-section section-padding">
-    <div class="container">
-        <div class="row section-title">
-            <div class="col col-md-6 col-md-offset-3">
-                <h2>Partager avec les médias sociaux</h2>
-                <p>Faites connaitre notre solution dans les différents médias sociaux, afin que nul n'en ignore le contenu du code général des impots. </p>
-            </div>
-        </div> <!-- end section-title -->
-
-        <div class="row">
-            <div class="col col-xs-12">
-                <ul class="social-links">
-                    <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                    <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                    <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                    <li><a href="#"><i class="fa fa-behance"></i></a></li>
-                </ul>
-            </div>
-        </div>
-    </div> <!-- end container -->
-</section>
-<!-- end app-social-media-section -->
-
-
 <!-- start contact-section -->
 <section class="app-contact-section" id="contact">
     <div class="container contact-block">
@@ -1019,13 +1072,15 @@
                     </ul>
                 </div>
                 <div class="contact-form">
-                    <form class="form" id="contact-form">
+                    <form class="form" id="contact-form" action="{% url 'mail' %}" method="POST">
+                        {% csrf_token %}
                         <div>
-                            <input type="text" name="name" class="form-control" placeholder="Nom complet">
+                            <input type="text" name="nom" class="form-control" placeholder="Nom complet">
                         </div>
                         <div>
                             <input type="email" name="email" class="form-control" placeholder="Email">
                         </div>
+                        <!--
                         <div class="hidden">
                             <select class="form-control" name="topic">
                                 <option selected disabled>Select topic</option>
@@ -1034,8 +1089,9 @@
                                 <option>Topic 3</option>
                             </select>
                         </div>
+                        -->
                         <div>
-                            <textarea class="form-control" name="message" placeholder="write"></textarea>
+                            <textarea class="form-control" name="message" placeholder="Ecrire" class="form-control"></textarea>
                         </div>
                         <div class="submit-btn">
                             <div class="btn-wrapper">
@@ -1044,8 +1100,8 @@
                             </div>
                         </div>
                         <div class="col col-md-12 error-handling-messages">
-                            <div id="success">Thank you</div>
-                            <div id="error"> Error occurred while sending email. Please try again later. </div>
+                            <div id="success">Merci</div>
+                            <div id="error"> Une erreur s'est produite lors de l'envoi de l'e-mail. Veuillez réessayer plus tard.</div>
                         </div>
                     </form>
                 </div>
@@ -1055,67 +1111,7 @@
         </div> <!-- end row -->
     </div> <!-- end container -->
 </section>
-<!-- end contact-section -->
-<div class="modal fade bs-example-modal-new center-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <!-- Modal Content: begins -->
-        <form class="form" id="email-form" method="POST" action="{% url 'home' %}">
-            {% csrf_token %}
-            <div class="modal-content">
-                <!-- Modal Header -->
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="gridSystemModalLabel">Achat d'une Licence</h4>
-                </div>
-                <!-- Modal Body -->  
-                <div class="modal-body">
-                    <div class="body-message">
-                        <input type="hidden" name="pack" value="">
-                        <div class="contact-form">
-                            <div>
-                                <input type="email" name="email" class="form-control" placeholder="Entrez votre adresse mail" required>
-                            </div>
-                        </div>
-                        <div class="row" style="margin-top: 2%;">
-                            <div class="col-md-6">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="paid" id="Radios1" checked value="now">
-                                    <label class="form-check-label" for="Radios1">
-                                      Payer maintenant
-                                    </label>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="paid" id="Radios2" value="later">
-                                    <label class="form-check-label" for="Radios2">
-                                      Payer plus tard
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-                        
-                    </div>
-                </div>
-                <!-- Modal Footer -->
-                <div class="modal-footer">
-                    <button type="submit" class="btn btn-success" >Validate</button>
-                    <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </form>
-      <!-- Modal Content: ends -->
-    </div>
-    
-</div>  
 {% endblock content %}
 {% block personal_js %}
-<script>
-    $('.get-started').on('click', function(e){
-        e.preventDefault();
-        var dataId = $(this).attr("data-id");
-        $("input[type='hidden'][name='pack']").val(dataId);
-        $('.bs-example-modal-new').modal('show');
-    });
-</script>
+
 {% endblock %}
