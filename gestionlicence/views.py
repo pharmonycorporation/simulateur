@@ -235,7 +235,7 @@ def envoiMail(request):
     mail = request.data.get('email')
     objet = request.data.get('objet')
 
-    return send(mail+"\n"+message, senderMail=mail, subject=nom+" : "+objet)
+    return send(message, senderMail=mail, subject=nom+" : "+objet)
     pass
 
 class Mail(View):
