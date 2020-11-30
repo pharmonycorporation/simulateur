@@ -27,8 +27,8 @@ SECRET_KEY = ')w53a!)j*c*v04-^s(lr!0krbrhkiv&$cd5nq^c6srqwna0v7c'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["cgitchad.herokuapp.com", "www.cgitchad.site", "www.cgitchad.online"]
-
+ALLOWED_HOSTS = ["*","cgitchad.herokuapp.com", "www.cgitchad.site", "www.cgitchad.online"]
+CORS_ORIGIN_ALLOW_ALL = True
 
 # Application definition
 
