@@ -220,7 +220,7 @@ def verificationLicence(key):
 def send(mailContent, senderMail="kenmognethimotee@gmail.com", subject=''):
     regex = r"^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$"
     if re.search(regex,senderMail):
-        send_mail(subject=subject,message=mailContent, recipient_list=[settings.EMAIL_PLATFORM],from_email=settings.EMAIL_HOST_USER)
+        send_mail(subject=subject,message=mailContent, recipient_list=["contact@cgitchad.online"],from_email=settings.EMAIL_HOST_USER)
         return JsonResponse({"message":"mail envoyer"})
     else:
         return JsonResponse({"erreur":"Mail invalid"})
