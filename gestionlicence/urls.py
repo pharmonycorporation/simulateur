@@ -12,6 +12,6 @@ urlpatterns = [
     path('payment-done/<str:key>', payment_done, name='payment_done'),
     path('payment-cancelled/', payment_canceled, name='payment_cancelled'),
     path('verification/<str:key>', LicenceView.as_view(), name='verification'),
-    path('envoimail/', Mail.as_view(), name='mail'),
+    path('envoimail/', envoiMail, name='mail'),
     path('latestversion/', LatestVersion.as_view(), name='latest'),
 ]

@@ -7380,3 +7380,11 @@ svg * {
 }
 
 /*# sourceMappingURL=style.css.map */
+
+
+@media (max-width: 300px){
+  .navbar-brand > img{
+    height: 50px;
+    width: 60px;
+  }
+}

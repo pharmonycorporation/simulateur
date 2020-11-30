@@ -16,6 +16,8 @@ import re
 #import braintree
 import json
 from django.conf import settings
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.decorators import api_view
 
 # Create your views here.
 class HomePageView(TemplateView):
@@ -222,6 +224,18 @@ def send(mailContent, senderMail="kenmognethimotee@gmail.com", subject=''):
     else:
         return JsonResponse({"erreur":"Mail invalid"})
 
+
+@api_view(['GET', 'POST'])
+@csrf_exempt
+def envoiMail(request):
+
+    message = request.data.get('message')
+    nom = request.data.get('nom')
+    mail = request.data.get('email')
+    objet = request.data.get('objet')
+
+    return send(message, senderMail=mail, subject=nom+" : "+objet)
+    pass
 
 class Mail(View):
 

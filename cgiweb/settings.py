@@ -29,6 +29,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["*","cgitchad.herokuapp.com", "www.cgitchad.site", "www.cgitchad.online"]
 CORS_ORIGIN_ALLOW_ALL = True
+ALLOWED_HOSTS = ["*", "www.cgitchad.site", "www.cgitchad.online"]
 
 # Application definition
 
