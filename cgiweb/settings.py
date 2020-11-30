@@ -153,9 +153,10 @@ PAYPAL_RECEIVER_EMAIL = 'sb-jbx5o3733061@business.example.com'
 PAYPAL_TEST = True
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST = os.environ.get('MAILGUN_SMTP_SERVER', '')
 EMAIL_USE_TLS = True
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'romainsame86@gmail.com' 
-EMAIL_HOST_PASSWORD = '+solaris88MA+' 
+EMAIL_PORT = os.environ.get('MAILGUN_SMTP_PORT', '')
+EMAIL_HOST_USER = os.environ.get('MAILGUN_SMTP_LOGIN', '')
+EMAIL_HOST_PASSWORD = os.environ.get('MAILGUN_SMTP_PASSWORD', '') 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+EMAIL_PLATFORM = "contact@cgitchad.online"
