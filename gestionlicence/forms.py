@@ -33,4 +33,5 @@ class ContactForm(forms.Form):
     nom = forms.CharField(max_length=100, label='nom')
     email = forms.EmailField()
     message = forms.CharField(widget=forms.Textarea)
+    objet = forms.CharField(max_length=100, label="objet")
     

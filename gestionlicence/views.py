@@ -16,6 +16,9 @@ import re
 #import braintree
 import json
 from django.conf import settings
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.decorators import api_view
+
 
 # Create your views here.
 class HomePageView(TemplateView):
@@ -218,11 +221,23 @@ def verificationLicence(key):
 def send(mailContent, senderMail="kenmognethimotee@gmail.com", subject=''):
     regex = r"^[a-z0-9]+[\._]?[a-z0-9]+[@]\w+[.]\w{2,3}$"
     if re.search(regex,senderMail):
-        send_mail(subject=subject,message=mailContent, recipient_list=[senderMail],from_email=settings.EMAIL_HOST_USER)
+        send_mail(subject=subject,message=mailContent, recipient_list=["contact@cgitchad.online"],from_email=settings.EMAIL_HOST_USER)
         return JsonResponse({"message":"mail envoyer"})
     else:
         return JsonResponse({"erreur":"Mail invalid"})
 
+
+@api_view(['GET', 'POST'])
+@csrf_exempt
+def envoiMail(request):
+
+    message = request.data.get('message')
+    nom = request.data.get('nom')
+    mail = request.data.get('email')
+    objet = request.data.get('objet')
+
+    return send(message, senderMail=mail, subject=nom+" : "+objet)
+    pass
 
 class Mail(View):
 

@@ -27,9 +27,9 @@ SECRET_KEY = ')w53a!)j*c*v04-^s(lr!0krbrhkiv&$cd5nq^c6srqwna0v7c'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["cgitchad.herokuapp.com", "www.cgitchad.site", "www.cgitchad.online", '127.0.0.1']
 
-
+CORS_ORIGIN_ALLOW_ALL = True
+ALLOWED_HOSTS = ["*", "www.cgitchad.site", "www.cgitchad.online","cgitchad.herokuapp.com"]
 # Application definition
 
 INSTALLED_APPS = [
@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'whitenoise',
     'gendsf',
     'rest_framework'
+    'corsheaders',
+
 ]
 REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
@@ -56,6 +58,7 @@ REST_FRAMEWORK = {
     ],
 }
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -161,9 +164,10 @@ PAYPAL_RECEIVER_EMAIL = 'sb-jbx5o3733061@business.example.com'
 PAYPAL_TEST = True
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_USE_TLS = True
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'romainsame86@gmail.com' 
-EMAIL_HOST_PASSWORD = '+solaris88MA+' 
+EMAIL_HOST = os.environ.get('MAILGUN_SMTP_SERVER', '')
+#EMAIL_USE_TLS = True
+EMAIL_PORT = os.environ.get('MAILGUN_SMTP_PORT', '')
+EMAIL_HOST_USER = os.environ.get('MAILGUN_SMTP_LOGIN', '')
+EMAIL_HOST_PASSWORD = os.environ.get('MAILGUN_SMTP_PASSWORD', '') 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+EMAIL_PLATFORM = "contact@cgitchad.online"
