@@ -44,7 +44,7 @@ INSTALLED_APPS = [
     'paypal.standard.ipn',
     'whitenoise',
     'gendsf',
-    'rest_framework'
+    'rest_framework',
     'corsheaders',
 
 ]
