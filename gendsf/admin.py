@@ -22,7 +22,6 @@ admin.site.register(BalanceSixColonneSYSCohada)
 admin.site.register(InformationsAutres)
 admin.site.register(FicheVersementSpontaneIRPP)
 admin.site.register(EtatSalaire)
-admin.site.register(Service)
 admin.site.register(ServiceConseil)
 
 
