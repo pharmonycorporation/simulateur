@@ -120,11 +120,11 @@ def achat(request, pk):
             "currency_code": "EUR"
         }
 
-        """subject = 'commande du pack cgi'
+        subject = 'commande du pack cgi'
         message = f'Hi {request.user.username}, merci davoir souscrit a notre pack.'
         email_from = settings.EMAIL_HOST_USER 
         recipient_list = [email, ] 
-        send_mail( subject, message, email_from, recipient_list )"""
+        send_mail( subject, message, email_from, recipient_list )
 
         form = PayPalPaymentsForm(initial=paypal_dict)
 
@@ -171,6 +171,7 @@ def signout(request):
 def payment_done(request, key):
     pack = Package.objects.get(pk=int(key))
     key = secrets.token_urlsafe(32)
+    email = request.user.email
 
     myPack = MyPackages.objects.filter(personne=request.user.personne, package=pack, is_paid=False).first()
     myPack.is_paid = True
@@ -178,13 +179,13 @@ def payment_done(request, key):
 
     Licence.objects.create(pack=pack, key=key, user_nbre=pack.user_nber, validity=pack.year_duration, isBuy=True, isActive=True)
     #envoyer un mail contenant la licence du pack souscrit
-    """subject = 'commande du pack cgi'
-    message = f'Hi {request.user.username}, merci davoir souscrit a notre pack.'
+    subject = 'commande du pack cgi'
+    message = f'Hi {request.user.username}, votre clé de licence est :' + key
     email_from = settings.EMAIL_HOST_USER 
     recipient_list = [email, ] 
-    send_mail( subject, message, email_from, recipient_list )"""
+    send_mail( subject, message, email_from, recipient_list )
     
-    return render(request, 'payment_done.html')
+    return render(request, 'index.html')
 
 def payment_canceled(request):
     return render(request, 'payment_cancelled.html')

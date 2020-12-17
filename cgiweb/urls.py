@@ -14,10 +14,18 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
+from gendsf import views
+from rest_framework import routers, serializers, viewsets
 from django.urls import path, include
+
+router = routers.DefaultRouter()
+router.register(r'dsfs', views.DSFViewSet)
+router.register(r'dads', views.DADSViewSet)
+router.register(r'services', views.ServiceConseilViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('gestionlicence.urls')),
+    path('dsf_api/', include(router.urls)),
     path('paypal/', include('paypal.standard.ipn.urls')),
 ]

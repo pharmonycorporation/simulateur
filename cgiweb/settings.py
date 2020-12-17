@@ -27,7 +27,7 @@ SECRET_KEY = ')w53a!)j*c*v04-^s(lr!0krbrhkiv&$cd5nq^c6srqwna0v7c'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["cgitchad.herokuapp.com", "www.cgitchad.site", "www.cgitchad.online"]
+ALLOWED_HOSTS = ["cgitchad.herokuapp.com", "www.cgitchad.site", "www.cgitchad.online", '127.0.0.1']
 
 
 # Application definition
@@ -42,9 +42,19 @@ INSTALLED_APPS = [
     'gestionlicence',
     'widget_tweaks',
     'paypal.standard.ipn',
-    'whitenoise'
+    'whitenoise',
+    'gendsf',
+    'rest_framework'
 ]
-
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    'PAGE_SIZE': 10,
+       'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+         
+    ],
+}
 MIDDLEWARE = [
     'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.middleware.security.SecurityMiddleware',
@@ -80,12 +90,13 @@ WSGI_APPLICATION = 'cgiweb.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-try:
+"""try:
   database_url = os.environ["DATABASE_URL"]
 except KeyError:
   database_url = "file:///{}".format(os.path.join(BASE_DIR, 'db.sqlite3'))
 
 DATABASES = { 'default': dj_database_url.config() }
+"""
 """
 DATABASES = {
     'default': {
@@ -98,12 +109,12 @@ DATABASES = {
     }
 }"""
 
-"""DATABASES = {
+DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': 'sqlite',
     }
-}"""
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
