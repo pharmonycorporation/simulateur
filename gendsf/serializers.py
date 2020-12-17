@@ -7,6 +7,7 @@ class DSFSerializer(serializers.ModelSerializer):
         model = DSF
         fields = '__all__'
 
+
 class DADSSerializer (serializers.ModelSerializer):
     class Meta:
         model = DADS
