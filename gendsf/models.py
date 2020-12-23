@@ -55,7 +55,7 @@ class FicheFiscale (models.Model):
     numIdentificationFiscale =  models.CharField(max_length=255)
     regimeFiscale = models.ForeignKey(RegimeFiscale, on_delete=models.CASCADE, null=True)
     greffe = models.CharField(max_length=255)
-    sigleUsuel = models.CharField(max_length=255)
+    #sigleUsuel = models.CharField(max_length=255)
     rccm = models.CharField(max_length=255)
     numCodeImportateur = models.CharField(max_length=255)
     numCaisseSociale  = models.CharField(max_length=255)
