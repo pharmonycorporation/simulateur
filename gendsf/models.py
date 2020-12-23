@@ -36,6 +36,8 @@ class Identification (models.Model):
     ville = models.CharField(max_length=255, null=True, blank=True)
     telephone = models.CharField(max_length=255, null=True, blank=True)
     telecopie = models.CharField(max_length=255, null=True, blank=True)
+    nombreEts = models.CharField(max_length=255, null=True, blank=True)
+    pays = models.ForeignKey(Pays, on_delete=models.CASCADE, null=True)
     formeJuridique = models.ForeignKey(FormeJuridique, on_delete=models.CASCADE, null=True)
     controleEntreprise = models.ForeignKey(ControleEntreprise, on_delete=models.CASCADE, null=True)
     active = models.BooleanField(default=True)
