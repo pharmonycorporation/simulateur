@@ -130,11 +130,13 @@ class InformationsAutres (models.Model):
 class DSF (models.Model):
     identification = models.ForeignKey(Identification, on_delete=models.CASCADE, null=True)
     ficheFiscale = models.ForeignKey(FicheFiscale, on_delete=models.CASCADE, null=True)
-    ficheEffectif = models.ForeignKey(FicheEffectif, on_delete=models.CASCADE, null=True)
+    #ficheEffectif = models.ForeignKey(FicheEffectif, on_delete=models.CASCADE, null=True)
     informationsAutres = models.ForeignKey(InformationsAutres, on_delete=models.CASCADE, null=True)
-    ficheVersementTVA = models.ForeignKey(FicheVerSementTVA, on_delete=models.CASCADE, null=True)
-    ficheVersementAccompteIS = models.ForeignKey(FicheVersementAccompteIS, on_delete=models.CASCADE, null=True)
-    balanceSixColonneSYSCohada = models.ForeignKey(BalanceSixColonneSYSCohada, on_delete=models.CASCADE, null=True)
+    ficheVersementTVA = models.FileField(upload_to = 'tva/',null=True)
+    ficheVersementAccompteIS = models.FileField(upload_to = 'is/',null=True)
+    balanceSixColonneSYSCohada = models.FileField(upload_to = 'syscohoda/',null=True)
+    personnelPropre = models.FileField(upload_to = 'ficheeffectif/',null=True)
+    personnelExterieur = models.FileField(upload_to = 'ficheeffectif/',null=True)
     dateSoumission = models.DateTimeField(auto_now_add=True)
     etat = models.BooleanField(default=False)
     paye = models.BooleanField(default=False)
@@ -155,6 +157,7 @@ class EtatSalaire (models.Model):
 
 class DADS (models.Model):
     ficheFiscale = models.ForeignKey(FicheFiscale, on_delete=models.CASCADE, null=True)
+    ficheVersementSpontaneIRPP = models.FileField(upload_to = 'versements/',null=True)
     identification = models.ForeignKey(Identification, on_delete=models.CASCADE, null=True)
     etatsSalaires = models.ManyToManyField(EtatSalaire, related_name='dads')
     dateSoumission = models.DateTimeField(auto_now_add=True)
