@@ -44,3 +44,6 @@ urlpatterns = [
     path('dsf_api/', include(router.urls)),
     path('paypal/', include('paypal.standard.ipn.urls')),
 ]
+
+handler404 = "gestionlicence.views.page_not_found"
+handler500 = "gestionlicence.views.server_error"

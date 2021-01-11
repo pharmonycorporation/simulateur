@@ -465,3 +465,10 @@ def print_pdf(request):
 
     return response
 
+
+def page_not_found(request,HttpResponseNotFound):
+    return render(request, '404.html')
+
+def server_error(request,**kwargs):
+    return render(request, '500.html')
+

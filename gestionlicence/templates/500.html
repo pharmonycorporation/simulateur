@@ -1,0 +1,106 @@
+<style>
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  height: 100vh;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Poppins' , sans-serif;
+  color: white;
+  background: radial-gradient(circle, #eb0000, white);
+}
+
+.spider {
+  font-size: 3rem;
+  animation: animate3 2s linear infinite alternate;
+  position: absolute;
+  top: 0;
+  transform: rotate(180deg);
+}
+
+.spider::after {
+  content: '';
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  width: 0.5px;
+  height: 30vh;
+  opacity: 0.5;
+  background-color: white;
+}
+
+.spider::before {
+  content: '404';
+  position: fixed;
+  top: -50px;
+  left: -18px;
+  opacity: 0.5;
+  transform: rotate(180deg);
+}
+
+.container {
+  text-align: center;
+  user-select: none;
+}
+
+.container h1 {
+  font-size: 6rem;
+}
+
+.container h1 .fas {
+  animation: animate1 2s linear infinite alternate;
+}
+
+.container h1 .num {
+  animation: animate2 2s  linear infinite alternate;
+}
+
+.container p {
+  margin-top: 20px;
+  word-spacing: 5px;
+}
+
+@keyframes animate1 {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes animate2 {
+  0% {
+    opacity: 0.1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes animate3 {
+  0% {
+    opacity: 0.1;
+  }
+  100% {
+    top: 20%;
+    opacity: 1;
+  }
+}
+</style>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.14.0/css/all.min.css">
+<div class="spider"><i class="fas fa-spider"></i></div>
+    <div class="container">
+        <h1><span class="num">5 </span><i class="fas fa-cog"></i><span class="num"> 0</span></h1>
+        <p>Oops , une erreur s'est produite, veuillez retourner a <a href="{% url 'home' %}">l'accueil</a></p>
+    </div>
