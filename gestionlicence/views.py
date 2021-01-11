@@ -204,22 +204,31 @@ def verificationLicence(key):
 
     try:
         licence = Licence.objects.get(key=str(key))
-        if licence.active == True:
-            if licence.user_nbre > 0:
+        if licence.user_nbre > 0:
+            if not licence.isActive:
                 nbre = licence.user_nbre
                 licence.user_nbre = nbre - 1
+                licence.isActive = True
                 licence.active = True
+                licence.isBuy = True
                 licence.firstConnect = False
                 licence.save()
                 reponse = dict()
-                reponse['message'] = "Cle verifiee"
+                reponse['message'] = "Verification reussie"
                 version = licence.pack.version.version
                 reponse['version'] = version
                 return JsonResponse(reponse)
             else:
-                return JsonResponse({"erreur":"Le nombre d'utilisateur est depasse"})
-        else:
-            return JsonResponse({"erreur":"Cette licence n'est pas activee"})
+                nbre = licence.user_nbre
+                licence.user_nbre = nbre - 1
+                licence.save()
+                reponse = dict()
+                reponse['message'] = "Verification reussie"
+                version = licence.pack.version.version
+                reponse['version'] = version
+                return JsonResponse(reponse)
+        return JsonResponse({"erreur":"Le nombre d'utilisateur est depasse"})
+
     except:
         return JsonResponse({"erreur":"Cette cle n'est pas valable"})
 
@@ -460,7 +469,7 @@ def print_pdf(request):
         pack = Package.objects.get(pk=int(1))
         cle = hash_key()
         key = hash_key().replace('-', '')
-        Licence.objects.create(pack=pack, key=key, user_nbre=1, validity=pack.year_duration, isBuy=True, isActive=True)
+        Licence.objects.create(pack=pack, key=key, user_nbre=1, validity=pack.year_duration, isBuy=False, isActive=False)
         licences.append(cle)
     """pdf.set_font('Arial', 'B', 16)
     pdf.cell(40, 10, 'Hello World!')

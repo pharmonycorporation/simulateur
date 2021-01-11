@@ -38,7 +38,7 @@ class Licence(models.Model):
     validity = models.CharField(max_length=10)
     isActive = models.BooleanField(default=False)
     isBuy = models.BooleanField(default=False)
-    active = models.BooleanField(default=True)
+    active = models.BooleanField(default=False)
     user_nbre = models.IntegerField(default=0)
     firstConnect = models.BooleanField(default=True)
 
