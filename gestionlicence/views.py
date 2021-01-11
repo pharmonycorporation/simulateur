@@ -229,8 +229,8 @@ def verificationLicence(key):
                 return JsonResponse(reponse)
         return JsonResponse({"erreur":"Le nombre d'utilisateur est depasse"})
 
-    except:
-        return JsonResponse({"erreur":"Cette cle n'est pas valable"})
+    except Licence.DoesNotExist:
+        return JsonResponse({"erreur":"Cette cle de licence n'existe pas"})
 
 
 
