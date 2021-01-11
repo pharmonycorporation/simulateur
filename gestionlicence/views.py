@@ -5,7 +5,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from .forms import SignUpForm, SigninForm, ContactForm
 from .models import *
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponseNotFound, HttpResponseServerError, HttpResponse
 from decimal import Decimal
 from django.urls import reverse
 from paypal.standard.forms import PayPalPaymentsForm
