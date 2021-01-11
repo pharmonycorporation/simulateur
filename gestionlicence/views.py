@@ -19,6 +19,13 @@ from django.conf import settings
 from django.views.decorators.csrf import csrf_exempt
 from rest_framework.decorators import api_view
 
+from django.contrib.auth.hashers import check_password, make_password
+#Ajouter par romain
+from django.template.loader import get_template, render_to_string
+
+from fpdf import FPDF, HTMLMixin
+import math
+
 
 # Create your views here.
 class HomePageView(TemplateView):
