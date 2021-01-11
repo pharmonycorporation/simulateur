@@ -97,7 +97,10 @@
                         <div class="lang">
                             <a href="#"><img src="{% static 'images/default-user.png' %}" width="24px" height="24px" alt></a>
                             <ul style="width: 150px;">
-                                <li><a href="#"> Profile</a></li>
+                                {% if user.is_superuser %}
+                                <li><a href="{% url 'licence' %}" target="_blank">Licences</a></li>
+                                {% endif %}
+                                <li><a href="{% url 'profile' %}"> Profile</a></li>
                                 <li><a href="{% url 'souscriptions' %}">Mes Souscriptions</a></li>
                                 <li><a href="{% url 'signout' %}"> Déconnexion</a></li>
                             </ul>

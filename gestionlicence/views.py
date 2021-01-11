@@ -282,3 +282,186 @@ class Contact(View):
             pass
         else:
             pass
+
+class ProfileView(View):
+    
+    def get(self, request):
+        usr = request.user
+        #profile = usr.personne
+        profile = Personne.objects.get(user=usr)
+        nbre = MyPackages.objects.filter(personne=profile).count()
+        packages = None
+        if profile:      
+            packages = MyPackages.objects.filter(personne=profile)
+        return render(request, 'account/profile.html', {'profile' : profile, 'packages':packages, 'nbre_packages':nbre})
+    
+    def post(self, request):
+        change = request.POST.get('change')
+        if change == "1":
+            username = request.POST.get('username')
+            first_name = request.POST.get('first_name')
+            last_name = request.POST.get('last_name')
+            phone = request.POST.get('phone')
+            
+            usr = User.objects.filter(pk=int(request.user.pk)).update(username=username, first_name=first_name, last_name=last_name)
+            if phone:
+                pers = Personne.objects.get(user=request.user)
+                pers.phone = phone
+                pers.save()
+            return redirect("profile")
+        
+        elif change == "2":
+            currentpassword= request.user.password #user's current password
+
+            oldpass = request.POST.get('oldpassword')
+            newpass = request.POST.get('newpassword')
+            confirmpass = request.POST.get('confirmpassword')
+            
+            if newpass == confirmpass:
+                
+                matchcheck= check_password(oldpass, currentpassword)
+            
+                if matchcheck:
+                    password = make_password(newpass)
+                    usr = User.objects.filter(pk=int(request.user.pk)).update(password=password)
+                    
+                    return redirect("home")
+                else:
+                    messages.error(request, "Votre ancien mot de passe est incorrect")
+                    return redirect("profile")
+            else:
+                messages.error(request, "Vos mots de passe ne sont pas identiques")
+                return redirect("profile")
+        else:
+            messages.error(request, "Veuillez soumettre votre formulaire")
+            return redirect("profile")
+
+
+class HtmlPdf(FPDF, HTMLMixin):
+    
+    def footer(self):
+        # Position at 1.5 cm from bottom
+        self.set_y(-15)
+        # Arial italic 8
+        self.set_font('Arial', 'I', 8)
+        # Text color in gray
+        self.set_text_color(128)
+        # Page number
+        self.cell(0, 10, 'Page ' + str(self.page_no()), 0, 0, 'C')
+
+    def chapter_title(self, num, label):
+        # Arial 12
+        self.set_font('Arial', '', 12)
+        # Background color
+        self.set_fill_color(200, 220, 255)
+        # Title
+        self.cell(0, 6, 'Chapter %d : %s' % (num, label), 0, 1, 'L', 1)
+        # Line break
+        self.ln(4)
+
+    def chapter_body(self, name):
+        # Read text file
+        with open(name, 'rb') as fh:
+            txt = fh.read().decode('latin-1')
+        # Times 12
+        self.set_font('Times', '', 12)
+        # Output justified text
+        self.multi_cell(0, 5, txt)
+        # Line break
+        self.ln()
+        # Mention in italics
+        self.set_font('', 'I')
+        self.cell(0, 5, '(end of excerpt)')
+
+    def print_chapter(self, num, title, name):
+        self.add_page()
+        self.chapter_title(num, title)
+        self.chapter_body(name)
+
+def is_prime(n):
+    if n == 2:
+        return True
+    if n % 2 == 0 or n <= 1:
+        return False
+
+    sqr = int(math.sqrt(n)) + 1
+
+    for divisor in range(3, sqr, 2):
+        if n % divisor == 0:
+            return False
+    return True
+
+def hash_key():
+    key = secrets.token_hex(3)
+    print(key)
+    key1 = key.upper()
+    hexa = 0
+    for el in key.upper():
+        print(int(el, 16))
+        hexa = hexa + int(el, 16)
+    est_premier = is_prime(hexa)
+    if est_premier:
+        second_hexa = hex(hexa)
+        test = second_hexa.replace("0x","")
+    else:
+        add_hexa = hexa
+        i = hexa
+        while not is_prime(i):
+            i += 1
+        first_test = i + add_hexa
+        second_hexa = hex(first_test)
+        test = second_hexa.replace("0x","")
+    if len(str(test)) < 4:
+        nbre = 4 - int(len(str(test)))
+        keygen = secrets.token_hex(nbre)
+        key2 = keygen.upper() + test.upper()
+    else:
+        key2 = test
+    hexa3 = 0
+    for el in key2:
+        print(int(el, 16))
+        hexa3 = hexa3 + int(el, 16)
+    print(hexa3)
+    premier = is_prime(hexa3)
+    if premier:
+        third_hexa = hex(hexa3)
+        test2 = third_hexa.replace("0x","")
+    else:
+        add_hexa2 = hexa3
+        i = hexa
+        while not is_prime(i):
+            i += 1
+        second_test = i + add_hexa2
+        third_hexa = hex(second_test)
+        test2 = third_hexa.replace("0x","")
+    if len(str(test2)) < 4:
+        nbre2 = 4 - int(len(str(test2)))
+        keygen2 = secrets.token_hex(nbre2)
+        key3 = keygen2.upper() + test2.upper()
+    else:
+        key3 = test2
+    
+    cle = key1 + '-' + key2 + '-' + key3
+    print(cle)
+    return cle
+
+def print_pdf(request):    
+    pdf = HtmlPdf()
+    pdf.add_page()
+    licences = []
+    for i in range(500):
+        pack = Package.objects.get(pk=int(1))
+        cle = hash_key()
+        key = hash_key().replace('-', '')
+        Licence.objects.create(pack=pack, key=key, user_nbre=1, validity=pack.year_duration, isBuy=True, isActive=True)
+        licences.append(cle)
+    """pdf.set_font('Arial', 'B', 16)
+    pdf.cell(40, 10, 'Hello World!')
+    pdf.cell(60, 10, 'Powered by FPDF.', 0, 1, 'C')
+    pdf.output('tuto1.pdf', 'F')"""
+    pdf.write_html(render_to_string('pdf.html', {'licences': licences}))
+    response = HttpResponse(pdf.output(dest='S').encode('latin-1'))
+    response['Content-Type'] = 'application/pdf'
+
+    return response
+
