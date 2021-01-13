@@ -3,14 +3,22 @@ from .serializers import ServiceConseilSerializer, DSFSerializer, DADSSerializer
 from .models import DSF, DADS, ServiceConseil, Pays, FormeJuridique,EtatSalaire, Service, InformationsAutres,FicheVersementSpontaneIRPP, BalanceSixColonneSYSCohada, FicheVersementAccompteIS, FicheVerSementTVA,Dirigeants,FicheEffectif,MembreConseil, FicheFiscale,ControleEntreprise, Identification, RegimeFiscale
 from rest_framework import routers, serializers, viewsets
 # Create your views here.
+from django.http import JsonResponse
 
 class DSFViewSet(viewsets.ModelViewSet):
     queryset = DSF.objects.all()
     serializer_class = DSFSerializer
 
+    def create(self, request):
+        return JsonResponse({'message':"votre demande a été enregistré, vous allez recevoir un mail après vérification de votre dossier"},status=200)
+
+
 class DADSViewSet(viewsets.ModelViewSet):
     queryset = DADS.objects.all()
     serializer_class = DADSSerializer
+    def create(self, request):
+        return JsonResponse({'message':"votre demande a été enregistré, vous allez recevoir un mail après vérification de votre dossier"},status=200)
+
 
 class ServiceConseilViewSet(viewsets.ModelViewSet):
     queryset = ServiceConseil.objects.all()
