@@ -4,6 +4,8 @@ from .models import *
 from django.template.response import TemplateResponse
 from django.urls import path
 
+
+
 admin.site.register(Identification)
 admin.site.register(Pays)
 admin.site.register(Service)
