@@ -24,7 +24,7 @@ class LicenceAdmin(admin.ModelAdmin):
        
 
 admin.site.register(Personne)
-admin.site.register(Licence)
+admin.site.register(Licence,LicenceAdmin)
 admin.site.register(Application)
 admin.site.register(DeviceType)
 admin.site.register(Package)
