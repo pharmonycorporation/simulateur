@@ -3,7 +3,7 @@ from .models import *
 
 # Register your models here.
 class LicenceAdmin(admin.ModelAdmin):
-    list_display= ('key', 'user_nbre', 'validity' , 'active')
+    list_display= ('key', 'user_nbre', 'validity' , 'active','isActive')
     search_fields = ('key',)
     #search_fields = ('nomSeance', )
     #fields = ('nomSeance', 'plage',  'capacite', 'disponible', 'culte', 'dateCreated', 'active')
