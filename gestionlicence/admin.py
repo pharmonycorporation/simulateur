@@ -24,15 +24,14 @@ class LicenceAdmin(admin.ModelAdmin):
         return True
 
     def liste_licences_pdf_non_utilise(self, request, queryset):    
-    pdf = HtmlPdf()
-    pdf.add_page()
-    licences = []
-    licences = Licence.objects.filter(isactive=False)
-    pdf.write_html(render_to_string('pdf.html', {'licences': licences}))
-    response = HttpResponse(pdf.output(dest='S').encode('latin-1'))
-    response['Content-Type'] = 'application/pdf'
-
-    return response
+        pdf = HtmlPdf()
+        pdf.add_page()
+        licences = []
+        licences = Licence.objects.filter(isactive=False)
+        pdf.write_html(render_to_string('pdf.html', {'licences': licences}))
+        response = HttpResponse(pdf.output(dest='S').encode('latin-1'))
+        response['Content-Type'] = 'application/pdf'
+        return response
 
        
 
