@@ -27,7 +27,7 @@ class LicenceAdmin(admin.ModelAdmin):
         pdf = HtmlPdf()
         pdf.add_page()
         licences = []
-        licences = Licence.objects.filter(isactive=False)
+        licences = Licence.objects.filter(isActive=False)
         pdf.write_html(render_to_string('pdf.html', {'licences': licences}))
         response = HttpResponse(pdf.output(dest='S').encode('latin-1'))
         response['Content-Type'] = 'application/pdf'
