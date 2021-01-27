@@ -468,7 +468,7 @@ def print_pdf(request):
     for i in range(500):
         pack = Package.objects.get(pk=int(1))
         cle = hash_key()
-        key = hash_key().replace('-', '')
+        key = cle.replace('-', '')
         Licence.objects.create(pack=pack, key=key, user_nbre=1, validity=pack.year_duration, isBuy=False, isActive=False)
         licences.append(cle)
     """pdf.set_font('Arial', 'B', 16)

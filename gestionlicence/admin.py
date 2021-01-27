@@ -1,5 +1,6 @@
 from django.contrib import admin
 from .models import *
+from .views import HtmlPdf
 
 # Register your models here.
 class LicenceAdmin(admin.ModelAdmin):
@@ -10,7 +11,7 @@ class LicenceAdmin(admin.ModelAdmin):
     list_per_page = 50
     #autocomplete_fields = ['culte']
     #list_display_links = ('nomCulte' )
-    actions = ['activer_les_licences']
+    actions = ['activer_les_licences','liste_licences_pdf_non_utilise']
 
     def activer_les_licences(self, request, queryset):
     
@@ -21,6 +22,18 @@ class LicenceAdmin(admin.ModelAdmin):
             licence.save()
         
         return True
+
+    def liste_licences_pdf_non_utilise(self, request, queryset):    
+    pdf = HtmlPdf()
+    pdf.add_page()
+    licences = []
+    licences = Licence.objects.filter(isactive=False)
+    pdf.write_html(render_to_string('pdf.html', {'licences': licences}))
+    response = HttpResponse(pdf.output(dest='S').encode('latin-1'))
+    response['Content-Type'] = 'application/pdf'
+
+    return response
+
        
 
 admin.site.register(Personne)
