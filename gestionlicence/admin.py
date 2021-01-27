@@ -2,6 +2,11 @@ from django.contrib import admin
 from .models import *
 from .views import HtmlPdf
 from django.template.loader import get_template, render_to_string
+from fpdf import FPDF, HTMLMixin
+from django.http import JsonResponse, HttpResponseNotFound, HttpResponseServerError, HttpResponse
+from decimal import Decimal
+from django.urls import reverse
+
 # Register your models here.
 class LicenceAdmin(admin.ModelAdmin):
     list_display= ('key', 'user_nbre', 'validity' , 'active','isActive')
