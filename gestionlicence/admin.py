@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import *
 from .views import HtmlPdf
-
+from django.template.loader import get_template, render_to_string
 # Register your models here.
 class LicenceAdmin(admin.ModelAdmin):
     list_display= ('key', 'user_nbre', 'validity' , 'active','isActive')
