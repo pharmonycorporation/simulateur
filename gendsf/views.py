@@ -28,7 +28,7 @@ class DADSViewSet(viewsets.ModelViewSet):
     """
 class DADSFileViewSet(viewsets.ModelViewSet):
     queryset = DADSFile.objects.all()
-    serializer_class = DADSSerializer
+    serializer_class = DADSFileSerializer
     """def create(self, request):
         return JsonResponse({'message':"votre demande a été enregistré, vous allez recevoir un mail après vérification de votre dossier"},status=200)
     """
