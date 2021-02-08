@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .models import DSF, DADS, ServiceConseil, Pays, FormeJuridique,EtatSalaire, Service, InformationsAutres,FicheVersementSpontaneIRPP, BalanceSixColonneSYSCohada, FicheVersementAccompteIS, FicheVerSementTVA,Dirigeants,FicheEffectif,MembreConseil, FicheFiscale,ControleEntreprise, Identification, RegimeFiscale
+from .models import DSF, DADS, DADSFile, DSFFile, ServiceConseil, Pays, FormeJuridique,EtatSalaire, Service, InformationsAutres,FicheVersementSpontaneIRPP, BalanceSixColonneSYSCohada, FicheVersementAccompteIS, FicheVerSementTVA,Dirigeants,FicheEffectif,MembreConseil, FicheFiscale,ControleEntreprise, Identification, RegimeFiscale
 from rest_framework import routers, serializers, viewsets
 
 class DSFSerializer(serializers.ModelSerializer):
@@ -7,10 +7,20 @@ class DSFSerializer(serializers.ModelSerializer):
         model = DSF
         fields = '__all__'
 
+class DSFFileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = DSFFile
+        fields = '__all__'
+
 
 class DADSSerializer (serializers.ModelSerializer):
     class Meta:
         model = DADS
+        fields = '__all__'
+
+class DADSFileSerializer (serializers.ModelSerializer):
+    class Meta:
+        model = DADSFile
         fields = '__all__'
 
 class ServiceConseilSerializer(serializers.ModelSerializer):

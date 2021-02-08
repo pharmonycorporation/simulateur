@@ -21,6 +21,8 @@ from django.urls import path, include
 router = routers.DefaultRouter()
 router.register(r'dsfs', views.DSFViewSet)
 router.register(r'dads', views.DADSViewSet)
+router.register(r'dsffile', views.DSFFileViewSet)
+router.register(r'dadsfile', views.DADSFileViewSet)
 router.register(r'services', views.ServiceConseilViewSet)
 router.register(r'listeservices', views.ServiceViewSet)
 router.register(r'pays', views.PaysViewSet)

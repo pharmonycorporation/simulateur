@@ -127,16 +127,17 @@ class InformationsAutres (models.Model):
     def __str__(self):
         return self.nomAdresseQualite
 
-class DSF (models.Model):
-    identification = models.ForeignKey(Identification, on_delete=models.CASCADE, null=True)
-    ficheFiscale = models.ForeignKey(FicheFiscale, on_delete=models.CASCADE, null=True)
-    #ficheEffectif = models.ForeignKey(FicheEffectif, on_delete=models.CASCADE, null=True)
-    informationsAutres = models.ForeignKey(InformationsAutres, on_delete=models.CASCADE, null=True)
+class DSFFile (models.Model):
     ficheVersementTVA = models.FileField(upload_to = 'tva/',null=True)
     ficheVersementAccompteIS = models.FileField(upload_to = 'is/',null=True)
     balanceSixColonneSYSCohada = models.FileField(upload_to = 'syscohoda/',null=True)
     personnelPropre = models.FileField(upload_to = 'ficheeffectif/',null=True)
     personnelExterieur = models.FileField(upload_to = 'ficheeffectif/',null=True)
+
+class DSF (models.Model):
+    identification = models.ForeignKey(Identification, on_delete=models.CASCADE, null=True)
+    ficheFiscale = models.ForeignKey(FicheFiscale, on_delete=models.CASCADE, null=True)
+    dsfFile = models.ForeignKey(DSFFile, on_delete=models.CASCADE, null=True)
     dateSoumission = models.DateTimeField(auto_now_add=True)
     etat = models.BooleanField(default=False)
     paye = models.BooleanField(default=False)
@@ -147,7 +148,6 @@ class DSF (models.Model):
     def __str__(self):
         return self.identification.denominationSociale 
     
-    
 
 class FicheVersementSpontaneIRPP (models.Model):
     document = models.FileField(upload_to = 'documents/')
@@ -155,9 +155,12 @@ class FicheVersementSpontaneIRPP (models.Model):
 class EtatSalaire (models.Model):
     document = models.FileField(upload_to = 'documents/')
 
+class DADSFile(models.Model):
+    ficheVersementSpontaneIRPP = models.FileField(upload_to = 'versements/',null=True)
+
 class DADS (models.Model):
     ficheFiscale = models.ForeignKey(FicheFiscale, on_delete=models.CASCADE, null=True)
-    ficheVersementSpontaneIRPP = models.FileField(upload_to = 'versements/',null=True)
+    dadsFile = models.ForeignKey(DADSFile, on_delete=models.CASCADE, null=True)
     identification = models.ForeignKey(Identification, on_delete=models.CASCADE, null=True)
     etatsSalaires = models.ManyToManyField(EtatSalaire, related_name='dads')
     dateSoumission = models.DateTimeField(auto_now_add=True)
