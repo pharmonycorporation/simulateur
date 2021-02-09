@@ -137,6 +137,7 @@ class DSFFile (models.Model):
 class DSF (models.Model):
     identification = models.ForeignKey(Identification, on_delete=models.CASCADE, null=True)
     ficheFiscale = models.ForeignKey(FicheFiscale, on_delete=models.CASCADE, null=True)
+    infos = models.ForeignKey(InformationsAutres, on_delete=models.CASCADE, null=True)
     dsfFile = models.ForeignKey(DSFFile, on_delete=models.CASCADE, null=True)
     dateSoumission = models.DateTimeField(auto_now_add=True)
     etat = models.BooleanField(default=False)
