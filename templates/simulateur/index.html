@@ -50,8 +50,8 @@ SIMULATEUR DES DROITS D'IMPORTATIONS DE PRODUITS HORS CEMAC
                         <th>Nomenclature</th>
                         <th>Libellé</th>
                         <th>Quotite</th>
-                        
                         <th>Unité statistique</th>
+                        <th>Taxes spécipifique</th>
                         <th>Action</th>
                     </tr>
                 </tfoot>
@@ -209,28 +209,28 @@ SIMULATEUR DES DROITS D'IMPORTATIONS DE PRODUITS HORS CEMAC
                         for (let i = 0 ; i<tabId.length; i++){
                             mesTaxes[i] = parseFloat(document.getElementById("taxes-"+tabId[i]).value);
                             somme += mesTaxes[i];
-                            console.log("tva :",document.getElementById("Tva-"+tabId[i]).value)
+                            //console.log("tva :",document.getElementById("Tva-"+tabId[i]).value)
                             somme += parseFloat(document.getElementById("Tva-"+tabId[i]).value);
 
-                            console.log("Rst :",document.getElementById("Rst-"+tabId[i]).value)
+                            //console.log("Rst :",document.getElementById("Rst-"+tabId[i]).value)
                             somme += parseFloat(document.getElementById("Rst-"+tabId[i]).value);
 
-                            console.log("Cci :",document.getElementById("Cci-"+tabId[i]).value)
+                            //console.log("Cci :",document.getElementById("Cci-"+tabId[i]).value)
                             somme += parseFloat(document.getElementById("Cci-"+tabId[i]).value);
 
-                            console.log("Tci :",document.getElementById("Tci-"+tabId[i]).value)
+                            //console.log("Tci :",document.getElementById("Tci-"+tabId[i]).value)
                             somme += parseFloat(document.getElementById("Tci-"+tabId[i]).value);
 
-                            console.log("Tua :",document.getElementById("Tua-"+tabId[i]).value)
+                            //console.log("Tua :",document.getElementById("Tua-"+tabId[i]).value)
                             somme += parseFloat(document.getElementById("Tua-"+tabId[i]).value);
 
-                            console.log("Acpte :",document.getElementById("Acpte-"+tabId[i]).value);
+                            //console.log("Acpte :",document.getElementById("Acpte-"+tabId[i]).value);
                             somme += parseFloat(document.getElementById("Acpte-"+tabId[i]).value);
 
 
-                            console.log("Dacc :",document.getElementById("Dacc-"+tabId[i]).value);
+                            //console.log("Dacc :",document.getElementById("Dacc-"+tabId[i]).value);
                             somme += parseFloat(document.getElementById("Dacc-"+tabId[i]).value);
-                            console.log("valeur : "+i, somme);
+                            //console.log("valeur : "+i, somme);
 
                         }
                         let total = parseFloat(somme);
@@ -290,8 +290,8 @@ SIMULATEUR DES DROITS D'IMPORTATIONS DE PRODUITS HORS CEMAC
             
             let A = parseInt(pa);
             let B = parseInt(A*quotite)/100;
-            let C= parseFloat((A+B)*quotite);
-            let D = parseFloat((A+C)*quotite);
+            let C= parseFloat((A+B)*quotite/100);
+            let D = parseFloat((A+C)*quotite/100);
             let AC4 = parseFloat(((A+B)*4)/100);
             let RST =parseFloat(A*2/100) ;
             let TCI = parseFloat(A/100) ; 
