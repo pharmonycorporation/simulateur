@@ -6,7 +6,7 @@ from django.http import JsonResponse, HttpResponseNotFound, HttpResponseServerEr
 from django.core import serializers
 
 def initialisationTarif(request):
-    with open('tarifdouanier.csv', newline='') as csvfile:
+    with open('tarif2.csv', newline='') as csvfile:
         spamreader = csv.reader(csvfile, delimiter=';' )
         for row in spamreader:
             if isinstance(row[2], (int,float)):
