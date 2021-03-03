@@ -4,6 +4,8 @@ class TarifDouanier (models.Model):
     nomenclature = models.CharField(max_length=12,unique=True)
     libelleNomenclature = models.CharField(max_length=255)
     quotite = models.IntegerField(default=0)
+    exhonereTVA = models.BooleanField(default=False)
+    dacc = models.IntegerField(default=0)
     ts = models.IntegerField(default=0)
     uniteStatistique = models.CharField(max_length=255)
    
@@ -12,3 +14,13 @@ class TarifDouanier (models.Model):
 
     def __str__(self):
         return self.nomenclature
+
+class TVA (models.Model):
+    pays = models.CharField(max_length=255,unique=True)
+    valeur = models.FloatField(default=18)
+   
+    class Meta:
+        ordering: ['-pays']
+
+    def __str__(self):
+        return self.pays

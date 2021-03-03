@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import TarifDouanier
+from .models import TarifDouanier, TVA
 from .serializers import TarifDouanierSerializer
 import csv
 from django.http import JsonResponse, HttpResponseNotFound, HttpResponseServerError, HttpResponse
@@ -25,7 +25,8 @@ def suppression(request):
 def index(request):
     
     listetarif = TarifDouanier.objects.all()
-    return render(request, 'simulateur/index.html', {'tarifs' : listetarif })
+    tva = TVA.objects.all()
+    return render(request, 'simulateur/index.html', {'tarifs' : listetarif, 'tvas' :tva })
 
 def getProd(request):
     id = request.GET.get('id', None)
@@ -34,12 +35,18 @@ def getProd(request):
     'is_not_in': TarifDouanier.objects.filter(id__iexact=id).exists()
     }
     prod =TarifDouanier.objects.get(pk=id)
+    if prod.exhonereTVA == True:
+        tva = 0
+    else:
+        tva = 1
     objet = {
         "id":prod.id,
         "nomenclature":prod.nomenclature,
         "libelleNomenclature":prod.libelleNomenclature,
         "quotite":prod.quotite,
         "ts":prod.ts,
+        "tva":tva,
+        "dacc":prod.dacc,
         "uniteStatistique":prod.uniteStatistique,
         
     }
