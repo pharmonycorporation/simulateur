@@ -17,7 +17,7 @@ from django.contrib import admin
 from gendsf import views
 from rest_framework import routers, serializers, viewsets
 from django.urls import path, include
-
+from simulateur import views as simviews
 router = routers.DefaultRouter()
 router.register(r'dsfs', views.DSFViewSet)
 router.register(r'dads', views.DADSViewSet)
@@ -43,6 +43,10 @@ router.register(r'identification', views.IdentificationViewSet)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('gestionlicence.urls')),
+    path('sim', simviews.initialisationTarif),
+    path('sup', simviews.suppression),
+    path('sdi', simviews.index),
+    path('ajax_gettarif/', simviews.getProd, name='ajax_gettarif'),
     path('dsf_api/', include(router.urls)),
     path('paypal/', include('paypal.standard.ipn.urls')),
 ]

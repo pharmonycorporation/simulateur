@@ -1,0 +1,458 @@
+{% load static %}
+<html>
+<head>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<head>
+
+<body>
+<a href="/">retour à l'accueil<a/>
+
+<div class="row">
+    <div class="container">
+    <div>
+SIMULATEUR DES DROITS D'IMPORTATIONS DE PRODUITS HORS CEMAC
+<BR>
+<BR>
+<BR>
+<div>
+    <table><tr>
+        <td class="col-md-7">
+            <table id="example" class="table table-striped table-bordered" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Nomenclature</th>
+                        <th>Libellé</th>
+                        <th>Quotite</th>
+                        <th>Unité statistique</th>
+                        <th>Taxes spécipifique</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for tarif in tarifs %}
+                    <tr id="{{tarif.id}}">
+                        <td>{{tarif.nomenclature}}
+                            </td>
+                        <td>{{tarif.libelleNomenclature}}</td>
+                        <td>{{tarif.quotite}}
+                        </td>
+                        <td> {{tarif.uniteStatistique}}</td>
+                        <td> {{tarif.ts}}</td>
+                        <td><button id="{{tarif.id}}" onclick="javascript:ajouterLigneSimulateur(this); return false;" >Ajouter</button></td>
+                    
+                    </tr>
+                    {%endfor%}
+                
+                </tbody>
+                <tfoot>
+                    <tr>
+                        <th>Nomenclature</th>
+                        <th>Libellé</th>
+                        <th>Quotite</th>
+                        
+                        <th>Unité statistique</th>
+                        <th>Action</th>
+                    </tr>
+                </tfoot>
+            </table>
+        </td>
+        </tr>
+         </table>
+
+            </div>
+       <br>
+            <div id="tabSimulateur">   
+            <table style="display:none;" id="logo">
+            <tr>
+            <td><img src="{% static 'images_cgi/LOGOCGI_r.png' %}"  alt width="150" height="150"></td>
+            <td>SIMULATEUR DES TAXES D'IMPORTATIONS DOUANIERES / HORS CEMAC</td>
+            <td>
+                <input type="text" id="entreprise" style="border:0px;width:100%"/><br>
+                <input type="text" id="adresse" style="border:0px;width:100%;"/>
+            </td>
+            </tr>
+            </table>
+            <table class="table" >
+                <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Nomenclature</th>
+                        <th scope="col">Quotite</th>
+                        
+                        <th scope="col">Valeur Imposable</th>
+                        <th scope="col">DD</th>
+                        <th scope="col">TVA</th>
+                        <th scope="col">D ACC</th>
+                        <th scope="col">ACPTE</th>
+                        <th scope="col">RST</th>
+                        <th scope="col">TCI</th>
+                        <th scope="col"> CCI</th>
+                        <th scope="col"> TUA</th>
+                        <th scope="col"> TS</th>
+
+                    </tr>
+                </thead>
+                <tbody id="simulateur">
+                    
+                    
+                </tbody>
+            </table>
+            </div>
+           
+            <button type="button"  class="btn btn-primary" onclick="javascript:ajoutIdentite(this); return false;">
+                 GENERER LA FACTURE
+            </button>
+    
+
+</div>
+    
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Entrez votre identité</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+       <form>
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Importateur </label>
+                <div class="col-sm-10">
+                <input type="email" class="form-control" id="inputEmail3" placeholder="raison sociale">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Régime Fiscale </label>
+                <div class="col-sm-10">
+                <input type="email" class="form-control" id="inputEmail01" placeholder="Régime Fiscale">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Nomenclature tarifaire </label>
+                <div class="col-sm-10">
+                <input type="email" class="form-control" id="inputEmail02" placeholder="Nomenclature tarifaire">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Moyen de transport </label>
+                <div class="col-sm-10">
+                <input type="email" class="form-control" id="inputEmail003" placeholder="Moyen de transport">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputEmail3" class="col-sm-2 col-form-label">Mode de paiement </label>
+                <div class="col-sm-10">
+                <input type="email" class="form-control" id="inputEmail03" placeholder="Mode de paiement">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="inputPassword3" class="col-sm-2 col-form-label">email</label>
+                <div class="col-sm-10">
+                <input type="text" class="form-control" id="inputPassword3" placeholder="votre adresse email">
+                </div>
+            </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+        <button type="button" class="btn btn-primary" id="facture" onclick="javascript:genereFacture(this); return false;">Enregistrer</button>
+      </div>
+    </div>
+  </div>
+</div>
+    <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  
+    <script src="https://kendo.cdn.telerik.com/2017.2.621/js/jszip.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2017.2.621/js/kendo.all.min.js"></script>
+    
+    <script>
+
+        var nbclick  = 0;
+        var tabId = [];
+
+        $(document).ready(function(){
+            $('#example').DataTable();
+        });
+        var ajoutIdentite =  function(link){
+            if(nbclick >= 1){
+                    $("#exampleModal").modal().show();
+            }else{
+                alert("veuillez ajouter un élément au panier");
+            }
+             
+        }
+        var genereFacture = function (link){
+            if ($("#inputEmail3").val() != "" && $("#inputPassword3").val() != "")
+            {
+                entre = document.getElementById("entreprise").setAttribute("value",$("#inputEmail3").val())
+                adresse = document.getElementById("adresse").setAttribute("value",$("#inputPassword3").val())
+                tableau = document.getElementById("logo");
+                tableau.setAttribute("style","display:show");
+
+                $("#exampleModal").modal('hide');
+                        let mesTaxes =0 ;
+                        /*let mesTVA =0 ;
+                        let mesRST =0;
+                        let mesCCI =0;
+                        let mesTCI =0;
+                        let mesTUA =0;
+                        let acc =0;
+                        let acptes =0;*/
+                        let somme = 0;
+                        for (let i = 0 ; i<tabId.length; i++){
+                            mesTaxes[i] = parseFloat(document.getElementById("taxes-"+tabId[i]).value);
+                            somme += mesTaxes[i];
+                            console.log("tva :",document.getElementById("Tva-"+tabId[i]).value)
+                            somme += parseFloat(document.getElementById("Tva-"+tabId[i]).value);
+
+                            console.log("Rst :",document.getElementById("Rst-"+tabId[i]).value)
+                            somme += parseFloat(document.getElementById("Rst-"+tabId[i]).value);
+
+                            console.log("Cci :",document.getElementById("Cci-"+tabId[i]).value)
+                            somme += parseFloat(document.getElementById("Cci-"+tabId[i]).value);
+
+                            console.log("Tci :",document.getElementById("Tci-"+tabId[i]).value)
+                            somme += parseFloat(document.getElementById("Tci-"+tabId[i]).value);
+
+                            console.log("Tua :",document.getElementById("Tua-"+tabId[i]).value)
+                            somme += parseFloat(document.getElementById("Tua-"+tabId[i]).value);
+
+                            console.log("Acpte :",document.getElementById("Acpte-"+tabId[i]).value);
+                            somme += parseFloat(document.getElementById("Acpte-"+tabId[i]).value);
+
+
+                            console.log("Dacc :",document.getElementById("Dacc-"+tabId[i]).value);
+                            somme += parseFloat(document.getElementById("Dacc-"+tabId[i]).value);
+                            console.log("valeur : "+i, somme);
+
+                        }
+                        let total = parseFloat(somme);
+
+                        body = document.getElementById("simulateur");
+                            tr = document.createElement('tr');
+                            tr.setAttribute("id","total");
+                            tdcol1 = document.createElement('td');
+                            tdcol1.setAttribute("colspan","11");
+                            tdcol1.innerHTML = "TOTAL";
+
+                            tr.appendChild(tdcol1);
+                            tdcol2 = document.createElement('td');
+                            tdcol2.innerHTML = total;
+                            tr.appendChild(tdcol2);
+
+                        body.appendChild(tr);
+
+                        kendo.drawing
+                            .drawDOM("#tabSimulateur", 
+                            { 
+                                paperSize: "A4",
+                                orientation:"horizontal",landscape: true,
+                                margin: { top: "1cm", left:"0.2cm", right:"0.2cm", bottom: "1cm" },
+                                scale: 0.8,
+                                height: 500
+                            })
+                            .then(function(group){
+                            kendo.drawing.pdf.saveAs(group, "simulateur.pdf")
+                            });
+
+            }else{
+                alert("veuillez remplir tous les champs");
+            }
+           
+            //alert(somme);
+        }
+        var calculeTaxe = function (link){
+            var row = link.parentNode.parentNode;
+			var table = row.parentNode;
+			var id = row.getAttribute('id');
+            var donnee = id.split("-");
+            let pa = document.getElementById("pa-"+donnee[1]).value 
+            let quotite = document.getElementById("quotite-"+donnee[1]).value 
+            //let quantite = document.getElementById("quantite-"+donnee[1]).value 
+            let taxesInput = document.getElementById("taxes-"+donnee[1]);
+            let tvaInput = document.getElementById("Tva-"+donnee[1]);
+            let daccInput = document.getElementById("Dacc-"+donnee[1]);
+            let Tciinput = document.getElementById("Tci-"+donnee[1]);
+            let Tuainput = document.getElementById("Tua-"+donnee[1]);
+            let CCIinput = document.getElementById("Cci-"+donnee[1]);
+            let RSTinput = document.getElementById("Rst-"+donnee[1]);
+            let Acpteinput = document.getElementById("Acpte-"+donnee[1]);  
+            //alert(Acpteinput.getAttribute("id"));     
+            let tsInput = document.getElementById("Ts-"+donnee[1]);
+            let tsInputValue = tsInput.value
+            
+            let A = parseInt(pa);
+            let B = parseInt(A*quotite)/100;
+            let C= parseFloat((A+B)*quotite);
+            let D = parseFloat((A+C)*quotite);
+            let AC4 = parseFloat(((A+B)*4)/100);
+            let RST =parseFloat(A*2/100) ;
+            let TCI = parseFloat(A/100) ; 
+            let CCI = parseFloat(A*0.4/100) ;
+            let TUA = parseFloat(A*0.2/100);
+            let TS = parseFloat(A*parseInt(tsInputValue));
+            //alert(AC4);
+            Acpteinput.setAttribute("value",AC4);
+            tvaInput.setAttribute("value",C);
+            daccInput.setAttribute("value",D);
+            taxesInput.setAttribute("value",B);
+            Tciinput.setAttribute("value",TCI);
+            Tuainput.setAttribute("value",TUA);
+            CCIinput.setAttribute("value",CCI);
+            RSTinput.setAttribute("value",RST);
+            tsInput.setAttribute("value",TS);
+            
+        }
+
+        var ajouterLigneSimulateur = function (link) {
+            var row = link.parentNode.parentNode;
+            var table = row.parentNode;
+            tarifId = row.getAttribute("id");
+            
+        
+            $.ajax({
+                url: "{% url 'ajax_gettarif' %}",
+                data: {
+                'id': tarifId
+                },
+                dataType: 'json',
+                success: function (data) {
+                   
+                   body = document.getElementById("simulateur");
+                   tr = document.createElement('tr');
+                   tr.setAttribute("id","simulateur-"+tarifId);
+                   tdNomenclature = document.createElement('td');
+                   tdNomenclature.innerHTML= data.tarif.nomenclature
+                   tr.appendChild(tdNomenclature);
+                    /*
+                   tdLibelle = document.createElement('td');
+                   tdLibelle.innerHTML = data.tarif.libelleNomenclature;
+                   tr.appendChild(tdLibelle);*/
+
+                   tdQuotite = document.createElement('td');
+                   inputQuotite = document.createElement('input');
+                   inputQuotite.setAttribute('id',"quotite-"+tarifId);
+                   inputQuotite.setAttribute('type',"text");
+                   inputQuotite.setAttribute('style',"border:0px");
+                     
+                   inputQuotite.setAttribute('disabled',"disabled");
+                   inputQuotite.setAttribute('value',data.tarif.quotite);
+                   tdQuotite.appendChild(inputQuotite);
+                   tr.appendChild(tdQuotite);
+                    
+                 
+
+                   tdPA = document.createElement('td');
+                   inputPA = document.createElement('input');
+                   inputPA.setAttribute("type","text");
+                   inputPA.setAttribute("value","");
+                   inputPA.setAttribute("style","border:0px");
+                   inputPA.setAttribute("id","pa-"+tarifId);
+                   inputPA.setAttribute("onBlur","javascript:calculeTaxe(this);return false;")
+                   tdPA.appendChild(inputPA);
+                   tr.appendChild(tdPA);
+                   
+                 
+
+                   tdTaxes = document.createElement('td');
+                   inputTaxes = document.createElement('input');
+                   inputTaxes.setAttribute("id","taxes-"+tarifId);
+                   inputTaxes.setAttribute("type","text");
+                   inputTaxes.setAttribute("style","border:0px;");
+                   inputTaxes.setAttribute('disabled',"disabled"); 
+                   tdTaxes.appendChild(inputTaxes);
+                   tr.appendChild(tdTaxes);
+
+                   tdTva = document.createElement('td');
+                   inputTva  = document.createElement('input');
+                   inputTva.setAttribute('id',"Tva-"+tarifId);
+                   inputTva.setAttribute('type',"text");  
+                   inputTva.setAttribute('style',"border:0px;");  
+                   inputTva.setAttribute('disabled',"disabled");  
+                   tdTva.appendChild(inputTva);
+                   tr.appendChild(tdTva);
+
+                   tdDacc = document.createElement('td');
+                   inputDacc  = document.createElement('input');
+                   inputDacc.setAttribute('id',"Dacc-"+tarifId);
+                   inputDacc.setAttribute('type',"text");  
+                   inputDacc.setAttribute('style',"border:0px;");  
+                   inputDacc.setAttribute('disabled',"disabled");  
+                   tdDacc.appendChild(inputDacc);
+                   tr.appendChild(tdDacc);
+
+                   tdAcpte = document.createElement('td');
+                   inputAcpte = document.createElement('input');
+                   inputAcpte.setAttribute('id',"Acpte-"+tarifId);
+                   inputAcpte.setAttribute('type',"text");  
+                   inputAcpte.setAttribute('style',"border:0px;");  
+                   inputAcpte.setAttribute('disabled',"disabled");  
+                   tdAcpte.appendChild(inputAcpte);
+                   tr.appendChild(tdAcpte);
+
+                   tdRst = document.createElement('td');
+                   inputRst  = document.createElement('input');
+                   inputRst.setAttribute('id',"Rst-"+tarifId);
+                   inputRst.setAttribute('type',"text");  
+                   inputRst.setAttribute('style',"border:0px;");  
+                   inputRst.setAttribute('disabled',"disabled");  
+                   tdRst.appendChild(inputRst);
+                   tr.appendChild(tdRst);
+
+                   tdTci = document.createElement('td');
+                   inputTci  = document.createElement('input');
+                   inputTci.setAttribute('id',"Tci-"+tarifId);
+                   inputTci.setAttribute('type',"text");  
+                   inputTci.setAttribute('style',"border:0px;");  
+                   inputTci.setAttribute('disabled',"disabled");  
+                   tdTci.appendChild(inputTci);
+                   tr.appendChild(tdTci);
+
+                   tdCci = document.createElement('td');
+                   inputCci  = document.createElement('input');
+                   inputCci.setAttribute('id',"Cci-"+tarifId);
+                   inputCci.setAttribute('type',"text");  
+                   inputCci.setAttribute('style',"border:0px;");  
+                   inputCci.setAttribute('disabled',"disabled");  
+                   tdCci.appendChild(inputCci);
+                   tr.appendChild(tdCci);
+
+                   tdTua = document.createElement('td');
+                   inputTua  = document.createElement('input');
+                   inputTua.setAttribute('id',"Tua-"+tarifId);
+                   inputTua.setAttribute('type',"text");  
+                   inputTua.setAttribute('style',"border:0px;");  
+                   inputTua.setAttribute('disabled',"disabled");  
+                   tdTua.appendChild(inputTua);
+                   tr.appendChild(tdTua);
+
+                   tdTs = document.createElement('td');
+                   inputTs  = document.createElement('input');
+                   inputTs.setAttribute('id',"Ts-"+tarifId);
+                   inputTs.setAttribute('type',"text");  
+                   inputTs.setAttribute('style',"border:0px;");  
+                   inputTs.setAttribute('value',data.tarif.ts);  
+                   inputTs.setAttribute('disabled',"disabled");  
+                   tdTs.appendChild(inputTs);
+                   tr.appendChild(tdTs);
+
+                   body.appendChild(tr);
+                   tabId[nbclick]=tarifId;
+                   nbclick++;
+
+                }
+            });
+        
+        }
+
+    </script>
+
+</body>
+</html>
