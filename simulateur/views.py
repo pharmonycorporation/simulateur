@@ -27,7 +27,7 @@ def ajuster(request):
     liste = TarifDouanier.objects.all()
     for tarif in liste:
         x = tarif.nomenclature.split(".")
-        if re.search("^02", x[0]):
+        if re.search("^0401", x[0]):
             tarif.exhonereTVA = True
             tarif.save() 
 
