@@ -27,12 +27,18 @@ def ajuster(request):
     liste = TarifDouanier.objects.all()
     for tarif in liste:
 
-        if (re.search("^4901.91.00", tarif.nomenclature) or re.search("^1001.10.10", tarif.nomenclature)or re.search("^1002.00.10", tarif.nomenclature) or re.search("^1004.00.10", tarif.nomenclature) or re.search("^1005.10.00", tarif.nomenclature) or
-           re.search("^0511.10.00", tarif.nomenclature) or re.search("^0407.11.00", tarif.nomenclature) or re.search("^8414.60.00", tarif.nomenclature) or 
-           re.search("^8419.31.00", tarif.nomenclature) or re.search("^8716.80.10", tarif.nomenclature) or re.search("^8436.10.00", tarif.nomenclature) or  
-           re.search("^8445.19.10", tarif.nomenclature) or re.search("^8479.82.00", tarif.nomenclature) or re.search("^8479.82.00", tarif.nomenclature) or 
-           re.search("^8476.89.00", tarif.nomenclature) or re.search("^8436.21.00", tarif.nomenclature) or re.search("^8705.90.00", tarif.nomenclature) or 
-           re.search("^8436.21.00", tarif.nomenclature) or re.search("^8436.10.00", tarif.nomenclature) or re.search("^8504.21", tarif.nomenclature) or  re.search("^8504.23", tarif.nomenclature) ): 
+        if (re.search("^8501.10.00", tarif.nomenclature) or re.search("^8541.40.00", tarif.nomenclature)or re.search("^8504.31.00", tarif.nomenclature) or re.search("^8504.40.00", tarif.nomenclature) or re.search("^9030.39.00", tarif.nomenclature) or
+           re.search("^8544.20.00", tarif.nomenclature) or re.search("^8507.80.00", tarif.nomenclature) or re.search("^8536.30.00", tarif.nomenclature) or 
+           re.search("^8507.80.00", tarif.nomenclature) or re.search("^8504.90.00", tarif.nomenclature) or re.search("^8513.10.00", tarif.nomenclature) or  
+           re.search("^8513.10.00", tarif.nomenclature) or re.search("^8436.80.00", tarif.nomenclature) or re.search("^8413.82.00", tarif.nomenclature) or 
+           re.search("^8537.10.00", tarif.nomenclature) or re.search("^8419.40.00", tarif.nomenclature) or re.search("^8419.31.00", tarif.nomenclature) or 
+           re.search("^8413.81.00", tarif.nomenclature) or re.search("^8419.31.00", tarif.nomenclature) or re.search("^8504.34.00", tarif.nomenclature) or 
+           re.search("^8504.40.00", tarif.nomenclature) or re.search("^9030.39.00", tarif.nomenclature) or re.search("^2836.50.00", tarif.nomenclature) or 
+           re.search("^3204", tarif.nomenclature) or re.search("^3901", tarif.nomenclature) or re.search("^3902", tarif.nomenclature) or 
+           re.search("^3907.30.00", tarif.nomenclature) or re.search("^3907.50.00", tarif.nomenclature) or re.search("^3909", tarif.nomenclature) or 
+           re.search("^3911", tarif.nomenclature) or re.search("^3905", tarif.nomenclature) or re.search("^3906", tarif.nomenclature) or 
+           re.search("^3907", tarif.nomenclature) or re.search("^3908", tarif.nomenclature) or re.search("^3915", tarif.nomenclature) or 
+           re.search("^8421.21.00", tarif.nomenclature) or re.search("^8412.80.00", tarif.nomenclature) or re.search("^8410", tarif.nomenclature) or  re.search("^8504.33.00", tarif.nomenclature)or  re.search("^8465.99.00", tarif.nomenclature) ): 
            
             
             tarif.exhonereTVA = True
