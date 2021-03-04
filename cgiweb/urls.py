@@ -44,6 +44,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',include('gestionlicence.urls')),
     path('sim', simviews.initialisationTarif),
+    path('test', simviews.ajuster),
     path('sup', simviews.suppression),
     path('sdi', simviews.index),
     path('ajax_gettarif/', simviews.getProd, name='ajax_gettarif'),

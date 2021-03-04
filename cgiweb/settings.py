@@ -93,6 +93,7 @@ WSGI_APPLICATION = 'cgiweb.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
+
 try:
   database_url = os.environ["DATABASE_URL"]
 except KeyError:
@@ -100,8 +101,8 @@ except KeyError:
 
 DATABASES = { 'default': dj_database_url.config() }
 
-"""
-DATABASES = {
+
+"""DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'cgi',
@@ -110,14 +111,15 @@ DATABASES = {
         'HOST': 'localhost',
         'PORT': '',
     }
-}"""
+}
+"""
 """DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': 'sqlite',
     }
-}"""
-
+}
+"""
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 

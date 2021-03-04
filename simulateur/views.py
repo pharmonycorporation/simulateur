@@ -4,6 +4,7 @@ from .serializers import TarifDouanierSerializer
 import csv
 from django.http import JsonResponse, HttpResponseNotFound, HttpResponseServerError, HttpResponse
 from django.core import serializers
+import re
 
 def initialisationTarif(request):
     with open('tarif2.csv', newline='') as csvfile:
@@ -21,6 +22,14 @@ def suppression(request):
     liste = TarifDouanier.objects.all()
     for tarif in liste:
         tarif.delete()
+
+def ajuster(request):
+    liste = TarifDouanier.objects.all()
+    for tarif in liste:
+        x = tarif.nomenclature.split(".")
+        if re.search("^02", x[0]):
+            tarif.exhonereTVA = True
+            tarif.save() 
 
 def index(request):
     
