@@ -37,9 +37,17 @@ def ajuster(request):
             tarif.dacc = 25
             tarif.ts= 15
             tarif.save()
-        if (re.search("^2204",tarif.nomenclature)):
+        if (re.search("^2208",tarif.nomenclature)):
             tarif.dacc = 25
             tarif.ts= 20
+            tarif.save()
+        if (re.search("^2402",tarif.nomenclature)):
+            tarif.dacc = 30
+            #tarif.ts= 20
+            tarif.save()
+        if (re.search("^2403",tarif.nomenclature)):
+            tarif.dacc = 30
+            #tarif.ts= 20
             tarif.save()
 
         """if (re.search("^8501.10.00", tarif.nomenclature) or re.search("^8541.40.00", tarif.nomenclature)or re.search("^8504.31.00", tarif.nomenclature) or re.search("^8504.40.00", tarif.nomenclature) or re.search("^9030.39.00", tarif.nomenclature) or
