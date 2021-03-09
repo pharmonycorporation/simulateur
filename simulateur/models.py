@@ -3,10 +3,10 @@ from django.db import models
 class TarifDouanier (models.Model):
     nomenclature = models.CharField(max_length=12,unique=True)
     libelleNomenclature = models.CharField(max_length=255)
-    quotite = models.IntegerField(default=0)
+    quotite = models.FloatField(default=0)
     exhonereTVA = models.BooleanField(default=False)
-    dacc = models.IntegerField(default=0)
-    ts = models.IntegerField(default=0)
+    dacc = models.FloatField(default=0)
+    ts = models.FloatField(default=0)
     uniteStatistique = models.CharField(max_length=255)
    
     class Meta:
