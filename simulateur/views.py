@@ -26,11 +26,12 @@ def suppression(request):
 def ajuster(request):
     liste = TarifDouanier.objects.all()
     for tarif in liste:
-        if (re.search("^8711.30.00",tarif.nomenclature)or re.search("^8711.40.00",tarif.nomenclature)):
-            tarif.dacc = 12.5
+        if (re.search("^8703.23.10",tarif.nomenclature)or re.search("^8703.32.10",tarif.nomenclature)):
+            tarif.dacc = 25
+            tarif.ts = 20
             tarif.save()
-        if (re.search("^8711.50.00",tarif.nomenclature)or re.search("^8711.90.00",tarif.nomenclature)):
-            tarif.dacc = 12.5
+        if (re.search("^3917",tarif.nomenclature)or re.search("^3923",tarif.nomenclature)or re.search("^3924",tarif.nomenclature)or re.search("^3926",tarif.nomenclature)):
+            tarif.ts = 10
             tarif.save()
      
       
