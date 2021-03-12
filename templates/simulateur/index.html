@@ -1,79 +1,159 @@
 {% load static %}
-<html>
+
+<!DOCTYPE html>
+<!--
+* CoreUI - Free Bootstrap Admin Template
+* @version v3.2.0
+* @link https://coreui.io
+* Copyright (c) 2020 creativeLabs Łukasz Holeczek
+* Licensed under MIT (https://coreui.io/license)
+-->
+
+<html lang="en">
 <head>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.23/b-1.6.5/b-colvis-1.6.5/b-html5-1.6.5/r-2.2.7/datatables.min.css"/>
+ 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 <head>
 
-<body>
-<a href="/">retour à l'accueil<a/>
-
-<div class="row">
-    <div class="container">
-    <div>
-SIMULATEUR DES DROITS D'IMPORTATIONS DE PRODUITS HORS CEMAC
-<BR>
-<BR>
-<BR>
-<div>
-Vers quel pays souhaitez-vous importer ?<select id="paysTva">
-{% for tva in tvas %}
-    <option value="{{tva.valeur}}">{{tva.pays}}</option>
-{% endfor %}
-</select> <br><br>
-    <table><tr>
-        <td class="col-md-7">
-            <table id="example" class="table table-striped table-bordered" style="width:100%">
-                <thead>
-                     <tr>
-                        <th>Nomenclature</th>
-                        <th>Libellé</th>
-                        <th>Quotite</th>
-                        <th>Unité statistique</th>
-                        <th>Exhonération TVA</th>
-                        <th>DACC</th>
-                        <th>T.S</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                {% for tarif in tarifs %}
-                    <tr id="{{tarif.id}}">
-                        <td>{{tarif.nomenclature}}
-                            </td>
-                        <td>{{tarif.libelleNomenclature}}</td>
-                        <td>{{tarif.quotite}}
-                        </td>
-                        <td> {{tarif.uniteStatistique}}</td>
-                        <td> {{tarif.exhonereTVA}}</td>
-                        <td> {{tarif.dacc}}</td>
-                        <td> {{tarif.ts}}</td>
-                        <td><button id="{{tarif.id}}" onclick="javascript:ajouterLigneSimulateur(this); return false;" >Ajouter</button></td>
+  <body class="c-app">
+ 
+    <div class="c-wrapper c-fixed-components">
+      <header class="c-header c-header-light c-header-fixed c-header-with-subheader">
+        
+       
+        <div class="c-subheader px-3">
+          <!-- Breadcrumb-->
+          <ol class="breadcrumb border-0 m-0">
+            <li class="breadcrumb-item"><a href="/"> Retour à l'Accueil<a/></li>
+            <li class="breadcrumb-item"> / Simulateur des droits et taxes douanières</li>
+            <!-- Breadcrumb Menu-->
+          </ol>
+        </div>
+      </header>
+      <br>
+      <div class="c-body">
+        <main class="c-main">
+          <div class="container-fluid">
+            <div class="fade-in">
+              <div class="row">
+                <div class="col-sm-8">
+                  <div class="card">
+                    <div class="card-header"><strong>TEC + </strong> <small> TVA + DACC + TS </small></div>
+                    <div class="card-body">
+                      <div class="row">
+                        <div class="col-sm-12">
+                          <table id="example" class="table table-responsive-sm table-striped table-bordered" >
+                            <thead>
+                                <tr>
+                                    <th>Nomenclature</th>
+                                    <th>Libellé</th>
+                                    <th>Quotite</th>
+                                    <th>Unité statistique</th>
+                                    <th>Exhonération TVA</th>
+                                    <th>DACC</th>
+                                    <th>T.S</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            {% for tarif in tarifs %}
+                                <tr id="{{tarif.id}}">
+                                    <td>{{tarif.nomenclature}}
+                                        </td>
+                                    <td>{{tarif.libelleNomenclature}}</td>
+                                    <td>{{tarif.quotite}}
+                                    </td>
+                                    <td> {{tarif.uniteStatistique}}</td>
+                                    <td> {{tarif.exhonereTVA}}</td>
+                                    <td> {{tarif.dacc}}</td>
+                                    <td> {{tarif.ts}}</td>
+                                    <td><button id="{{tarif.id}}" onclick="javascript:ajouterLigneSimulateur(this); return false;" >Ajouter</button></td>
+                                
+                                </tr>
+                            {%endfor%}
+                            
+                            </tbody>
+                            <tfoot>
+                                <tr>
+                                    <th>Nomenclature</th>
+                                    <th>Libellé</th>
+                                    <th>Quotite</th>
+                                    <th>Unité statistique</th>
+                                    <th>Exhonération TVA</th>
+                                    <th>DACC</th>
+                                    <th>T.S</th>
+                                    <th>Action</th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                        </div>
+                      </div>
                     
-                    </tr>
-                 {%endfor%}
-                
-                </tbody>
-                <tfoot>
-                      <tr>
-                        <th>Nomenclature</th>
-                        <th>Libellé</th>
-                        <th>Quotite</th>
-                        <th>Unité statistique</th>
-                        <th>Exhonération TVA</th>
-                        <th>DACC</th>
-                        <th>T.S</th>
-                        <th>Action</th>
-                    </tr>
-                </tfoot>
-            </table>
-        </td>
-        </tr>
-         </table>
+                    </div>
+                  </div>
+                </div>
+                <!-- /.col-->
+                <div class="col-sm-4">
+                  <div class="card">
+                    <div class="card-header"><strong>Informations sur </strong> <small>l'importateur</small></div>
+                    <div class="card-body">
+                      <div class="form-group">
+                        <label for="company">Importateur</label>
+                        <input class="form-control" id="inputEmail3" type="text" placeholder="Raison sociale">
+                      </div>
+                      <div class="form-group">
+                        <label for="inputEmail3" >Régime Fiscale </label>
+                      <input type="email" class="form-control" id="inputEmail01" placeholder="Régime Fiscale">
+                       
+                     </div>
+                    <div class="form-group ">
+                        <label for="inputEmail3" >Nomenclature tarifaire </label>
+                        <input type="email" class="form-control" id="inputEmail02" placeholder="Nomenclature tarifaire">    
+                    </div>
+                    <div class="form-group ">
+                        <label for="inputEmail3" >Moyen de transport </label>
+                        <input type="email" class="form-control" id="inputEmail003" placeholder="Moyen de transport">
+                    </div>
+                    <div class="form-group ">
+                        <label for="inputEmail3" >Mode de paiement </label>
+                        <input type="text" class="form-control" id="inputEmail03" placeholder="Mode de paiement">   
+                    </div>
+                     
+                      <!-- /.row-->
+                      <div class="form-group">
+                        
+                        <label for="country">Vers quel pays souhaitez-vous importer ?</label><select class="form-control" id="paysTva">
+                        {% for tva in tvas %}
+                            <option value="{{tva.valeur}}">{{tva.pays}}</option>
+                        {% endfor %}
+                        </select> 
+                      </div>
+                      <div class="form-group">
+                        
+                        <label for="country">Pays de provenance</label><select class="form-control" id="paysTva">
+                        {% for tva in tvas %}
+                            <option value="{{tva.valeur}}">{{tva.pays}}</option>
+                        {% endfor %}
+                        </select> 
+                      </div>
 
-            </div>
-       <br>
-            <div id="tabSimulateur">   
+                    </div>
+                  </div>
+                </div>
+                <!-- /.col-->
+              </div>
+              <!-- /.row-->
+            
+              <!-- /.row-->
+              <br>
+              <div class="row">
+                <div class="col-sm-12">
+                  <div class="card">
+                    <div class="card-header"><strong>SIMULATEUR</strong> </div>
+                    <div class="card-body">
+
+                        <div id="tabSimulateur">   
             <table style="display:none;"  id="logo">
             <tr>
              <td colspan="2">SIMULATEUR DES TAXES D'IMPORTATIONS DOUANIERES / HORS CEMAC</td>
@@ -91,7 +171,7 @@ Vers quel pays souhaitez-vous importer ?<select id="paysTva">
             </td>
             </tr>
             </table>
-            <table class="table" >
+            <table class="table table-responsive-sm" >
                 <thead class="thead-dark">
                     <tr>
                         <th scope="col">Nomenclature</th>
@@ -120,10 +200,28 @@ Vers quel pays souhaitez-vous importer ?<select id="paysTva">
             <button type="button"  class="btn btn-primary" onclick="javascript:ajoutIdentite(this); return false;">
                  GENERER LA FACTURE
             </button>
-    
+                      
+                    </div>
+                  </div>
+                </div>
+                <!-- /.col-->
+               
+                <!-- /.col-->
+              </div>
+              <!-- /.row-->
 
-</div>
-    
+            </div>
+          </div>
+        </main>
+        
+      </div>
+    </div>
+    <!-- CoreUI and necessary plugins-->
+ 
+    <!--<![endif]-->
+ 
+
+
 
 
 <!-- Modal -->
@@ -131,50 +229,67 @@ Vers quel pays souhaitez-vous importer ?<select id="paysTva">
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Veuillez remplir le formulaire</h5>
+        <h5 class="modal-title" id="exampleModalLabel">NOTE DE VALEUR IMPORT</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
+      <div class="container">
        <form>
+           
+            
+            
             <div class="form-group row">
-                <label for="inputEmail3" class="col-sm-2 col-form-label">Importateur </label>
-                <div class="col-sm-10">
-                <input type="email" class="form-control" id="inputEmail3" placeholder="raison sociale">
-                </div>
+                <label for="valeurFacture" >Valeur Facture</label>
+  
+                <input type="text" class="form-control" id="valeurFacture" placeholder="Valeur Facture">
+               
             </div>
             <div class="form-group row">
-                <label for="inputEmail3" class="col-sm-2 col-form-label">Régime Fiscale </label>
-                <div class="col-sm-10">
-                <input type="email" class="form-control" id="inputEmail01" placeholder="Régime Fiscale">
-                </div>
+                <label for="fret" >Fret</label>
+                
+                <input type="text" class="form-control" id="fret" placeholder="Fret">
+                
             </div>
             <div class="form-group row">
-                <label for="inputEmail3" class="col-sm-2 col-form-label">Nomenclature tarifaire </label>
-                <div class="col-sm-10">
-                <input type="email" class="form-control" id="inputEmail02" placeholder="Nomenclature tarifaire">
-                </div>
+                <label for="assurance" >Assurance</label>
+                
+                <input type="text" class="form-control" id="assurance" placeholder="Assurance">
+                
             </div>
             <div class="form-group row">
-                <label for="inputEmail3" class="col-sm-2 col-form-label">Moyen de transport </label>
-                <div class="col-sm-10">
-                <input type="email" class="form-control" id="inputEmail003" placeholder="Moyen de transport">
-                </div>
+                <label for="idtotal" >Total</label>
+                
+                <input type="text" class="form-control" id="idtotal" placeholder="total">
+                
             </div>
             <div class="form-group row">
-                <label for="inputEmail3" class="col-sm-2 col-form-label">Mode de paiement </label>
-                <div class="col-sm-10">
-                <input type="email" class="form-control" id="inputEmail03" placeholder="Mode de paiement">
-                </div>
+                <label for="tauxChange" >Taux de change</label>
+                
+                <input type="text" class="form-control" id="tauxChange" placeholder="Taux de change du jour">
+               
             </div>
             <div class="form-group row">
-                <label for="inputPassword3" class="col-sm-2 col-form-label">email</label>
-                <div class="col-sm-10">
-                <input type="text" class="form-control" id="inputPassword3" placeholder="votre adresse email">
-                </div>
+                <label for="valImposable" >Valeur Imposable</label>
+               
+                <input type="text" class="form-control" id="valImposable" placeholder="Valeur Imposable">
+                
+            </div>
+            <div class="form-group row">
+                <label for="fretNational" >Fret national</label>
+                
+                <input type="text" class="form-control" id="fretNational" placeholder="Fret national">
+                
+            </div>
+            <div class="form-group row">
+                <label for="ValeurStatistique" >Valeur statistique</label>
+                
+                <input type="text" class="form-control" id="ValeurStatistique" placeholder="ValeurStatistique">
+                
             </div>
         </form>
+        </div>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
@@ -184,7 +299,9 @@ Vers quel pays souhaitez-vous importer ?<select id="paysTva">
   </div>
 </div>
     <script src="https://code.jquery.com/jquery-2.0.3.min.js"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.23/b-1.6.5/b-colvis-1.6.5/b-html5-1.6.5/r-2.2.7/datatables.min.js"></script>
      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   
     <script src="https://kendo.cdn.telerik.com/2017.2.621/js/jszip.min.js"></script>
@@ -195,9 +312,13 @@ Vers quel pays souhaitez-vous importer ?<select id="paysTva">
         var nbclick  = 0;
         var tabId = [];
 
-        $(document).ready(function(){
-            $('#example').DataTable();
-        });
+                $('#example').DataTable( {
+                    dom: 'Bfrtip',
+                    buttons: [
+                        'copy', 'excel', 'pdf'
+                ]
+                   } );
+     
         var ajoutIdentite =  function(link){
             if(nbclick >= 1){
                     $("#exampleModal").modal().show();
@@ -416,6 +537,7 @@ Vers quel pays souhaitez-vous importer ?<select id="paysTva">
                    inputQuotite.setAttribute('style',"border:0px");
                      
                    inputQuotite.setAttribute('disabled',"disabled");
+                   inputQuotite.setAttribute('class',"form-control");
                    inputQuotite.setAttribute('value',data.tarif.quotite);
                    tdQuotite.appendChild(inputQuotite);
                    tr.appendChild(tdQuotite);
@@ -427,6 +549,7 @@ Vers quel pays souhaitez-vous importer ?<select id="paysTva">
                    inputPA.setAttribute("type","text");
                    inputPA.setAttribute("value","");
                    inputPA.setAttribute("style","border:0px");
+                   inputPA.setAttribute('class',"form-control");
                    inputPA.setAttribute("id","pa-"+tarifId);
                    inputPA.setAttribute("onBlur","javascript:calculeTaxe(this);return false;")
                    tdPA.appendChild(inputPA);
@@ -440,6 +563,7 @@ Vers quel pays souhaitez-vous importer ?<select id="paysTva">
                    inputTaxes.setAttribute("type","text");
                    inputTaxes.setAttribute("style","border:0px;");
                    inputTaxes.setAttribute('disabled',"disabled"); 
+                   inputTaxes.setAttribute('class',"form-control"); 
                    tdTaxes.appendChild(inputTaxes);
                    tr.appendChild(tdTaxes);
 
@@ -449,6 +573,7 @@ Vers quel pays souhaitez-vous importer ?<select id="paysTva">
                    inputTva.setAttribute('type',"text");  
                    inputTva.setAttribute('style',"border:0px;");  
                    inputTva.setAttribute('disabled',"disabled");  
+                   inputTva.setAttribute('class',"form-control");  
                    inputTva2  = document.createElement('input');
                    inputTva2.setAttribute('id',"Tva2-"+tarifId);
                    inputTva2.setAttribute('type',"text");  
@@ -481,6 +606,7 @@ Vers quel pays souhaitez-vous importer ?<select id="paysTva">
                    inputAcpte.setAttribute('type',"text");  
                    inputAcpte.setAttribute('style',"border:0px;");  
                    inputAcpte.setAttribute('disabled',"disabled");  
+                   inputAcpte.setAttribute('class',"form-control"); 
                    tdAcpte.appendChild(inputAcpte);
                    tr.appendChild(tdAcpte);
 
@@ -490,6 +616,7 @@ Vers quel pays souhaitez-vous importer ?<select id="paysTva">
                    inputRst.setAttribute('type',"text");  
                    inputRst.setAttribute('style',"border:0px;");  
                    inputRst.setAttribute('disabled',"disabled");  
+                   inputRst.setAttribute('class',"form-control"); 
                    tdRst.appendChild(inputRst);
                    tr.appendChild(tdRst);
 
@@ -499,6 +626,7 @@ Vers quel pays souhaitez-vous importer ?<select id="paysTva">
                    inputTci.setAttribute('type',"text");  
                    inputTci.setAttribute('style',"border:0px;");  
                    inputTci.setAttribute('disabled',"disabled");  
+                   inputTci.setAttribute('class',"form-control"); 
                    tdTci.appendChild(inputTci);
                    tr.appendChild(tdTci);
 
@@ -508,6 +636,7 @@ Vers quel pays souhaitez-vous importer ?<select id="paysTva">
                    inputCci.setAttribute('type',"text");  
                    inputCci.setAttribute('style',"border:0px;");  
                    inputCci.setAttribute('disabled',"disabled");  
+                   inputCci.setAttribute('class',"form-control");  
                    tdCci.appendChild(inputCci);
                    tr.appendChild(tdCci);
 
@@ -517,6 +646,7 @@ Vers quel pays souhaitez-vous importer ?<select id="paysTva">
                    inputTua.setAttribute('type',"text");  
                    inputTua.setAttribute('style',"border:0px;");  
                    inputTua.setAttribute('disabled',"disabled");  
+                   inputTua.setAttribute('class',"form-control"); 
                    tdTua.appendChild(inputTua);
                    tr.appendChild(tdTua);
 
@@ -527,6 +657,7 @@ Vers quel pays souhaitez-vous importer ?<select id="paysTva">
                    inputTs.setAttribute('style',"border:0px;");  
                    inputTs.setAttribute('value',data.tarif.ts);  
                    inputTs.setAttribute('disabled',"disabled");  
+                   inputTs.setAttribute('class',"form-control");  
                    tdTs.appendChild(inputTs);
                    tr.appendChild(tdTs);
 
