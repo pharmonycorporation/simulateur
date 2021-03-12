@@ -37,110 +37,64 @@
           <div class="container-fluid">
             <div class="fade-in">
               <div class="row">
-                <div class="col-sm-8">
+                <div class="col-sm-12">
                   <div class="card">
                     <div class="card-header"><strong>TEC + </strong> <small> TVA + DACC + TS </small></div>
-                    <div class="card-body">
-                      <div class="row">
-                        <div class="col-sm-12">
-                          <table id="example" class="table table-responsive-sm table-striped table-bordered" >
-                            <thead>
-                                <tr>
-                                    <th>Nomenclature</th>
-                                    <th>Libellé</th>
-                                    <th>Quotite</th>
-                                    <th>Unité statistique</th>
-                                    <th>Exhonération TVA</th>
-                                    <th>DACC</th>
-                                    <th>T.S</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            {% for tarif in tarifs %}
-                                <tr id="{{tarif.id}}">
-                                    <td>{{tarif.nomenclature}}
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="col-sm-12">
+                            <table id="example" class="table table-responsive-sm table-striped table-bordered" >
+                                <thead>
+                                    <tr>
+                                        <th>Nomenclature</th>
+                                        <th>Libellé</th>
+                                        <th>Quotite</th>
+                                        <th>Unité statistique</th>
+                                        <th>Exhonération TVA</th>
+                                        <th>DACC</th>
+                                        <th>T.S</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for tarif in tarifs %}
+                                    <tr id="{{tarif.id}}">
+                                        <td>{{tarif.nomenclature}}
+                                            </td>
+                                        <td>{{tarif.libelleNomenclature}}</td>
+                                        <td>{{tarif.quotite}}
                                         </td>
-                                    <td>{{tarif.libelleNomenclature}}</td>
-                                    <td>{{tarif.quotite}}
-                                    </td>
-                                    <td> {{tarif.uniteStatistique}}</td>
-                                    <td> {{tarif.exhonereTVA}}</td>
-                                    <td> {{tarif.dacc}}</td>
-                                    <td> {{tarif.ts}}</td>
-                                    <td><button id="{{tarif.id}}" onclick="javascript:ajouterLigneSimulateur(this); return false;" >Ajouter</button></td>
+                                        <td> {{tarif.uniteStatistique}}</td>
+                                        <td> {{tarif.exhonereTVA}}</td>
+                                        <td> {{tarif.dacc}}</td>
+                                        <td> {{tarif.ts}}</td>
+                                        <td><button id="{{tarif.id}}" onclick="javascript:ajouterLigneSimulateur(this); return false;" >Ajouter</button></td>
+                                    
+                                    </tr>
+                                {%endfor%}
                                 
-                                </tr>
-                            {%endfor%}
-                            
-                            </tbody>
-                            <tfoot>
-                                <tr>
-                                    <th>Nomenclature</th>
-                                    <th>Libellé</th>
-                                    <th>Quotite</th>
-                                    <th>Unité statistique</th>
-                                    <th>Exhonération TVA</th>
-                                    <th>DACC</th>
-                                    <th>T.S</th>
-                                    <th>Action</th>
-                                </tr>
-                            </tfoot>
-                        </table>
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>Nomenclature</th>
+                                        <th>Libellé</th>
+                                        <th>Quotite</th>
+                                        <th>Unité statistique</th>
+                                        <th>Exhonération TVA</th>
+                                        <th>DACC</th>
+                                        <th>T.S</th>
+                                        <th>Action</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                          </div>
                         </div>
+                      
                       </div>
-                    
                     </div>
-                  </div>
                 </div>
                 <!-- /.col-->
-                <div class="col-sm-4">
-                  <div class="card">
-                    <div class="card-header"><strong>Informations sur </strong> <small>l'importateur</small></div>
-                    <div class="card-body">
-                      <div class="form-group">
-                        <label for="company">Importateur</label>
-                        <input class="form-control" id="inputEmail3" type="text" placeholder="Raison sociale">
-                      </div>
-                      <div class="form-group">
-                        <label for="inputEmail3" >Régime Fiscale </label>
-                      <input type="email" class="form-control" id="inputEmail01" placeholder="Régime Fiscale">
-                       
-                     </div>
-                    <div class="form-group ">
-                        <label for="inputEmail3" >Nomenclature tarifaire </label>
-                        <input type="email" class="form-control" id="inputEmail02" placeholder="Nomenclature tarifaire">    
-                    </div>
-                    <div class="form-group ">
-                        <label for="inputEmail3" >Moyen de transport </label>
-                        <input type="email" class="form-control" id="inputEmail003" placeholder="Moyen de transport">
-                    </div>
-                    <div class="form-group ">
-                        <label for="inputEmail3" >Mode de paiement </label>
-                        <input type="text" class="form-control" id="inputEmail03" placeholder="Mode de paiement">   
-                    </div>
-                     
-                      <!-- /.row-->
-                      <div class="form-group">
-                        
-                        <label for="country">Vers quel pays souhaitez-vous importer ?</label><select class="form-control" id="paysTva">
-                        {% for tva in tvas %}
-                            <option value="{{tva.valeur}}">{{tva.pays}}</option>
-                        {% endfor %}
-                        </select> 
-                      </div>
-                      <div class="form-group">
-                        
-                        <label for="country">Pays de provenance</label><select class="form-control" id="paysTva">
-                        {% for tva in tvas %}
-                            <option value="{{tva.valeur}}">{{tva.pays}}</option>
-                        {% endfor %}
-                        </select> 
-                      </div>
-
-                    </div>
-                  </div>
-                </div>
+               
                 <!-- /.col-->
               </div>
               <!-- /.row-->
@@ -229,29 +183,85 @@
   <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">NOTE DE VALEUR IMPORT</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Veuillez remplir ce formulaire</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
       <div class="container">
-       <form>
+      <div class="row">
+        <div class="col-sm-6">
            
-            
-            
-            <div class="form-group row">
-                <label for="valeurFacture" >Valeur Facture</label>
-  
-                <input type="text" class="form-control" id="valeurFacture" placeholder="Valeur Facture">
-               
-            </div>
-            <div class="form-group row">
-                <label for="fret" >Fret</label>
+                  <div class="card">
+                    <div class="card-header">
+                      <strong>Informations sur </strong> <small>l'importateur</small>
+                    </div>
+                    <div class="card-body">
+                      <div class="form-group">
+                        <label for="company">Importateur</label>
+                        <input class="form-control" id="inputEmail3" type="text" placeholder="Raison sociale">
+                      </div>
+                      <div class="form-group">
+                        <label for="inputEmail3" >Régime Fiscale </label>
+                        <input type="email" class="form-control" id="inputEmail01" placeholder="Régime Fiscale">
+                       
+                      </div>
+                      <div class="form-group ">
+                          <label for="inputEmail3" >Nomenclature tarifaire </label>
+                          <input type="email" class="form-control" id="inputEmail02" placeholder="Nomenclature tarifaire">    
+                      </div>
+                      <div class="form-group ">
+                          <label for="inputEmail3" >Moyen de transport </label>
+                          <input type="email" class="form-control" id="inputEmail003" placeholder="Moyen de transport">
+                      </div>
+                      <div class="form-group ">
+                          <label for="inputEmail3" >Mode de paiement </label>
+                          <input type="text" class="form-control" id="inputEmail03" placeholder="Mode de paiement">   
+                      </div>
+                     
+                      <!-- /.row-->
+                      <div class="form-group">
+                        
+                        <label for="country">Vers quel pays souhaitez-vous importer ?</label><select class="form-control" id="paysTva">
+                        {% for tva in tvas %}
+                            <option value="{{tva.valeur}}">{{tva.pays}}</option>
+                        {% endfor %}
+                        </select> 
+                      </div>
+                      <div class="form-group">
+                        
+                        <label for="country">Pays de provenance</label><select class="form-control" id="paysTva">
+                        {% for tva in tvas %}
+                            <option value="{{tva.valeur}}">{{tva.pays}}</option>
+                        {% endfor %}
+                        </select> 
+                      </div>
+
+                    </div>
+                  </div>
                 
-                <input type="text" class="form-control" id="fret" placeholder="Fret">
-                
-            </div>
+       
+        </div class="col-sm-6">
+            <div class="card">
+                    <div class="card-header">
+                      <strong>NOTE DE VALEUR  </strong> <small>import</small>
+                    </div>
+                <div class="card-body">
+                 <form>  
+            
+                <div class="form-group row">
+                    <label for="valeurFacture" >Valeur Facture</label>
+      
+                    <input type="text" class="form-control" id="valeurFacture" placeholder="Valeur Facture">
+                  
+                </div>
+                <div class="form-group row">
+                    <label for="fret" >Fret</label>
+                    
+                    <input type="text" class="form-control" id="fret" placeholder="Fret">
+                    
+                </div>
             <div class="form-group row">
                 <label for="assurance" >Assurance</label>
                 
@@ -289,6 +299,10 @@
                 
             </div>
         </form>
+        </div>
+        
+      </div>
+      
         </div>
       </div>
       <div class="modal-footer">
