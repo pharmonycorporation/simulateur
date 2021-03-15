@@ -48,6 +48,7 @@ urlpatterns = [
     path('sup', simviews.suppression),
     path('sdi', simviews.index),
     path('ajax_gettarif/', simviews.getProd, name='ajax_gettarif'),
+    path('gettarifs/', simviews.getProduits, name='gettarifs'),
     path('dsf_api/', include(router.urls)),
     path('paypal/', include('paypal.standard.ipn.urls')),
 ]

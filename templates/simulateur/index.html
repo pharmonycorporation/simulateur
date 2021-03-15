@@ -17,7 +17,14 @@
 <head>
 
   <body class="c-app">
- 
+  <script>
+  
+   /* jQuery( window ).load( function(){
+    $("#exampleModal").modal().show();
+    //$( "body" ).trigger( "click" );
+    });
+      */
+  </script>
     <div class="c-wrapper c-fixed-components">
       <header class="c-header c-header-light c-header-fixed c-header-with-subheader">
         
@@ -43,6 +50,7 @@
                       <div class="card-body">
                         <div class="row">
                           <div class="col-sm-12">
+                          <div id="wait" style="display:none;"><img src="{% static 'assets/img/loadercgi.gif' %}"  /><br>Chargement...</div>
                             <table id="example" class="table table-responsive-sm table-striped table-bordered" >
                                 <thead>
                                     <tr>
@@ -56,22 +64,8 @@
                                         <th>Action</th>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                {% for tarif in tarifs %}
-                                    <tr id="{{tarif.id}}">
-                                        <td>{{tarif.nomenclature}}
-                                            </td>
-                                        <td>{{tarif.libelleNomenclature}}</td>
-                                        <td>{{tarif.quotite}}
-                                        </td>
-                                        <td> {{tarif.uniteStatistique}}</td>
-                                        <td> {{tarif.exhonereTVA}}</td>
-                                        <td> {{tarif.dacc}}</td>
-                                        <td> {{tarif.ts}}</td>
-                                        <td><button id="{{tarif.id}}" onclick="javascript:ajouterLigneSimulateur(this); return false;" >Ajouter</button></td>
-                                    
-                                    </tr>
-                                {%endfor%}
+                                <tbody id="testBody">
+                               
                                 
                                 </tbody>
                                 <tfoot>
@@ -101,7 +95,7 @@
             
               <!-- /.row-->
               <br>
-              <div class="row">
+              <div class="row" style="position:fixed;bottom:0px">
                 <div class="col-sm-12">
                   <div class="card">
                     <div class="card-header"><strong>SIMULATEUR</strong> </div>
@@ -175,9 +169,73 @@
     <!--<![endif]-->
  
 
-
-
-
+<div class="modal fade" id="entreeModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog  modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Informations sur l'importateur</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+          <div class="row">
+                <div class="col-sm-6">  
+                     <div class="card">
+                        <div class="card-body">
+                              <div class="form-group">
+                                <label for="inputEmail3">Importateur</label>
+                                <input class="form-control" id="inputEmail3" type="text" placeholder="Raison sociale">
+                              </div>
+                              <div class="form-group">
+                                <label for="inputEmail01" >Régime Fiscale </label>
+                                <input type="email" class="form-control" id="inputEmail01" placeholder="Régime Fiscale">
+                              </div>
+                              <div class="form-group">
+                                <label for="country">Vers quel pays souhaitez-vous importer ?</label><select class="form-control" id="paysTva">
+                                {% for tva in tvas %}
+                                    <option value="{{tva.valeur}}">{{tva.pays}}</option>
+                                {% endfor %}
+                                </select> 
+                              </div>
+                              <div class="form-group">
+                                <label for="country">Pays de provenance</label><select class="form-control" id="paysTva">
+                                {% for tva in tvas %}
+                                    <option value="{{tva.valeur}}">{{tva.pays}}</option>
+                                {% endfor %}
+                                </select> 
+                              </div>
+                        </div>
+                      </div>      
+                </div>
+                <div class="col-sm-6">
+                  <div class="card">
+                    <div class="card-body">
+                            <div class="form-group ">
+                                <label for="inputEmail02" >Nomenclature tarifaire </label>
+                                <input type="email" class="form-control" id="inputEmail02" placeholder="Nomenclature tarifaire">    
+                            </div>
+                            <div class="form-group ">
+                                <label for="inputEmail003" >Moyen de transport </label>
+                                <input type="email" class="form-control" id="inputEmail003" placeholder="Moyen de transport">
+                            </div>
+                            <div class="form-group ">
+                                <label for="inputEmail03" >Mode de paiement </label>
+                                <input type="text" class="form-control" id="inputEmail03" placeholder="Mode de paiement">   
+                            </div>
+                    </div>
+                  </div>
+                </div> 
+          </div>
+      </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+            <button type="button" class="btn btn-primary" id="memoriser" onclick="javascript:genereFacture(this); return false;">Enregistrer</button>
+          </div>
+        </div>
+        </div>
+      </div>
+              
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg" role="document">
@@ -191,58 +249,9 @@
       <div class="modal-body">
       <div class="container">
       <div class="row">
-        <div class="col-sm-6">
-           
-                  <div class="card">
-                    <div class="card-header">
-                      <strong>Informations sur </strong> <small>l'importateur</small>
-                    </div>
-                    <div class="card-body">
-                      <div class="form-group">
-                        <label for="company">Importateur</label>
-                        <input class="form-control" id="inputEmail3" type="text" placeholder="Raison sociale">
-                      </div>
-                      <div class="form-group">
-                        <label for="inputEmail3" >Régime Fiscale </label>
-                        <input type="email" class="form-control" id="inputEmail01" placeholder="Régime Fiscale">
-                       
-                      </div>
-                      <div class="form-group ">
-                          <label for="inputEmail3" >Nomenclature tarifaire </label>
-                          <input type="email" class="form-control" id="inputEmail02" placeholder="Nomenclature tarifaire">    
-                      </div>
-                      <div class="form-group ">
-                          <label for="inputEmail3" >Moyen de transport </label>
-                          <input type="email" class="form-control" id="inputEmail003" placeholder="Moyen de transport">
-                      </div>
-                      <div class="form-group ">
-                          <label for="inputEmail3" >Mode de paiement </label>
-                          <input type="text" class="form-control" id="inputEmail03" placeholder="Mode de paiement">   
-                      </div>
-                     
-                      <!-- /.row-->
-                      <div class="form-group">
-                        
-                        <label for="country">Vers quel pays souhaitez-vous importer ?</label><select class="form-control" id="paysTva">
-                        {% for tva in tvas %}
-                            <option value="{{tva.valeur}}">{{tva.pays}}</option>
-                        {% endfor %}
-                        </select> 
-                      </div>
-                      <div class="form-group">
-                        
-                        <label for="country">Pays de provenance</label><select class="form-control" id="paysTva">
-                        {% for tva in tvas %}
-                            <option value="{{tva.valeur}}">{{tva.pays}}</option>
-                        {% endfor %}
-                        </select> 
-                      </div>
-
-                    </div>
-                  </div>
-                
+   
        
-        </div class="col-sm-6">
+        </div class="col-sm-10">
             <div class="card">
                     <div class="card-header">
                       <strong>NOTE DE VALEUR  </strong> <small>import</small>
@@ -320,18 +329,95 @@
   
     <script src="https://kendo.cdn.telerik.com/2017.2.621/js/jszip.min.js"></script>
     <script src="https://kendo.cdn.telerik.com/2017.2.621/js/kendo.all.min.js"></script>
+    <script type="text/javascript">
     
+    $(window).on('load',function(){
+     $("#wait").css("display", "block");
+      $("#entreeModal").modal('show');
+      
+        var te = 1
+        
+           $.ajax({
+                url: "{% url 'gettarifs' %}",
+                data: {
+                  'te':te,
+                },
+                dataType: 'json',
+                success: function (data) {
+                  
+                  //alert("test");
+                   tbody = document.getElementById("testBody");
+                     
+                  for(let i=0; i<data.length; i++){
+                      tr = document.createElement('tr');
+                      tr.setAttribute("id",data[i].id);
+                      tdnom = document.createElement('td');
+                      tdnom.innerHTML = data[i].nomenclature;
+                      tr.appendChild(tdnom);
+                      tdLibelle = document.createElement('td');
+                      tdLibelle.innerHTML = data[i].libelleNomenclature;
+                      tr.appendChild(tdLibelle);
+                      tdquotite = document.createElement('td');
+                      tdquotite.innerHTML = data[i].quotite;
+                      tr.appendChild(tdquotite);
+                      tduniteStatistique = document.createElement('td');
+                      tduniteStatistique.innerHTML = data[i].uniteStatistique;
+                      tr.appendChild(tduniteStatistique);
+                      tdtva= document.createElement('td');
+                      tdtva.innerHTML = data[i].tva;
+                      tr.appendChild(tdtva);
+                      tddacc= document.createElement('td');
+                      tddacc.innerHTML = data[i].dacc;
+                      tr.appendChild(tddacc);
+                      tdts= document.createElement('td');
+                      tdts.innerHTML = data[i].ts;
+                      tr.appendChild(tdts);
+                      tdbutton= document.createElement('td');
+                      button = document.createElement('button');
+                      button.setAttribute("id",data[i].id);
+                      button.setAttribute("class","btn btn-success");
+                      button.setAttribute("onclick","javascript:ajouterLigneSimulateur(this); return false;");
+                      button.innerHTML = "Ajouter"
+                      tdbutton.appendChild(button);
+                      tr.appendChild(tdbutton);
+
+                      tbody.appendChild(tr); 
+                   }
+                     $('#example').DataTable( {
+                        
+                        responsive:'true'
+                      });
+
+                   $("#wait").css("display", "none");
+                   
+                }});
+
+                  /*
+                                    {% for tarif in tarifs %}
+                                    <tr id="{{tarif.id}}">
+                                        <td>{{tarif.nomenclature}}
+                                            </td>
+                                        <td>{{tarif.libelleNomenclature}}</td>
+                                        <td>{{tarif.quotite}}
+                                        </td>
+                                        <td> {{tarif.uniteStatistique}}</td>
+                                        <td> {{tarif.exhonereTVA}}</td>
+                                        <td> {{tarif.dacc}}</td>
+                                        <td> {{tarif.ts}}</td>
+                                        <td><button id="{{tarif.id}}" onclick="javascript:ajouterLigneSimulateur(this); return false;" >Ajouter</button></td>
+                                    
+                                    </tr>
+                                {%endfor%}*/
+                  //  $('#myModal').modal('show');<br>
+    });
+ 
+</script>
     <script>
 
         var nbclick  = 0;
         var tabId = [];
 
-                $('#example').DataTable( {
-                    dom: 'Bfrtip',
-                    buttons: [
-                        'copy', 'excel', 'pdf'
-                ]
-                   } );
+              
      
         var ajoutIdentite =  function(link){
             if(nbclick >= 1){

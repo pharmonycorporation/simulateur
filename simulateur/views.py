@@ -60,6 +60,26 @@ def index(request):
     listetarif = TarifDouanier.objects.all()
     tva = TVA.objects.all()
     return render(request, 'simulateur/index.html', {'tarifs' : listetarif, 'tvas' :tva })
+def getProduits(request):
+    tarifs = TarifDouanier.objects.all() 
+    data = []  
+    for tarif in tarifs:
+        if tarif.exhonereTVA == True:
+            tva = "Oui"
+        else:
+            tva = "Non"
+        objet = {
+            "id":tarif.id,
+            "nomenclature":tarif.nomenclature,
+            "libelleNomenclature":tarif.libelleNomenclature,
+            "quotite":tarif.quotite,
+            "ts":tarif.ts,
+            "tva":tva,
+            "dacc":tarif.dacc,
+            "uniteStatistique":tarif.uniteStatistique,
+             }
+        data.append(objet)
+    return  JsonResponse(data,safe=False)
 
 def getProd(request):
     id = request.GET.get('id', None)
