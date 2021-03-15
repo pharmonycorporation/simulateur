@@ -14,6 +14,115 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.23/b-1.6.5/b-colvis-1.6.5/b-html5-1.6.5/r-2.2.7/datatables.min.css"/>
  
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<style>
+
+.slow-transition {
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+  transition: box-shadow 500ms;
+}
+
+.slow-transition:hover {
+  box-shadow: 0 10px 50px 0 rgba(0, 0, 0, 0.5);
+}
+
+/* The fast, new way! */
+.fast-transition {
+  position: relative; /* For positioning the pseudo-element */
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+}
+
+.fast-transition::before {
+  /* Position the pseudo-element. */
+  content: ' ';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  /* Create the box shadow at expanded size. */
+  box-shadow: 0 10px 50px 0 rgba(204,169,44, 0.5);
+
+  /* Hidden by default. */
+  opacity: 0;
+  transition: opacity 500ms;
+}
+
+.fast-transition:hover::before {
+  /* Show the pseudo-element on hover. */
+  opacity: 1;
+}
+
+#sim {
+    -webkit-transition: width 2s ease;
+    -moz-transition: width 2s ease;
+    -o-transition: width 2s ease;
+    transition: width 2s ease;
+    
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    background: #000000;
+    vertical-align: middle;
+    line-height: 10px;
+    width: 0px;
+    box-shadow:0 0 0 rgba(204,169,44, 0.4);
+}
+#sim.in {
+    width: 100%;
+    
+}
+
+.pulse {
+  position:fixed;
+  bottom:-20px;
+  left:-20px;
+  display: block;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 0 0 rgba(204,169,44, 0.4);
+  animation: pulse 2s infinite;
+  z-index:99999;
+  border:none;
+  text-decoration :none;
+  color:#ffffff; 
+  background:#000000
+}
+.pulse:hover {
+  animation: none;
+}
+
+@-webkit-keyframes pulse {
+  0% {
+    -webkit-box-shadow: 0 0 0 0 rgba(204,169,44, 0.4);
+  }
+  70% {
+      -webkit-box-shadow: 0 0 0 10px rgba(204,169,44, 0);
+  }
+  100% {
+      -webkit-box-shadow: 0 0 0 0 rgba(204,169,44, 0);
+  }
+}
+@keyframes pulse {
+  0% {
+    -moz-box-shadow: 0 0 0 0 rgba(204,169,44, 0.4);
+    box-shadow: 0 0 0 0 rgba(204,169,44, 0.4);
+  }
+  70% {
+      -moz-box-shadow: 0 0 0 10px rgba(204,169,44, 0);
+      box-shadow: 0 0 0 10px rgba(204,169,44, 0);
+  }
+  100% {
+      -moz-box-shadow: 0 0 0 0 rgba(204,169,44, 0);
+      box-shadow: 0 0 0 0 rgba(204,169,44, 0);
+  }
+}ont: inherit;
+}
+</style>
+
 <head>
 
   <body class="c-app">
@@ -95,10 +204,16 @@
             
               <!-- /.row-->
               <br>
-              <div class="row" style="position:fixed;bottom:0px">
+               <button type="button"  class="pulse" data-toggle="toggle" data-target="#sim">
+                      <i class="glyphicon glyphicon-plus"></i>SIM
+                  </button>
+              <div class="row" id="sim"  style="position:fixed;bottom:0px">
                 <div class="col-sm-12">
-                  <div class="card">
-                    <div class="card-header"><strong>SIMULATEUR</strong> </div>
+                  <div class="card fast-transition">
+                    <div class="card-header"><strong>SIMULATEUR</strong>
+                   
+                    
+                     </div>
                     <div class="card-body">
 
                         <div id="tabSimulateur">   
@@ -145,7 +260,7 @@
             </table>
             </div>
            
-            <button type="button"  class="btn btn-primary" onclick="javascript:ajoutIdentite(this); return false;">
+            <button type="button"  class="btn btn-primary" style="float:right" onclick="javascript:ajoutIdentite(this); return false;">
                  GENERER LA FACTURE
             </button>
                       
@@ -174,9 +289,7 @@
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLabel">Informations sur l'importateur</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
+       
       </div>
       <div class="modal-body">
           <div class="row">
@@ -229,7 +342,7 @@
           </div>
       </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
+            
             <button type="button" class="btn btn-primary" id="memoriser" onclick="javascript:genereFacture(this); return false;">Enregistrer</button>
           </div>
         </div>
@@ -330,7 +443,11 @@
     <script src="https://kendo.cdn.telerik.com/2017.2.621/js/jszip.min.js"></script>
     <script src="https://kendo.cdn.telerik.com/2017.2.621/js/kendo.all.min.js"></script>
     <script type="text/javascript">
-    
+
+    $("[data-toggle='toggle']").click(function() {
+    var selector = $(this).data("target");
+    $(selector).toggleClass('in');
+});
     $(window).on('load',function(){
      $("#wait").css("display", "block");
       $("#entreeModal").modal('show');
@@ -375,7 +492,7 @@
                       tdbutton= document.createElement('td');
                       button = document.createElement('button');
                       button.setAttribute("id",data[i].id);
-                      button.setAttribute("class","btn btn-success");
+                      button.setAttribute("class","btn btn-success btn-sm");
                       button.setAttribute("onclick","javascript:ajouterLigneSimulateur(this); return false;");
                       button.innerHTML = "Ajouter"
                       tdbutton.appendChild(button);
