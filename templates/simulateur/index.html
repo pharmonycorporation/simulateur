@@ -65,12 +65,12 @@
     white-space: nowrap;
     background: #000000;
     vertical-align: middle;
-    
     width: 0px;
     box-shadow:0 0 0 rgba(204,169,44, 0.4);
 }
 #sim.in {
     width: 100%;
+    border:0px;
     
 }
 
@@ -86,13 +86,14 @@
   box-shadow: 0 0 0 rgba(204,169,44, 0.4);
   animation: pulse 2s infinite;
   z-index:99999;
-  border:none;
+  border:0px;
   text-decoration :none;
   color:#ffffff; 
   background:#000000
 }
 .pulse:hover {
   animation: none;
+  border:0px;
 }
 
 @-webkit-keyframes pulse {
@@ -298,23 +299,23 @@
                         <div class="card-body">
                               <div class="form-group">
                                 <label for="inputEmail3">Importateur</label>
-                                <input class="form-control" id="inputEmail3" type="text" placeholder="Raison sociale">
+                                <input class="form-control" id="importateurId" type="text" placeholder="Raison sociale">
                               </div>
                               <div class="form-group">
                                 <label for="inputEmail01" >Régime Fiscale </label>
-                                <input type="email" class="form-control" id="inputEmail01" placeholder="Régime Fiscale">
+                                <input type="email" class="form-control" id="regimeId" placeholder="Régime Fiscale">
                               </div>
                               <div class="form-group">
-                                <label for="country">Vers quel pays souhaitez-vous importer ?</label><select class="form-control" id="paysTva">
-                                {% for tva in tvas %}
-                                    <option value="{{tva.valeur}}">{{tva.pays}}</option>
+                                <label for="country">Vers quel pays souhaitez-vous importer ?</label><select class="form-control" id="destinationId">
+                                {% for countrie in cemacs %}
+                                    <option value="{{countrie.nom}}">{{countrie.nom}}</option>
                                 {% endfor %}
                                 </select> 
                               </div>
                               <div class="form-group">
-                                <label for="country">Pays de provenance</label><select class="form-control" id="paysTva">
-                                {% for tva in tvas %}
-                                    <option value="{{tva.valeur}}">{{tva.pays}}</option>
+                                <label for="country">Pays de provenance</label><select class="form-control" id="provenanceId">
+                                {% for country in pays %}
+                                    <option value="{{country.nom}}">{{country.nom}}</option>
                                 {% endfor %}
                                 </select> 
                               </div>
@@ -326,15 +327,33 @@
                     <div class="card-body">
                             <div class="form-group ">
                                 <label for="inputEmail02" >Nomenclature tarifaire </label>
-                                <input type="email" class="form-control" id="inputEmail02" placeholder="Nomenclature tarifaire">    
+                                <input type="email" class="form-control" id="nomenclatureId" placeholder="Nomenclature tarifaire">    
                             </div>
                             <div class="form-group ">
                                 <label for="inputEmail003" >Moyen de transport </label>
-                                <input type="email" class="form-control" id="inputEmail003" placeholder="Moyen de transport">
+                                <select class="form-control" id="transportId">
+                                {% for trans in transports %}
+                                    <option value="{{trans.moyen}}">{{trans.moyen}}</option>
+                                {% endfor %}
+                                </select> 
+                              
                             </div>
                             <div class="form-group ">
                                 <label for="inputEmail03" >Mode de paiement </label>
-                                <input type="text" class="form-control" id="inputEmail03" placeholder="Mode de paiement">   
+                                 <select class="form-control" id="paiementId">
+                                {% for mode in paiements %}
+                                    <option value="{{mode.mode}}">{{mode.mode}}</option>
+                                {% endfor %}
+                                </select>    
+                            </div>
+                            <div class="form-group ">
+                                <label for="deviseId" >Devise </label>
+                                <select class="form-control" id="deviseId">
+                                {% for dev in devises %}
+                                    <option value="{{dev.nomDevise}}">{{dev.nomDevise}}-{{dev.codeDevise}}</option>
+                                {% endfor %}
+                                </select> 
+                                  
                             </div>
                     </div>
                   </div>
@@ -343,7 +362,7 @@
       </div>
           <div class="modal-footer">
             
-            <button type="button" class="btn btn-primary" id="memoriser" onclick="javascript:genereFacture(this); return false;">Enregistrer</button>
+            <button type="button" class="btn btn-primary" id="memoriser" onclick="javascript:debuterSimulation(this); return false;">Enregistrer et Démarrer le simulateur</button>
           </div>
         </div>
         </div>
@@ -366,61 +385,38 @@
        
         </div class="col-sm-10">
             <div class="card">
-                    <div class="card-header">
-                      <strong>NOTE DE VALEUR  </strong> <small>import</small>
-                    </div>
+                   
                 <div class="card-body">
-                 <form>  
-            
-                <div class="form-group row">
-                    <label for="valeurFacture" >Valeur Facture</label>
-      
-                    <input type="text" class="form-control" id="valeurFacture" placeholder="Valeur Facture">
-                  
-                </div>
-                <div class="form-group row">
-                    <label for="fret" >Fret</label>
-                    
-                    <input type="text" class="form-control" id="fret" placeholder="Fret">
-                    
-                </div>
-            <div class="form-group row">
-                <label for="assurance" >Assurance</label>
-                
-                <input type="text" class="form-control" id="assurance" placeholder="Assurance">
-                
-            </div>
-            <div class="form-group row">
-                <label for="idtotal" >Total</label>
-                
-                <input type="text" class="form-control" id="idtotal" placeholder="total">
-                
-            </div>
-            <div class="form-group row">
-                <label for="tauxChange" >Taux de change</label>
-                
-                <input type="text" class="form-control" id="tauxChange" placeholder="Taux de change du jour">
-               
-            </div>
-            <div class="form-group row">
-                <label for="valImposable" >Valeur Imposable</label>
-               
-                <input type="text" class="form-control" id="valImposable" placeholder="Valeur Imposable">
-                
-            </div>
-            <div class="form-group row">
-                <label for="fretNational" >Fret national</label>
-                
-                <input type="text" class="form-control" id="fretNational" placeholder="Fret national">
-                
-            </div>
-            <div class="form-group row">
-                <label for="ValeurStatistique" >Valeur statistique</label>
-                
-                <input type="text" class="form-control" id="ValeurStatistique" placeholder="ValeurStatistique">
-                
-            </div>
-        </form>
+          
+                    <div class="form-group">
+                        <label for="valeurFacture" >Valeur Facture</label>
+                        <input type="text" class="form-control" id="valeurFacture" placeholder="Valeur Facture">
+                    </div>
+                    <div class="form-group">
+                        <label for="fret" >Fret</label>
+                        <input type="text" class="form-control" id="fret" placeholder="Fret">
+                    </div>
+                    <div class="form-group">
+                        <label for="assurance" >Assurance</label>
+                        <input type="text" class="form-control" id="assurance" placeholder="Assurance">
+                    </div>
+                    <div class="form-group">
+                        <label for="idtotal" >Total</label>
+                        <input type="text" class="form-control" id="idtotal" placeholder="total">
+                    </div>
+                    <div class="form-group row">
+                        <label for="valImposable" >Valeur Imposable</label>
+                        <input type="text" class="form-control" id="valImposable" placeholder="Valeur Imposable">
+                    </div>
+                    <div class="form-group ">
+                        <label for="fretNational" >Fret national</label>
+                        <input type="text" class="form-control" id="fretNational" placeholder="Fret national">
+                    </div>
+                    <div class="form-group row">
+                        <label for="ValeurStatistique" >Valeur statistique</label>
+                        <input type="text" class="form-control" id="ValeurStatistique" placeholder="ValeurStatistique">
+                    </div>
+        
         </div>
         
       </div>
@@ -444,13 +440,65 @@
     <script src="https://kendo.cdn.telerik.com/2017.2.621/js/kendo.all.min.js"></script>
     <script type="text/javascript">
 
+    var debuterSimulation = function(link){
+
+         let nomenclature = $("#nomenclatureId").val();
+         let regime = $("#regimeId").val();
+         let provenance = $("#provenanceId").val();
+         let destination = $("#destinationId").val();
+         let importateur = $("#importateurId").val();
+         let devise = $("#deviseId").val();
+         let paiement = $("#paiementId").val();
+         let transport = $("#transportId").val();
+
+         if(importateur != ""){
+            $.ajax({
+                url: "{% url 'demarrerSimulateur' %}",
+                method:"POST",
+                data: {
+                  'regime':regime,
+                  'nomenclature':nomenclature,
+                  'provenance':provenance,
+                  'destination':destination,
+                  'importateur':importateur,
+                  'devise':devise,
+                  'paiement':paiement,
+                  'transport':transport,
+                  'csrfmiddlewaretoken': '{{ csrf_token }}',
+                },
+                dataType: 'json',
+                success: function (data) {
+
+                  if(data['success']){
+                    $("#entreeModal").modal('hide');
+                    alert("enregistrement effectué, debut de la simulation");
+                  }else{
+                    alert("une erreur s'est produite lors de l'enregistrement des données");
+                  }
+
+                }                
+                 });
+        
+         }else{
+           alert("Veuillez renseigner le champs importateur");
+         }
+          
+           
+      }
+
+
+
     $("[data-toggle='toggle']").click(function() {
     var selector = $(this).data("target");
     $(selector).toggleClass('in');
 });
     $(window).on('load',function(){
      $("#wait").css("display", "block");
-      $("#entreeModal").modal('show');
+      $("#entreeModal").modal({
+        backdrop:'static',
+        keyboard:false,
+        show:true
+      });
       
         var te = 1
         
@@ -544,6 +592,8 @@
             }
              
         }
+
+        
         var genereFacture = function (link){
             if ($("#inputEmail3").val() != "" && $("#inputPassword3").val() != "")
             {
@@ -726,7 +776,7 @@
             var row = link.parentNode.parentNode;
             var table = row.parentNode;
             tarifId = row.getAttribute("id");
-            
+            $("#exampleModal").modal().show();
         
             $.ajax({
                 url: "{% url 'ajax_gettarif' %}",

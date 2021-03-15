@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .models import TarifDouanier, TVA
+from .models import TarifDouanier, TVA, Pays, Devise, MoyenTransport, ModePaiement, Simulation
 from .serializers import TarifDouanierSerializer
 import csv
 from django.http import JsonResponse, HttpResponseNotFound, HttpResponseServerError, HttpResponse
@@ -16,6 +16,24 @@ def initialisationTarif(request):
                 quotite = int(row[2]) if int(row[2]) else 0
             tarif = TarifDouanier.objects.create(nomenclature=row[0],libelleNomenclature=row[1],quotite=quotite,uniteStatistique=row[3])
             tarif.save()
+
+def initialisationPays(request):
+    with open('paysTVA.csv', newline='') as csvfile:
+        lecture = csv.reader(csvfile, delimiter=';' )
+        for row in lecture:
+            if row[1] == 1 :
+                cemac = True
+            else:
+                cemac = False
+            pays = Pays.objects.create(nom=row[0],code=row[3],cemac=cemac,tva=float(row[2]))
+            pays.save()
+
+def initialisationMonaie(request):
+    with open('monnaie.csv', newline='') as csvfile:
+        spamreader = csv.reader(csvfile, delimiter=';' )
+        for row in spamreader:
+            devise = Devise.objects.create(nomDevise=row[0],codeDevise=row[1],numeroDevise=row[2])
+            devise.save()
 
 
 def suppression(request):
@@ -56,10 +74,16 @@ def ajuster(request):
         x = tarif.nomenclature.split(".")"""
        
 def index(request):
-    
+    listePays = Pays.objects.all()
+    listePaysCemac = Pays.objects.filter(cemac=True)
+    listeTransport = MoyenTransport.objects.all()
+    listePaiement = ModePaiement.objects.all()
     listetarif = TarifDouanier.objects.all()
-    tva = TVA.objects.all()
-    return render(request, 'simulateur/index.html', {'tarifs' : listetarif, 'tvas' :tva })
+    listeDevise = Devise.objects.all()
+    
+    return render(request, 'simulateur/index.html', {'tarifs' : listetarif, 'pays':listePays,'cemacs':listePaysCemac, 'transports':listeTransport, 'paiements':listePaiement,'devises':listeDevise})
+
+
 def getProduits(request):
     tarifs = TarifDouanier.objects.all() 
     data = []  
@@ -80,6 +104,29 @@ def getProduits(request):
              }
         data.append(objet)
     return  JsonResponse(data,safe=False)
+
+def demarrerSimulateur(request):
+    importateur = request.POST.get('importateur', None)
+    regime = request.POST.get('regime', None)
+    destination = request.POST.get('destination', None)
+    devise = request.POST.get('devise', None)
+    provenance = request.POST.get('provenance', None)
+    paiement = request.POST.get('paiement', None)
+    transport = request.POST.get('transport', None)
+    nomenclature = request.POST.get('nomenclature', None)
+    #Simulation.objects.create(importateur=importateur,regimeFiscale=regime,destination=Pays.objects.get(nom=destination),origine=Pays.objects.get(nom=provenance),modePaiement=ModePaiement.objects.get(mode=paiement),devise=Devise.objects.get(nomDevise=devise),moyenTransport=MoyenTransport.objects.get(moyen=transport))
+    try:
+        Simulation.objects.create(importateur=importateur,nomenclature=nomenclature,regimeFiscale=regime,destination=Pays.objects.get(nom=destination),origine=Pays.objects.get(nom=provenance),modePaiement=ModePaiement.objects.get(mode=paiement),devise=Devise.objects.get(nomDevise=devise),moyenTransport=MoyenTransport.objects.get(moyen=transport))
+        data = {
+        'success': True
+        }
+   
+    except:
+        data = {
+        'success': False
+        }
+   
+    return JsonResponse(data,safe=False)
 
 def getProd(request):
     id = request.GET.get('id', None)
