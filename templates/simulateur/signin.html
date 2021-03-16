@@ -129,6 +129,14 @@ a{
 </style>
 </head>
 <body>
+ <p>
+              {% for message in messages %}
+                  <div class="alert alert-danger">
+                      <a class="close" href="#" data-dismiss="alert">×</a>
+                      {{ message }}
+                  </div>
+              {% endfor %}
+           </p>
 <div class="login-reg-panel">
 		<div class="login-info-box">
 			<h2>Vous avez dejà un compte?</h2>
@@ -147,14 +155,7 @@ a{
 		<div class="white-panel">
 			<div class="login-show">
 				<h2>CONNEXION</h2>
-        <p>
-          {% for message in messages %}
-						<div class="alert alert-danger">
-							<a class="close" href="#" data-dismiss="alert">×</a>
-							{{ message }}
-						</div>
-          {% endfor %}
-        </p>
+       
 				<form id="" class="p-t-15" role="form" action="{% url 'authentication' %}" method="POST">
           {% csrf_token %}
           <!-- START Form Control-->
@@ -188,15 +189,8 @@ a{
 			</div>
 			<div class="register-show">
 				<h2>CREATION DE COMPTE</h2>
-         <p>
-              {% for message in messages %}
-                  <div class="alert alert-danger">
-                      <a class="close" href="#" data-dismiss="alert">×</a>
-                      {{ message }}
-                  </div>
-              {% endfor %}
-           </p>
-				<form id="form-register" class="p-t-15" role="form" action="{% url 'signup' %}" method="POST">
+        
+				<form id="form-register" class="p-t-15" role="form" action="{% url 'registration' %}" method="POST">
         {% csrf_token %}
         <div class="row">
           <div class="col-md-6">

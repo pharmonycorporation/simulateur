@@ -196,6 +196,7 @@ class SignInView(View):
 
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
+        form_to = self.form_class_to()
         username = form["username"].value()
         password = form["password"].value()
         user = authenticate(request, username=username,  password=password)
@@ -203,9 +204,10 @@ class SignInView(View):
             login(request, user)
             return redirect('sdi')
         messages.error(request, "Vos informations de connexion ne sont pas correctes")
-        return render(request, self.template_name)
+        return render(request, self.template_name, {'form': form,'form_to':form_to})
 
 class SignupView(View):
+    form_class_to = SigninForm
     form_class = SignUpForm
     template_name = 'simulateur/signin.html'
 
@@ -215,6 +217,7 @@ class SignupView(View):
 
     def post(self, request, *args, **kwargs):
         form = self.form_class(request.POST)
+        form_to = self.form_class_to()
         if form.is_valid():
             usr_email = User.objects.filter(username=form.cleaned_data['email']).exists()
             if usr_email:
