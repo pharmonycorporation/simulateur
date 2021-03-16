@@ -9,6 +9,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from .forms import SignUpForm, SigninForm, ContactForm
 from .models import *
+from gestionlicence.models import Personne
 from decimal import Decimal
 from django.urls import reverse
 from paypal.standard.forms import PayPalPaymentsForm
