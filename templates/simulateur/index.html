@@ -16,7 +16,30 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
 <style>
-
+.loader{
+	background: url('static/assets/img/loadercgi.gif') 50% 50% no-repeat rgba(255, 255, 255, 0.8);
+	cursor: wait;
+	height: 100%;
+	left: 0;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: 9999;
+}
+.loader h1{
+		background: none;
+		border: none;
+		color: 	#002669;
+		font-size: 22px;
+		font-family: "Open Sans",sans-serif;
+		font-variant: small-caps;
+		font-weight: 700;
+		height: 700px;
+		line-height: 700px;
+		margin: 120px 0 0;
+		padding: 0;
+		text-align: center;
+	}
 .slow-transition {
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
   transition: box-shadow 500ms;
@@ -63,7 +86,7 @@
     display: inline-block;
     overflow: hidden;
     white-space: nowrap;
-    background: #000000;
+    background: #D20F36;
     vertical-align: middle;
     width: 0px;
     box-shadow:0 0 0 rgba(204,169,44, 0.4);
@@ -89,7 +112,7 @@
   border:0px;
   text-decoration :none;
   color:#ffffff; 
-  background:#000000
+  background:#002669
 }
 .pulse:hover {
   animation: none;
@@ -160,7 +183,9 @@
                       <div class="card-body">
                         <div class="row">
                           <div class="col-sm-12">
-                          <div id="wait" style="display:none;"><img src="{% static 'assets/img/loadercgi.gif' %}"  /><br>Chargement...</div>
+                          <div id="wait" class="loader" ><br><h1>Chargement...</h1></div>
+                            
+                            
                             <table id="example" class="table table-responsive-sm table-striped table-bordered" >
                                 <thead>
                                     <tr>
@@ -175,7 +200,21 @@
                                     </tr>
                                 </thead>
                                 <tbody id="testBody">
-                               
+                                      {% for tarif in tarifs %}
+                                    <tr id="{{tarif.id}}">
+                                        <td>{{tarif.nomenclature}}
+                                            </td>
+                                        <td>{{tarif.libelleNomenclature}}</td>
+                                        <td>{{tarif.quotite}}
+                                        </td>
+                                        <td> {{tarif.uniteStatistique}}</td>
+                                        <td> {{tarif.exhonereTVA}}</td>
+                                        <td> {{tarif.dacc}}</td>
+                                        <td> {{tarif.ts}}</td>
+                                        <td><button id="{{tarif.id}}" class="btn btn-success btn-sm" onclick="javascript:ajouterLigneSimulateur(this); return false;" >Ajouter</button></td>
+                                    
+                                    </tr>
+                                {%endfor%}
                                 
                                 </tbody>
                                 <tfoot>
@@ -438,6 +477,10 @@
   
     <script src="https://kendo.cdn.telerik.com/2017.2.621/js/jszip.min.js"></script>
     <script src="https://kendo.cdn.telerik.com/2017.2.621/js/kendo.all.min.js"></script>
+    
+    <script>
+        jQuery(window).load(function(){ jQuery(".loader").fadeOut("200"); });
+    </script>
     <script type="text/javascript">
 
     var debuterSimulation = function(link){
@@ -492,8 +535,11 @@
     var selector = $(this).data("target");
     $(selector).toggleClass('in');
 });
+$('#example').DataTable( { 
+                        responsive:'true'
+                      });
     $(window).on('load',function(){
-     $("#wait").css("display", "block");
+     //$("#wait").css("display", "block");
       $("#entreeModal").modal({
         backdrop:'static',
         keyboard:false,
@@ -501,7 +547,7 @@
       });
       
         var te = 1
-        
+        /*
            $.ajax({
                 url: "{% url 'gettarifs' %}",
                 data: {
@@ -548,14 +594,11 @@
 
                       tbody.appendChild(tr); 
                    }
-                     $('#example').DataTable( {
-                        
-                        responsive:'true'
-                      });
+                     
 
-                   $("#wait").css("display", "none");
+                   //$("#wait").css("display", "none");
                    
-                }});
+                }});*/
 
                   /*
                                     {% for tarif in tarifs %}
