@@ -16,8 +16,18 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
 <style>
+.cemaclogo{
+  width:30px;
+  height:20px;
+}
+.cemacdiv {
+  float:right;
+  position:fixed;
+  top:2px;
+  right:1rem;
+}
 .loader{
-	background: url('static/assets/img/loadercgi.gif') 50% 50% no-repeat rgba(255, 255, 255, 0.8);
+	background: url('static/assets/img/simulateur.gif') 50% 50% no-repeat rgba(255, 255, 255, 0.8);
 	cursor: wait;
 	height: 100%;
 	left: 0;
@@ -36,7 +46,7 @@
 		font-weight: 700;
 		height: 700px;
 		line-height: 700px;
-		margin: 120px 0 0;
+		margin: 140px 0 0;
 		padding: 0;
 		text-align: center;
 	}
@@ -166,11 +176,21 @@
           <!-- Breadcrumb-->
           <ol class="breadcrumb border-0 m-0">
             <li class="breadcrumb-item"><a href="/"> Retour à l'Accueil<a/></li>
-            <li class="breadcrumb-item"> / Simulateur des droits et taxes douanières</li>
+            <li class="breadcrumb-item"> / Simulateur des droits et taxes douanières <img src="{% static 'assets/img/cemac/cemac.png'%}" width="30px" height="30px" /></li>
+            
             <!-- Breadcrumb Menu-->
           </ol>
+          <div class="cemacdiv">
+            <img src="{% static 'assets/img/cemac/cmr.png'%}" class="cemaclogo" />
+            <img src="{% static 'assets/img/cemac/congo.png'%}" class="cemaclogo"/>
+            <img src="{% static 'assets/img/cemac/gabon.png'%}" class="cemaclogo"/>
+            <img src="{% static 'assets/img/cemac/guinee.png'%}" class="cemaclogo"/>
+            <img src="{% static 'assets/img/cemac/rca.png'%}" class="cemaclogo" />
+            <img src="{% static 'assets/img/cemac/tchad.png'%}" class="cemaclogo"/>
+            </div>
         </div>
       </header>
+      <br>
       <br>
       <div class="c-body">
         <main class="c-main">
@@ -183,7 +203,7 @@
                       <div class="card-body">
                         <div class="row">
                           <div class="col-sm-12">
-                          <div id="wait" class="loader" ><br><h1>Chargement...</h1></div>
+                          <div id="wait" class="loader" ><br><h1>Demarrage du Simulateur...</h1></div>
                             
                             
                             <table id="example" class="table table-responsive-sm table-striped table-bordered" >
