@@ -9,7 +9,7 @@
 * Licensed under MIT (https://coreui.io/license)
 -->
 
-<html lang="en">
+<html lang="fr">
 <head>
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.23/b-1.6.5/b-colvis-1.6.5/b-html5-1.6.5/r-2.2.7/datatables.min.css"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -471,7 +471,7 @@ p {
       
       <ul class="navbar-nav px-3">
         <li class="nav-item text-nowrap">
-          <a class="nav-link" href="#">Deconnexion</a>
+          <a class="nav-link" href="#">{%if user.is_authenticated %}{{user.first_name}} {{user.last_name}} {%endif%} </a>
         </li>
       </ul>
     </nav>
@@ -499,9 +499,15 @@ p {
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{% url 'tarification' %}">
                  <i class="fa fa-plus-circle"></i>
                   Simulation
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'signout' %}">
+                  <i class="fa fa-sign-out-alt"></i>
+                  Deconnexion
                 </a>
               </li>
             
@@ -553,11 +559,6 @@ p {
         <main class="c-main">
           <div class="container-fluid">
             <div class="fade-in">
-            <div class="row">
-            <div class="col-sm-12">
-            <img src="{% static 'assets/img/cemac/ban_cemac.jpg'%}" height="300px" width="100%"/>
-            </div>
-            </div>
               <div class="row">
 
                 <div class="col-sm-12">
@@ -575,7 +576,7 @@ p {
                                         <th>Nomenclature</th>
                                         <th>Libellé</th>
                                         <th>Quotite</th>
-                                        <th>Unité statistique</th>
+                                      
                                         <th>Exhonération TVA</th>
                                         <th>DACC</th>
                                         <th>T.S</th>
@@ -590,7 +591,7 @@ p {
                                         <td>{{tarif.libelleNomenclature}}</td>
                                         <td>{{tarif.quotite}}
                                         </td>
-                                        <td> {{tarif.uniteStatistique}}</td>
+                                       
                                         <td> {{tarif.exhonereTVA}}</td>
                                         <td> {{tarif.dacc}}</td>
                                         <td> {{tarif.ts}}</td>
@@ -605,7 +606,7 @@ p {
                                         <th>Nomenclature</th>
                                         <th>Libellé</th>
                                         <th>Quotite</th>
-                                        <th>Unité statistique</th>
+                                      
                                         <th>Exhonération TVA</th>
                                         <th>DACC</th>
                                         <th>T.S</th>
@@ -785,6 +786,7 @@ p {
           <div class="modal-footer">
             
             <button type="button" class="btn btn-primary" id="memoriser" onclick="javascript:debuterSimulation(this); return false;"><i class="fa fa-save"></i> Enregistrer et commencer la simulation</button>
+            <a  class="btn btn-danger" href="/sdi" id="annuler" ><i class="fa fa-close"></i> Annuler et Retourner à l'accueil</a>
           </div>
         </div>
         </div>

@@ -1,10 +1,30 @@
-from django.shortcuts import render
-from .models import TarifDouanier, TVA, Pays, Devise, MoyenTransport, ModePaiement, Simulation
+from django.shortcuts import render, redirect
 from .serializers import TarifDouanierSerializer
 import csv
 from django.http import JsonResponse, HttpResponseNotFound, HttpResponseServerError, HttpResponse
 from django.core import serializers
+from django.views.generic import View, TemplateView
+from django.contrib import messages
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
+from .forms import SignUpForm, SigninForm, ContactForm
+from .models import *
+from decimal import Decimal
+from django.urls import reverse
+from paypal.standard.forms import PayPalPaymentsForm
+import secrets
+from django.conf import settings 
+from django.core.mail import send_mail 
 import re
+import json
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.decorators import api_view
+from django.contrib.auth.hashers import check_password, make_password
+from django.template.loader import get_template, render_to_string
+from fpdf import FPDF, HTMLMixin
+import math
+
+
 
 def initialisationTarif(request):
     with open('tarif2.csv', newline='') as csvfile:
@@ -73,16 +93,21 @@ def ajuster(request):
 
         x = tarif.nomenclature.split(".")"""
        
+def home(request):
+    if request.user.is_authenticated:       
+        return render(request, 'simulateur/home.html')
+    return redirect('authentication')
 def index(request):
-    listePays = Pays.objects.all()
-    listePaysCemac = Pays.objects.filter(cemac=True)
-    listeTransport = MoyenTransport.objects.all()
-    listePaiement = ModePaiement.objects.all()
-    listetarif = TarifDouanier.objects.all()
-    listeDevise = Devise.objects.all()
-    
-    return render(request, 'simulateur/index.html', {'tarifs' : listetarif, 'pays':listePays,'cemacs':listePaysCemac, 'transports':listeTransport, 'paiements':listePaiement,'devises':listeDevise})
-
+    if request.user.is_authenticated:
+        listePays = Pays.objects.all()
+        listePaysCemac = Pays.objects.filter(cemac=True)
+        listeTransport = MoyenTransport.objects.all()
+        listePaiement = ModePaiement.objects.all()
+        listetarif = TarifDouanier.objects.all()
+        listeDevise = Devise.objects.all()
+        
+        return render(request, 'simulateur/index.html', {'tarifs' : listetarif, 'pays':listePays,'cemacs':listePaysCemac, 'transports':listeTransport, 'paiements':listePaiement,'devises':listeDevise})
+    return redirect('authentication')
 
 def getProduits(request):
     tarifs = TarifDouanier.objects.all() 
@@ -158,3 +183,69 @@ def getProd(request):
         data['error_message'] = "Cette clé n'existe pas."
   
     return  JsonResponse(data,safe=False)
+
+class SignInView(View):
+    form_class_to = SignUpForm
+    form_class = SigninForm
+    template_name = 'simulateur/signin.html'
+
+    def get(self, request, *args, **kwargs):
+        form_to = self.form_class_to()
+        form = self.form_class()
+        return render(request, self.template_name, {'form': form,'form_to':form_to})
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        username = form["username"].value()
+        password = form["password"].value()
+        user = authenticate(request, username=username,  password=password)
+        if user:
+            login(request, user)
+            return redirect('sdi')
+        messages.error(request, "Vos informations de connexion ne sont pas correctes")
+        return render(request, self.template_name)
+
+class SignupView(View):
+    form_class = SignUpForm
+    template_name = 'simulateur/signin.html'
+
+    def get(self, request, *args, **kwargs):
+        form = self.form_class()
+        return render(request, self.template_name, {'form': form})
+
+    def post(self, request, *args, **kwargs):
+        form = self.form_class(request.POST)
+        if form.is_valid():
+            usr_email = User.objects.filter(username=form.cleaned_data['email']).exists()
+            if usr_email:
+                response = {
+                    'success' : False,
+                    'status_code' : "Errors",
+                    'message': "Cet email est déja attribué à un utilisateur !",
+                }
+            usr = form.save(commit=False)
+            usr.is_active = True
+            usr.username = form.cleaned_data['email']
+            usr.save()
+            if usr:
+                Personne.objects.create(
+                    phone = form.cleaned_data['phone'],
+                    user = usr,
+                )
+            login(request, usr)
+            return redirect('sdi')
+        messages.error(request, form.errors)
+        return redirect('authentication')
+
+class Mail(View):
+    
+    def post(self, request):
+        print(request.POST)
+        form = ContactForm(request.POST)
+        if form.is_valid():
+            message = form.cleaned_data.get('message')
+            nom = form.cleaned_data.get('nom')
+            mail = form.cleaned_data.get('email')
+            return send(message,senderMail=mail)
+        else:
+            return JsonResponse({"erreur":"formulaire nom valide"})
