@@ -1,14 +1,509 @@
-{% extends 'gabarit.html' %}
 {% load static %}
-{% block personal_css %}
+
+<!DOCTYPE html>
+<!--
+* CoreUI - Free Bootstrap Admin Template
+* @version v3.2.0
+* @link https://coreui.io
+* Copyright (c) 2020 creativeLabs Łukasz Holeczek
+* Licensed under MIT (https://coreui.io/license)
+-->
+
+<html lang="fr">
+<head>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.23/b-1.6.5/b-colvis-1.6.5/b-html5-1.6.5/r-2.2.7/datatables.min.css"/>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
 <style>
-    .profile-header {
+.cemaclogo{
+  width:30px;
+  height:20px;
+}
+
+.loader{
+	background: url('static/assets/img/simulateur.gif') 50% 50% no-repeat rgba(255, 255, 255, 0.8);
+	cursor: wait;
+	height: 100%;
+	left: 0;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: 9999;
+}
+.loader h1{
+		background: none;
+		border: none;
+		color: 	#002669;
+		font-size: 22px;
+		font-family: "Open Sans",sans-serif;
+		font-variant: small-caps;
+		font-weight: 700;
+		height: 700px;
+		line-height: 700px;
+		margin: 140px 0 0;
+		padding: 0;
+		text-align: center;
+	}
+.slow-transition {
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+  transition: box-shadow 500ms;
+}
+
+.slow-transition:hover {
+  box-shadow: 0 10px 50px 0 rgba(0, 0, 0, 0.5);
+}
+
+/* The fast, new way! */
+.fast-transition {
+  position: relative; /* For positioning the pseudo-element */
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.3);
+}
+
+.fast-transition::before {
+  /* Position the pseudo-element. */
+  content: ' ';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+
+  /* Create the box shadow at expanded size. */
+  box-shadow: 0 10px 50px 0 rgba(204,169,44, 0.5);
+
+  /* Hidden by default. */
+  opacity: 0;
+  transition: opacity 500ms;
+}
+
+.fast-transition:hover::before {
+  /* Show the pseudo-element on hover. */
+  opacity: 1;
+}
+
+#sim {
+    -webkit-transition: width 2s ease;
+    -moz-transition: width 2s ease;
+    -o-transition: width 2s ease;
+    transition: width 2s ease;
+    
+    display: inline-block;
+    overflow: hidden;
+    white-space: nowrap;
+    background: #D20F36;
+    vertical-align: middle;
+    width: 0px;
+    box-shadow:0 0 0 rgba(204,169,44, 0.4);
+}
+#sim.in {
+    width: 100%;
+    border:0px;
+    
+}
+hr{
+  color:#fff;
+  background:#fff;
+}
+
+.pulse {
+  position:fixed;
+  bottom:-20px;
+  left:-20px;
+  display: block;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 0 0 rgba(204,169,44, 0.4);
+  animation: pulse 2s infinite;
+  z-index:99999;
+  border:0px;
+  text-decoration :none;
+  color:#ffffff; 
+  background:#002669
+}
+.pulse:hover {
+  animation: none;
+  border:0px;
+}
+
+@-webkit-keyframes pulse {
+  0% {
+    -webkit-box-shadow: 0 0 0 0 rgba(204,169,44, 0.4);
+  }
+  70% {
+      -webkit-box-shadow: 0 0 0 10px rgba(204,169,44, 0);
+  }
+  100% {
+      -webkit-box-shadow: 0 0 0 0 rgba(204,169,44, 0);
+  }
+}
+@keyframes pulse {
+  0% {
+    -moz-box-shadow: 0 0 0 0 rgba(204,169,44, 0.4);
+    box-shadow: 0 0 0 0 rgba(204,169,44, 0.4);
+  }
+  70% {
+      -moz-box-shadow: 0 0 0 10px rgba(204,169,44, 0);
+      box-shadow: 0 0 0 10px rgba(204,169,44, 0);
+  }
+  100% {
+      -moz-box-shadow: 0 0 0 0 rgba(204,169,44, 0);
+      box-shadow: 0 0 0 0 rgba(204,169,44, 0);
+  }
+}ont: inherit;
+}
+
+
+
+.footer-widget p {
+    margin-bottom: 27px;
+}
+p {
+    font-family: 'Nunito', sans-serif;
+    font-size: 16px;
+  color:white;
+    line-height: 28px;
+}
+
+   .animate-border {
+  position: relative;
+  display: block;
+  width: 115px;
+  height: 3px;
+  background: #007bff; }
+
+.animate-border:after {
+  position: absolute;
+  content: "";
+  width: 35px;
+  height: 3px;
+  left: 0;
+  bottom: 0;
+  border-left: 10px solid #fff;
+  border-right: 10px solid #fff;
+  -webkit-animation: animborder 2s linear infinite;
+  animation: animborder 2s linear infinite; }
+
+@-webkit-keyframes animborder {
+  0% {
+    -webkit-transform: translateX(0px);
+    transform: translateX(0px); }
+  100% {
+    -webkit-transform: translateX(113px);
+    transform: translateX(113px); } }
+
+@keyframes animborder {
+  0% {
+    -webkit-transform: translateX(0px);
+    transform: translateX(0px); }
+  100% {
+    -webkit-transform: translateX(113px);
+    transform: translateX(113px); } }
+
+.animate-border.border-white:after {
+  border-color: #fff; }
+
+.animate-border.border-yellow:after {
+  border-color: #F5B02E; }
+
+.animate-border.border-orange:after {
+  border-right-color: #007bff;
+  border-left-color: #007bff; }
+
+.animate-border.border-ash:after {
+  border-right-color: #EEF0EF;
+  border-left-color: #EEF0EF; }
+
+.animate-border.border-offwhite:after {
+  border-right-color: #F7F9F8;
+  border-left-color: #F7F9F8; }
+
+/* Animated heading border */
+@keyframes primary-short {
+  0% {
+    width: 15%; }
+  50% {
+    width: 90%; }
+  100% {
+    width: 10%; } }
+
+@keyframes primary-long {
+  0% {
+    width: 80%; }
+  50% {
+    width: 0%; }
+  100% {
+    width: 80%; } } 
+
+.dk-footer {
+  padding: 75px 0 0;
+  background-color: #151414;
+  position: relative;
+  z-index: 2; }
+  .dk-footer .contact-us {
+    margin-top: 0;
+    margin-bottom: 30px;
+    padding-left: 80px; }
+    .dk-footer .contact-us .contact-info {
+      margin-left: 50px; }
+    .dk-footer .contact-us.contact-us-last {
+      margin-left: -80px; }
+  .dk-footer .contact-icon i {
+    font-size: 24px;
+    top: -15px;
+    position: relative;
+    color:#007bff; }
+
+.dk-footer-box-info {
+  position: absolute;
+  top: -122px;
+  background: #202020;
+  padding: 40px;
+  z-index: 2; }
+  .dk-footer-box-info .footer-social-link h3 {
+    color: #fff;
+    font-size: 24px;
+    margin-bottom: 25px; }
+  .dk-footer-box-info .footer-social-link ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0; }
+  .dk-footer-box-info .footer-social-link li {
+    display: inline-block; }
+  .dk-footer-box-info .footer-social-link a i {
+    display: block;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 40px;
+    background: #000;
+    margin-right: 5px;
+    color: #fff; }
+    .dk-footer-box-info .footer-social-link a i.fa-facebook {
+      background-color: #3B5998; }
+    .dk-footer-box-info .footer-social-link a i.fa-twitter {
+      background-color: #55ACEE; }
+    .dk-footer-box-info .footer-social-link a i.fa-google-plus {
+      background-color: #DD4B39; }
+    .dk-footer-box-info .footer-social-link a i.fa-linkedin {
+      background-color: #0976B4; }
+    .dk-footer-box-info .footer-social-link a i.fa-instagram {
+      background-color: #B7242A; }
+
+.footer-awarad {
+  margin-top: 285px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 0;
+  -webkit-flex: 0 0 100%;
+  -moz-box-flex: 0;
+  -ms-flex: 0 0 100%;
+  flex: 0 0 100%;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -moz-box-align: center;
+  -ms-flex-align: center;
+  align-items: center; }
+  .footer-awarad p {
+    color: #fff;
+    font-size: 24px;
+    font-weight: 700;
+    margin-left: 20px;
+    padding-top: 15px; }
+
+.footer-info-text {
+  margin: 26px 0 32px; }
+
+.footer-left-widget {
+  padding-left: 80px; }
+
+.footer-widget .section-heading {
+  margin-bottom: 35px; }
+
+.footer-widget h3 {
+  font-size: 24px;
+  color: #fff;
+  position: relative;
+  margin-bottom: 15px;
+  max-width: -webkit-fit-content;
+  max-width: -moz-fit-content;
+  max-width: fit-content; }
+
+.footer-widget ul {
+  width: 50%;
+  float: left;
+  list-style: none;
+  margin: 0;
+  padding: 0; }
+
+.footer-widget li {
+  margin-bottom: 18px; }
+
+.footer-widget p {
+  margin-bottom: 27px; }
+
+.footer-widget a {
+  color: #878787;
+  -webkit-transition: all 0.3s;
+  -o-transition: all 0.3s;
+  transition: all 0.3s; }
+  .footer-widget a:hover {
+    color: #007bff; }
+
+.footer-widget:after {
+  content: "";
+  display: block;
+  clear: both; }
+
+.dk-footer-form {
+  position: relative; }
+  .dk-footer-form input[type=email] {
+    padding: 14px 28px;
+    border-radius: 50px;
+    background: #2E2E2E;
+    border: 1px solid #2E2E2E; }
+  .dk-footer-form input::-webkit-input-placeholder, .dk-footer-form input::-moz-placeholder, .dk-footer-form input:-ms-input-placeholder, .dk-footer-form input::-ms-input-placeholder, .dk-footer-form input::-webkit-input-placeholder {
+    color: #878787;
+    font-size: 14px; }
+  .dk-footer-form input::-webkit-input-placeholder, .dk-footer-form input::-moz-placeholder, .dk-footer-form input:-ms-input-placeholder, .dk-footer-form input::-ms-input-placeholder, .dk-footer-form input::placeholder {
+    color: #878787;
+    font-size: 14px; }
+  .dk-footer-form button[type=submit] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    padding: 12px 24px 12px 17px;
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+    border: 1px solid #007bff;
+    background: #007bff;
+    color: #fff; }
+  .dk-footer-form button:hover {
+    cursor: pointer; }
+
+/* ==========================
+
+    Contact
+
+=============================*/
+.contact-us {
+  position: relative;
+  z-index: 2;
+  margin-top: 65px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -moz-box-align: center;
+  -ms-flex-align: center;
+  align-items: center; }
+
+.contact-icon {
+  position: absolute; }
+  .contact-icon i {
+    font-size: 36px;
+    top: -5px;
+    position: relative;
+    color: #007bff; }
+
+.contact-info {
+  margin-left: 75px;
+  color: #fff; }
+  .contact-info h3 {
+    font-size: 20px;
+    color: #fff;
+    margin-bottom: 0; }
+
+.copyright {
+  padding: 28px 0;
+  margin-top: 55px;
+  background-color: #202020; }
+  .copyright span,
+  .copyright a {
+    color: #878787;
+    -webkit-transition: all 0.3s linear;
+    -o-transition: all 0.3s linear;
+    transition: all 0.3s linear; }
+  .copyright a:hover {
+    color:#007bff; }
+
+.copyright-menu ul {
+  text-align: right;
+  margin: 0; }
+
+.copyright-menu li {
+  display: inline-block;
+  padding-left: 20px; }
+
+.back-to-top {
+  position: relative;
+  z-index: 2; }
+  .back-to-top .btn-dark {
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    padding: 0;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #2e2e2e;
+    border-color: #2e2e2e;
+    display: none;
+    
+    -webkit-transition: all 0.3s linear;
+    -o-transition: all 0.3s linear;
+    transition: all 0.3s linear; }
+    .back-to-top .btn-dark:hover {
+      cursor: pointer;
+      background: #FA6742;
+      border-color: #FA6742; }
+
+        .shadow-box-example {
+    height: 120px;
+    width: 100%;
+    background-color: #64b5f6;
+  }
+
+
+  .box {
+  transition: box-shadow .3s;
+  
+  margin: 50px;
+  border-radius:10px;
+  border: 1px solid #ccc;
   background: #fff;
+  float: left;
+  text-align:center;
+  
+}
+.demarrer{
+  width: 9rem;
+  height: 9rem;
+  margin: 2px;
+}
+.box:hover {
+  box-shadow: 0 0 11px rgba(33,33,33,.2);
+  cursor: pointer;
+   
+}
+.text-c{
+    text-align:center
+}
+ .profile-header {
+  background: #f7f9fa;
   width: 100%;
   display: flex;
   height: 190px;
   position: relative;
-  box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.8);
 }
 
 .profile-img {
@@ -48,7 +543,7 @@
 .profile-nav-info .address {
   display: flex;
   font-weight: bold;
-  color: #777;
+  color: #000;
 }
 
 .profile-nav-info .address p {
@@ -116,22 +611,20 @@
 
 .profile-side {
   width: 300px;
-  background: #fff;
-  box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.2);
+  background: #002569;
+  box-shadow: 0px 3px 5px rgba(0, 0, 0, 0.8);
   padding: 90px 30px 20px;
-  font-family: "Bree Serif", serif;
-  margin-left: 10px;
+  color:#fff;
   z-index: 99;
 }
 
 .profile-side p {
   margin-bottom: 7px;
-  color: #333;
   font-size: 14px;
 }
 
 .profile-side p i {
-  color: #e40046;
+
   margin-right: 10px;
 }
 
@@ -294,12 +787,7 @@ button.createbtn i {
     padding-right: 0;
   }
 
-  .profile-side {
-    width: 100%;
-    text-align: center;
-    padding: 20px;
-    margin: 5px 0;
-  }
+ 
 
   .profile-nav-info .address {
     justify-content: center;
@@ -310,96 +798,125 @@ button.createbtn i {
   }
 }
 
-@media (max-width: 400px) {
-  body {
-    margin: ;
-  }
-
-  .profile-header h3 {
-  }
-
-  .profile-option {
-    width: 30px;
-    height: 30px;
-    position: absolute;
-    right: 15px;
-    top: 83%;
-  }
-
-  .profile-option .notification .alert-message {
-    top: -3px;
-    right: -4px;
-    padding: 4px;
-    height: 15px;
-    width: 15px;
-    font-size: 0.7rem;
-  }
-
-  .profile-nav-info h3 {
-    font-size: 1.9rem;
-  }
-
-  .profile-nav-info .address p,
-  .profile-nav-info .address span {
-    font-size: 0.7rem;
-  }
-}
 #see-more-bio,
 #see-less-bio {
   color: blue;
   cursor: pointer;
   text-transform: lowercase;
 }
-
 </style>
-{% endblock %}
-{% block header %}
-<header class="site-header header-style-1">
-    <nav class="navigation navbar navbar-default">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="open-btn">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'images_cgi/LOGOCGI.png' %}" alt width="99" height="75"></a>
-            </div>
-            <div id="navbar" class="navbar-collapse collapse navbar-right navigation-holder">
-                <button class="close-navbar"><i class="fa fa-close"></i></button>
-                
-                <ul class="nav navbar-nav">
-                    <li><a href="{% url 'home' %}" class="accueil">Accueil</a></li>
-                </ul>
-            </div><!-- end of nav-collapse -->
 
-            <div class="lang-social navbar-right">
-                {% if user.is_authenticated %}
-                <div class="lang">
-                    <a href="#"><img src="{% static 'images/default-user.png' %}" width="24px" height="24px" alt></a>
-                    <ul>
-                        <li><a href="{% url 'profile' %}"> Profile</a></li>
-                        <li><a href="{% url 'souscriptions' %}">Mes Souscription</a></li>
-                        <li><a href="{% url 'signout' %}"> Signout</a></li>
-                    </ul>
-                </div>
-                {% else %}
-                <div class="social-links-wrapper">
-                    <ul class="social-links">
-                        <li><a href="{% url 'signin' %}">Se connecter</a></li>
-                        <li><a href="{% url 'signup' %}">S'inscrire</a></li>
-                    </ul>
-                </div>
-                {% endif %}
-            </div>
-        </div><!-- end of container -->
+<head>
+  <body>
+  
+    <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
+      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Simulateur des taxes et droits d'importations dans la zone  CEMAC</a>
+      
+      <ul class="navbar-nav px-3">
+        <li class="nav-item text-nowrap">
+          <a class="nav-link" href="#">{%if user.is_authenticated %}{{user.first_name}} {{user.last_name}} {%endif%} </a>
+        </li>
+      </ul>
     </nav>
-</header>
-{% endblock %}
-{% block content %}
-<section class="app-landing-pricing section-padding" id="pricing">
+<br>
+<br>
+    <div class="container-fluid">
+      <div class="row">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+          <div class="sidebar-sticky">
+          <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+              <span>MENU</span>
+              
+            </h6>
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <a class="nav-link active" href="/sdi">
+                  <i class="fa fa-home"></i>
+                  Accueil <span class="sr-only">(current)</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'up_profile'%}">
+                 <i class="fa fa-user"></i>
+                  Mon Profil
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'tarification' %}">
+                 <i class="fa fa-plus-circle"></i>
+                  Simulation
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'signout' %}">
+                  <i class="fa fa-sign-out-alt"></i>
+                  Deconnexion
+                </a>
+              </li>
+            
+              
+              
+             
+            </ul>
+
+            <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+              <span>DOCUMENTS</span>
+              
+            </h6>
+            <ul class="nav flex-column mb-2">
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'mes_simulations' %}">
+                  <i class="fa fa-microchip"></i>
+                Mes simulations
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{%url 'tec'%}">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bar-chart-2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                  TEC
+                </a>
+              </li>
+              
+            </ul>
+          </div>
+        </nav>
+
+        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4"><div class="chartjs-size-monitor" style="position: absolute; inset: 0px; overflow: hidden; pointer-events: none; visibility: hidden; z-index: -1;"><div class="chartjs-size-monitor-expand" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:1000000px;height:1000000px;left:0;top:0"></div></div><div class="chartjs-size-monitor-shrink" style="position:absolute;left:0;top:0;right:0;bottom:0;overflow:hidden;pointer-events:none;visibility:hidden;z-index:-1;"><div style="position:absolute;width:200%;height:200%;left:0; top:0"></div></div></div>
+          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+            <h1 class="h2"><img src="{% static 'assets/img/cemac/cemac.png'%}" width="40px" height="40px" /></h1>
+            <div class="btn-toolbar mb-2 mb-md-0">
+                <div class="cemacdiv">
+            <img src="{% static 'assets/img/cemac/cmr.png'%}" class="cemaclogo" />
+            <img src="{% static 'assets/img/cemac/congo.png'%}" class="cemaclogo"/>
+            <img src="{% static 'assets/img/cemac/gabon.png'%}" class="cemaclogo"/>
+            <img src="{% static 'assets/img/cemac/guinee.png'%}" class="cemaclogo"/>
+            <img src="{% static 'assets/img/cemac/rca.png'%}" class="cemaclogo" />
+            <img src="{% static 'assets/img/cemac/tchad.png'%}" class="cemaclogo"/>
+            </div>
+            </div>
+          </div>
+             <div class="c-wrapper c-fixed-components">
+ 
+      
+      <div class="c-body">
+        <main class="c-main">
+          <div class="container-fluid">
+            <div class="fade-in">
+            <div class="row">
+            <div class="col-sm-12">
+            <section class="app-landing-pricing section-padding" id="pricing">
     <div class="container">
+    <div class="row">
+    <div class="col-sm-7"></div>
+    <div class="col-sm-5">
+    {% for message in messages %}
+                <div class="alert alert-danger">
+                  <a class="close" href="#" data-dismiss="alert">×</a>
+                  {{ message }}
+                </div>
+                {%endfor%}
+    </div>
+    </div>
         <div class="row section-title">
             <div class="col col-lg-6 col-lg-offset-3 col-md-8 col-md-offset-2 ">
                 <h2>Mon Profil</h2>
@@ -410,21 +927,21 @@ button.createbtn i {
             <div class="container">
   <div class="profile-header">
     <div class="profile-img">
-      <img src="{% static 'images_cgi/LOGOCGI_r.png' %}" width="200" alt="Profile Image">
+      <img src="{% static 'assets/img/cemac/zoneCemac.png' %}" width="200" alt="Profile Image">
     </div>
     <div class="profile-nav-info">
       <h3 class="user-name">{{ profile.user.first_name }} {{ profile.user.last_name }}</h3>
       <div class="address">
-        <p id="state" class="state">{{ profile.user.username }}</p>
+        <span>{{ profile.user.username }}</span>
         <span id="country" class="country"></span>
       </div>
 
     </div>
     <div class="profile-option">
       <div class="notification">
-        <a href="{% url 'souscriptions' %}">
-            <i class="fa fa-bell"></i>
-            <span class="alert-message">{{ nbre_packages }}</span>
+        <a href="{% url 'mes_simulations' %}">
+            <i class="fa fa-microchip"></i>
+            <span class="alert-message">{{ nombre }}</span>
         </a>
       </div>
     </div>
@@ -433,19 +950,20 @@ button.createbtn i {
   <div class="main-bd">
     <div class="left-side">
       <div class="profile-side">
-        <p class="mobile-no"><i class="fa fa-phone"></i> {{ profile.phone }}</p>
+       <h4><i class="fa fa-info-circle"></i> informations</h4>
+       <hr>
+        <p class=""><i class="fa fa-phone"></i> {{ profile.phone }}</p>
         <p class="user-mail"><i class="fa fa-envelope"></i> {{ profile.user.email }}</p>
         <div class="user-bio">
-          <h3>Informations</h3>
+         
           <p class="bio">
-            <p class="mobile-no"> {{ profile.user.first_name }}</p>
-            <p class="user-mail"> {{ profile.user.last_name }}</p>
+            <p> <i class="fa fa-user"></i> {{ profile.user.first_name }} {{ profile.user.last_name }}</p>
           </p>
         </div>
         <div class="profile-btn">
         </div>
         <div class="user-rating">
-          <h3 class="rating">{{ nbre_packages }} Pack(s)</h3>
+          <h4 class="rating"><i class="fa fa-microchip"></i> <span class="text-red"> {{ nombre }}</span> Simulation (s)</h4>
           
         </div>
       </div>
@@ -454,9 +972,9 @@ button.createbtn i {
     <div class="right-side">
         <div class="container-fluid">
           <ul class="nav nav-tabs">
-            <li class="active"><a href="#firsttab" data-toggle="tab">Informations Personnelles</a></li>
-            <li><a href="#secondtab" data-toggle="tab">Mes souscriptions</a></li>
-            <li><a href="#thirdtab" data-toggle="tab">Modification du mot de passe</a></li>
+            <li class="active"><a href="#firsttab" class="btn btn-success"data-toggle="tab"><i class="fa fa-user"></i> Identification</a></li>
+            <li>  <a class="btn btn-success" style="margin-left:2px" href="#secondtab" data-toggle="tab"><i class="fa fa-microchip"></i>  Mes simulations</a></li>
+            <li>  <a href="#thirdtab" class="btn btn-success" style="margin-left:2px" data-toggle="tab"> <i class="fa fa-key"></i> Mot de passe</a></li>
           </ul>
           <div class="tab-content">
             <div class="tab-pane active" id="firsttab" style="padding: 5%">
@@ -466,7 +984,7 @@ button.createbtn i {
               <div class="form-group form-group-default">
                 <label>nom d'utilisateur</label>
                 <div class="controls">
-                  <input type="text" name="username" class="form-control" value="{{ profile.user.username }}">
+                  <input type="text" name="username" disabled="disabled"class="form-control" value="{{ profile.user.username }}">
                 </div>
               </div>
               <div class="form-group form-group-default">
@@ -487,39 +1005,38 @@ button.createbtn i {
                   <input type="text" name="phone" class="form-control" value="{{ profile.phone }}">
                 </div>
               </div>
-                  
-                <input type="submit" class="btn btn-primary" value="Enregistrer">
+                  <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Enregistrer</button>
+                
                 
             </form>
             </div>
             <div class="tab-pane" id="secondtab" style="padding: 5%">
-              <h1>Mes souscriptions</h1>
-              <table class="table table-bordered">
+              <h1>Mes Simulations</h1>
+              <table class="table table-bordered table-responsive table-sm table-striped">
                   <thead>
                       <tr>
-                          <th>Package souscrit</th>
-                          <th>Montant</th>
-                          <th>Utilisateur</th>
-                          <th>Durée</th>
-                          <th>Date de la souscription</th>
-                          <th>Payer</th>
+                          <th>Importateur</th>
+                          <th>Regime</th>
+                          <th>Provenance</th>
+                          <th>Destination</th>
+                          <th>Date</th>
+                          <th>Devise</th>
+                          <th>transport</th>
+                          <th>Paiement</th>
                       </tr>
                   </thead>
                   <tbody>
-                      {% for package in packages %}
+                      {% for simulation in simulations %}
                       <tr>
-                          <td>{{ package.package.name }}</td>
-                          <td>{{ package.package.cost }}</td>
-                          <td>{{ package.package.user_nber }}</td>
-                          <td>{{ package.package.year_duration }}&nbsp;Année(s)</td>
-                          <td>{{ package.date_souscription|date:'Y-m-d H:i' }}</td>
-                          <td style="text-align: center;">
-                              {% if package.is_paid %}
-                              <span>Oui</span>
-                              {% else %}
-                              <span>Non</span>
-                              {% endif %}
-                          </td>
+                          <td>{{ simulation.importateur }}</td>
+                          <td>{{ simulation.regime }}</td>
+                          <td>{{ simulation.origine }}</td>
+                          <td>{{ simulation.destination }}</td>
+                          <td>{{ simulation.dateCreated|date:'Y-m-d H:i' }}</td>
+                          <td>{{ simulation.devise.codeDevise }}</td>
+                          <td>{{ simulation.moyenTransport.moyen }}</td>
+                          <td>{{ simulation.modePaiement.mode }}</td>
+                      
                       </tr>
                       {% endfor %}
                   </tbody>
@@ -565,9 +1082,202 @@ button.createbtn i {
         </div> <!-- end row -->
     </div> <!-- end container --> 
 </section>
-<!-- start app-landing-pricing -->
-{% endblock content %}
-{% block personal_js %}
+            </div>
+            </div>
+          
+               
+              <!-- /.row-->
+            
+              <!-- /.row-->
+              <br>
+              
+              
+                <!-- /.col-->
+               
+                <!-- /.col-->
+              </div>
+              <!-- /.row-->
+
+            </div>
+          </div>
+        </main>
+        
+      </div>
+    </div>
+    
+    <!-- CoreUI and necessary plugins-->
+ 
+    <!--<![endif]-->
+ 
+  
+         
+        </main>
+      </div>
+    </div>
+  <br>
+    <br>
+    <br>
+   <footer id="dk-footer" class="dk-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 col-lg-4">
+                    <div class="dk-footer-box-info">
+                        <a href="index.html" class="footer-logo">
+                            <img src="{%static 'assets/img/cemac/cemac.png'%}" alt="footer_logo" class="img-fluid " style="align:center">
+                        </a>
+                        <p class="footer-info-text">
+                           Ce simultateur permet à tous les importateurs de pouvoir vérifier par eux-même les taxes et droits de douane pour leurs marchandises dans la zone CEMAC
+                        </p>
+                        <div class="footer-social-link">
+                            <h3>Réalisé par</h3>
+                             <img src="{%static 'images_cgi/lecfp.png'%}"/>
+                        </div>
+                        <!-- End Social link -->
+                    </div>
+                    <!-- End Footer info -->
+                   
+                </div>
+                <!-- End Col -->
+                <div class="col-md-12 col-lg-8">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="contact-us">
+                                <div class="contact-icon">
+                                    <i class="fa fa-map-o" aria-hidden="true"></i>
+                                </div>
+                                <!-- End contact Icon -->
+                                <div class="contact-info">
+                                    <h3>Contact</h3>
+                                    <p><i class="fa fa-envelope-square"></i> contact@cgitchad.online</p>
+                                </div>
+                                <!-- End Contact Info -->
+                            </div>
+                            <!-- End Contact Us -->
+                        </div>
+                        <!-- End Col -->
+                        <div class="col-md-6">
+                            <div class="contact-us contact-us-last">
+                                <div class="contact-icon">
+                                    <i class="fa fa-volume-control-phone" aria-hidden="true"></i>
+                                </div>
+                                <!-- End contact Icon -->
+                                <div class="contact-info">
+                                    <h3>+237 242 998 232  </h3>
+                                    <p><i class="fa fa-phone"></i>Assistance Technique</p>
+                                </div>
+                                <!-- End Contact Info -->
+                            </div>
+                            <!-- End Contact Us -->
+                        </div>
+                        <!-- End Col -->
+                    </div>
+                    <!-- End Contact Row -->
+                    <div class="row">
+                        <div class="col-md-12 col-lg-6">
+                            <div class="footer-widget footer-left-widget">
+                                <div class="section-heading">
+                                    <h3>Liens Utiles</h3>
+                                    <span class="animate-border border-black"></span>
+                                </div>
+                                <ul>
+                                    <li>
+                                        <a href="#">Le CFP</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">CGI TCHAD</a>
+                                    </li>
+                                    <li>
+                                        <a href="#">CEMAC</a>
+                                    </li>
+                                   
+                                </ul>
+                                <ul>
+                                    <li>
+                                        <a href="#">Contact</a>
+                                    </li>
+                                  
+                                    <li>
+                                        <a href="#">Faq</a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <!-- End Footer Widget -->
+                        </div>
+                        <!-- End col -->
+                        <div class="col-md-12 col-lg-6">
+                            <div class="footer-widget">
+                                <div class="section-heading">
+                                    <h3>Note d'information</h3>
+                                    <span class="animate-border border-black"></span>
+                                </div>
+                                <p><!-- Don’t miss to subscribe to our new feeds, kindly fill the form below. -->
+                                 Les données fournies par le simultateur sont juste à titre indicatifs et peuvent donc différer 
+                                 de celles délivrées par l'autorité compétente</p>
+                               
+                                <!-- End form -->
+                            </div>
+                            <!-- End footer widget -->
+                        </div>
+                        <!-- End Col -->
+                    </div>
+                    <!-- End Row -->
+                </div>
+                <!-- End Col -->
+            </div>
+            <!-- End Widget Row -->
+        </div>
+        <!-- End Contact Container -->
+
+
+        <div class="copyright">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6">
+                        <span>Copyright © 2021 <a href="http://www.lecfp.net">Le CFP </a>, Powered by <a href="https://www.pharmony-corporation.com">Pharmony Coporation</a></span>
+                    </div>
+                    <!-- End Col -->
+                    <div class="col-md-6">
+                        <div class="copyright-menu">
+                            <ul>
+                                <li>
+                                    <a href="/sdi">Accueil</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'up_profile'%}">Profil</a>
+                                </li>
+                                <li>
+                                    <a href="{% url 'tarification'%}">Nouvelle Simulation</a>
+                                </li>
+                                
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- End col -->
+                </div>
+                <!-- End Row -->
+            </div>
+            <!-- End Copyright Container -->
+        </div>
+        <!-- End Copyright -->
+        <!-- Back to top -->
+        <div id="back-to-top" class="back-to-top">
+            <button class="btn btn-dark" title="Back to Top" style="display: block;">
+                <i class="fa fa-angle-up"></i>
+            </button>
+        </div>
+        <!-- End Back to top -->
+</footer>
+
+ 
+    <script src="https://code.jquery.com/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.23/b-1.6.5/b-colvis-1.6.5/b-html5-1.6.5/r-2.2.7/datatables.min.js"></script>
+     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+  
+    <script src="https://kendo.cdn.telerik.com/2017.2.621/js/jszip.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2017.2.621/js/kendo.all.min.js"></script>
+    
 <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
 <script>
     function preloader() {
@@ -630,4 +1340,5 @@ if (document.querySelector(".alert-message").innerText > 9) {
   document.querySelector(".alert-message").style.fontSize = ".7rem";
 }
 </script>
-{% endblock %}
+</body>
+</html>

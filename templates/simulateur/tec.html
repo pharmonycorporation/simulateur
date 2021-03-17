@@ -11,7 +11,8 @@
 
 <html lang="fr">
 <head>
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.23/b-1.6.5/b-colvis-1.6.5/b-html5-1.6.5/r-2.2.7/datatables.min.css"/>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.24/af-2.3.5/b-1.7.0/b-colvis-1.7.0/b-html5-1.7.0/b-print-1.7.0/date-1.0.2/r-2.2.7/sc-2.0.3/sb-1.0.1/datatables.min.css"/>
+ 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
 <style>
@@ -21,7 +22,7 @@
 }
 
 .loader{
-	background: url('static/assets/img/simulateur.gif') 50% 50% no-repeat rgba(255, 255, 255, 0.8);
+	background: url('static/assets/img/loadercgi.gif') 50% 50% no-repeat rgba(255, 255, 255, 0.8);
 	cursor: wait;
 	height: 100%;
 	left: 0;
@@ -461,38 +462,6 @@ p {
       cursor: pointer;
       background: #FA6742;
       border-color: #FA6742; }
-
-        .shadow-box-example {
-    height: 120px;
-    width: 100%;
-    background-color: #64b5f6;
-  }
-
-
-  .box {
-  transition: box-shadow .3s;
-  
-  margin: 50px;
-  border-radius:10px;
-  border: 1px solid #ccc;
-  background: #fff;
-  float: left;
-  text-align:center;
-  
-}
-.demarrer{
-  width: 9rem;
-  height: 9rem;
-  margin: 2px;
-}
-.box:hover {
-  box-shadow: 0 0 11px rgba(33,33,33,.2);
-  cursor: pointer;
-   
-}
-.text-c{
-    text-align:center
-}
 </style>
 
 <head>
@@ -554,13 +523,13 @@ p {
             </h6>
             <ul class="nav flex-column mb-2">
               <li class="nav-item">
-               <a class="nav-link" href="{% url 'mes_simulations' %}">
+                <a class="nav-link" href="{% url 'mes_simulations' %}">
                   <i class="fa fa-microchip"></i>
-                Mes simulations
+                  Mes simulations
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{%url 'tec'%}">
+                <a class="nav-link" href="#">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bar-chart-2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
                   TEC
                 </a>
@@ -591,34 +560,65 @@ p {
         <main class="c-main">
           <div class="container-fluid">
             <div class="fade-in">
-            <div class="row">
-            <div class="col-sm-12">
-            <img src="{% static 'assets/img/cemac/ban_cemac.jpg'%}" height="300px" width="100%"/>
-            </div>
-            </div>
-            <div class="row">
-                <div class="col-sm-3">
-                    <div class="box">
-                        <a alt="Demarrer la simulation" href="/tarification">
+              <div class="row">
+
+                <div class="col-sm-12">
+                  <div class="card">
+                    <div class="card-header"><strong>TEC </strong> </div>
+                      <div class="card-body">
+                        <div class="row">
+                          <div class="col-sm-12">
+
+                          <div id="wait" class="loader" ><br><h1>Chargement du TEC...</h1></div>
                             
-                            <img src="{%static 'assets/img/cemac/simulateurDemmarer.png' %} " class="demarrer">
-                        
-                        <a><br><span class="text-center text-muted text-nowrap">Demarrer</span>
+                            
+                            <table id="example" class="table table-responsive-sm table-striped table-bordered" >
+                                <thead>
+                                    <tr>
+                                        <th>Nomenclature</th>
+                                        <th>Libellé</th>
+                                        <th>Quotite</th>
+                                        
+                                    </tr>
+                                </thead>
+                                <tbody id="testBody">
+                                      {% for tarif in tarifs %}
+                                    <tr id="{{tarif.id}}">
+                                        <td>{{tarif.nomenclature}}
+                                            </td>
+                                        <td>{{tarif.libelleNomenclature}}</td>
+                                        <td>{{tarif.quotite}}
+                                        </td>
+                                       
+                                        
+                                    </tr>
+                                {%endfor%}
+                                
+                                </tbody>
+                                <tfoot>
+                                    <tr>
+                                        <th>Nomenclature</th>
+                                        <th>Libellé</th>
+                                        <th>Quotite</th>
+                                        
+                                    </tr>
+                                </tfoot>
+                            </table>
+                          </div>
+                        </div>
+                      
+                      </div>
                     </div>
-                    
-                </div><div class="col-sm-8">
-                         <img src="{%static 'assets/img/cemac/zone.png' %} " height="700px" width="100%">
-                   </div>
-                
-            </div>
+                </div>
+                <!-- /.col-->
                
+                <!-- /.col-->
+              </div>
               <!-- /.row-->
             
               <!-- /.row-->
               <br>
-              
-              
-                <!-- /.col-->
+  
                
                 <!-- /.col-->
               </div>
@@ -630,17 +630,10 @@ p {
         
       </div>
     </div>
-    
-    <!-- CoreUI and necessary plugins-->
- 
-    <!--<![endif]-->
- 
-  
-         
-        </main>
+
       </div>
     </div>
-<br>
+  <br>
     <br>
     <br>
    <footer id="dk-footer" class="dk-footer">
@@ -796,15 +789,97 @@ p {
 
  
     <script src="https://code.jquery.com/jquery-2.0.3.min.js"></script>
+ 
+ 
+ 
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/vfs_fonts.js"></script>
-<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.23/b-1.6.5/b-colvis-1.6.5/b-html5-1.6.5/r-2.2.7/datatables.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.10.24/af-2.3.5/b-1.7.0/b-colvis-1.7.0/b-html5-1.7.0/b-print-1.7.0/date-1.0.2/r-2.2.7/sc-2.0.3/sb-1.0.1/datatables.min.js"></script>
      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   
     <script src="https://kendo.cdn.telerik.com/2017.2.621/js/jszip.min.js"></script>
     <script src="https://kendo.cdn.telerik.com/2017.2.621/js/kendo.all.min.js"></script>
     
-  
-     
+    <script>
+        jQuery(window).load(function(){ jQuery(".loader").fadeOut("200"); });
+    </script>
+    <script type="text/javascript">
+
+    $("[data-toggle='toggle']").click(function() {
+    var selector = $(this).data("target");
+    $(selector).toggleClass('in');
+    });
+    $('#example').DataTable( { 
+                        dom: 'Bfrtip',
+                  buttons: [
+                  
+                  
+                    {
+                            
+                        extend: 'csv',
+                        text: '<i class="fas fa-file-csv"></i> CSV',
+                        filename:'simulateur_tec_csv',
+                        title:'DOCUMENT TEC CEMAC ',
+                        messageBottom:'Document généré par le Simulateur des taxes et droits d\'importations dans la zone Cemac',
+                        exportOptions: {
+                            modifier: {
+                                page: 'all'
+                            }
+                        }
+                        
+                    },
+                    {
+                            
+                        extend: 'pdf',
+                        text: '<i class="fas fa-file-pdf"></i> PDF',
+                        filename:'simulateur_tec_pdf',
+                        title:'DOCUMENT TEC CEMAC ',
+                        messageBottom:'Document généré par le Simulateur des taxes et droits d\'importations dans la zone Cemac',
+                        exportOptions: {
+                            modifier: {
+                                page: 'all'
+                            }
+                        }
+                        
+                    },
+                    {
+                            
+                        extend: 'excel',
+                        text: '<i class="fas fa-file-excel"></i> EXCEL',
+                        filename:'simulateur_tec_excel',
+                        title:'DOCUMENT TEC CEMAC ',
+                        messageBottom:'Document généré par le Simulateur des taxes et droits d\'importations dans la zone Cemac',
+                        exportOptions: {
+                            modifier: {
+                                page: 'all'
+                            }
+                        }
+                        
+                    },
+                    
+               
+                  
+                    {
+                       
+                        action: function(e) {
+                            e.stopPropagation();
+                            this.popover( '<div><i class="fa fa-info-circle"></i> Note d\'information!</div>', {
+                                collectionTitle: 'Vous pouvez exporter le contenu du tableau TEC grâce aux boutons excel, pdf et csv et obtenir des fichiers aux formats respectifs'
+                            });
+                        }, 
+                        'text': '<i class="fa fa-info-circle"></i><b> Informations</b>',
+                        
+                    }
+                   
+                    ],
+                    responsive:'true',
+                            language: {
+                              url: 'https://cdn.datatables.net/plug-ins/1.10.24/i18n/French.json'
+                          }
+                      });
+    
+ 
+</script>
+
 </body>
 </html>

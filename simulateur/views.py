@@ -9,7 +9,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from .forms import SignUpForm, SigninForm, ContactForm
 from .models import *
-from gestionlicence.models import Personne
+from gestionlicence.models import *
 from decimal import Decimal
 from django.urls import reverse
 from paypal.standard.forms import PayPalPaymentsForm
@@ -101,13 +101,22 @@ def home(request):
 def index(request):
     if request.user.is_authenticated:
         listePays = Pays.objects.all()
+        listeRegime = RegimeFiscale.objects.all()
         listePaysCemac = Pays.objects.filter(cemac=True)
         listeTransport = MoyenTransport.objects.all()
         listePaiement = ModePaiement.objects.all()
         listetarif = TarifDouanier.objects.all()
         listeDevise = Devise.objects.all()
         
-        return render(request, 'simulateur/index.html', {'tarifs' : listetarif, 'pays':listePays,'cemacs':listePaysCemac, 'transports':listeTransport, 'paiements':listePaiement,'devises':listeDevise})
+        return render(request, 'simulateur/index.html', {'tarifs' : listetarif, 'pays':listePays,'cemacs':listePaysCemac, 'transports':listeTransport, 'paiements':listePaiement,'devises':listeDevise,'regimes':listeRegime})
+    return redirect('authentication')
+    
+def tecView(request):
+    if request.user.is_authenticated:
+        
+        listetarif = TarifDouanier.objects.all()
+        
+        return render(request, 'simulateur/tec.html', {'tarifs' : listetarif})
     return redirect('authentication')
 
 def getProduits(request):
@@ -140,9 +149,10 @@ def demarrerSimulateur(request):
     paiement = request.POST.get('paiement', None)
     transport = request.POST.get('transport', None)
     nomenclature = request.POST.get('nomenclature', None)
+    user = User.objects.get(username=request.POST.get('username'))
     #Simulation.objects.create(importateur=importateur,regimeFiscale=regime,destination=Pays.objects.get(nom=destination),origine=Pays.objects.get(nom=provenance),modePaiement=ModePaiement.objects.get(mode=paiement),devise=Devise.objects.get(nomDevise=devise),moyenTransport=MoyenTransport.objects.get(moyen=transport))
     try:
-        Simulation.objects.create(importateur=importateur,nomenclature=nomenclature,regimeFiscale=regime,destination=Pays.objects.get(nom=destination),origine=Pays.objects.get(nom=provenance),modePaiement=ModePaiement.objects.get(mode=paiement),devise=Devise.objects.get(nomDevise=devise),moyenTransport=MoyenTransport.objects.get(moyen=transport))
+        Simulation.objects.create(importateur=importateur, auteur=Personne.objects.get(user=user), nomenclature=nomenclature,regime=RegimeFiscale.objects.get(regime=regime),destination=Pays.objects.get(nom=destination),origine=Pays.objects.get(nom=provenance),modePaiement=ModePaiement.objects.get(mode=paiement),devise=Devise.objects.get(nomDevise=devise),moyenTransport=MoyenTransport.objects.get(moyen=transport))
         data = {
         'success': True
         }
@@ -240,6 +250,68 @@ class SignupView(View):
             return redirect('sdi')
         messages.error(request, form.errors)
         return redirect('authentication')
+
+class ProfileView(View):
+    
+    def get(self, request):
+        usr = request.user
+        #profile = usr.personne
+        profile = Personne.objects.get(user=usr)
+        nbre = Simulation.objects.filter(auteur=profile).count()
+        simulations = None
+        if profile:      
+            simulations = Simulation.objects.filter(auteur=profile)
+        return render(request, 'simulateur/profile.html', {'profile' : profile, 'simulations':simulations, 'nombre':nbre})
+    
+    def post(self, request):
+        change = request.POST.get('change')
+        if change == "1":
+            username = request.POST.get('username')
+            first_name = request.POST.get('first_name')
+            last_name = request.POST.get('last_name')
+            phone = request.POST.get('phone')
+            
+            usr = User.objects.filter(pk=int(request.user.pk)).update(username=username, first_name=first_name, last_name=last_name)
+            if phone:
+                pers = Personne.objects.get(user=request.user)
+                pers.phone = phone
+                pers.save()
+            return redirect("up_profile")
+        
+        elif change == "2":
+            currentpassword= request.user.password #user's current password
+
+            oldpass = request.POST.get('oldpassword')
+            newpass = request.POST.get('newpassword')
+            confirmpass = request.POST.get('confirmpassword')
+            
+            if newpass == confirmpass:
+                
+                matchcheck= check_password(oldpass, currentpassword)
+            
+                if matchcheck:
+                    password = make_password(newpass)
+                    usr = User.objects.filter(pk=int(request.user.pk)).update(password=password)
+                    
+                    return redirect("sdi")
+                else:
+                    messages.error(request, "Votre ancien mot de passe est incorrect")
+                    return redirect("up_profile")
+            else:
+                messages.error(request, "Vos mots de passe ne sont pas identiques")
+                return redirect("up_profile")
+        else:
+            messages.error(request, "Veuillez soumettre votre formulaire")
+            return redirect("up_profile")
+
+class SimulationView(View):
+    template_name = "simulateur/simulations.html"
+
+    def get(self, request, *args, **kwargs):
+        pers = Personne.objects.get(user=request.user)
+        simulations = Simulation.objects.filter(auteur=pers)
+        return render(request, self.template_name, {'simulations': simulations})
+
 
 class Mail(View):
     

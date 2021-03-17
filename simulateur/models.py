@@ -1,4 +1,5 @@
 from django.db import models
+from gestionlicence.models import Personne
 
 class ModePaiement(models.Model):
     mode  = models.CharField(max_length=255, unique=True)
@@ -7,6 +8,13 @@ class ModePaiement(models.Model):
 
     def __str__(self):
         return self.mode
+class RegimeFiscale(models.Model):
+    regime  = models.CharField(max_length=255, unique=True)
+    class Meta:
+        ordering: ['-regime']
+
+    def __str__(self):
+        return self.regime
 
 class MoyenTransport(models.Model):
     moyen  = models.CharField(max_length=255, unique=True)
@@ -42,7 +50,8 @@ class Pays(models.Model):
    
 class Simulation (models.Model):
     importateur = models.CharField(max_length=255, verbose_name="Raison sociale")
-    regimeFiscale = models.CharField(max_length=255)
+    regime = models.ForeignKey(RegimeFiscale, on_delete=models.CASCADE, null=True)
+    auteur = models.ForeignKey(Personne, on_delete=models.CASCADE, null=True)
     nomenclature = models.CharField(max_length=255)
     destination = models.ForeignKey(Pays, related_name="arrivee", on_delete=models.CASCADE, null=True)
     origine = models.ForeignKey(Pays, related_name="depart", on_delete=models.CASCADE, null=True)

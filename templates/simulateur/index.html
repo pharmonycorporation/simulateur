@@ -493,9 +493,9 @@ p {
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{% url 'up_profile'%}">
                  <i class="fa fa-user"></i>
-                  Mon Profile
+                  Mon Profil
                 </a>
               </li>
               <li class="nav-item">
@@ -522,13 +522,13 @@ p {
             </h6>
             <ul class="nav flex-column mb-2">
               <li class="nav-item">
-                <a class="nav-link" href="#">
-                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-shopping-cart"><circle cx="9" cy="21" r="1"></circle><circle cx="20" cy="21" r="1"></circle><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path></svg>
+                <a class="nav-link" href="{% url 'mes_simulations' %}">
+                  <i class="fa fa-microchip"></i>
                   Mes simulations
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="{%url 'tec'%}">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bar-chart-2"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
                   TEC
                 </a>
@@ -726,7 +726,13 @@ p {
                               </div>
                               <div class="form-group">
                                 <label for="inputEmail01" >Régime Fiscale </label>
-                                <input type="email" class="form-control" id="regimeId" placeholder="Régime Fiscale">
+                                <select class="form-control" id="regimeId">
+                                {% for regime in regimes %}
+                                    <option value="{{regime.regime}}">{{regime.regime}}</option>
+                                {% endfor %}
+                                </select> 
+                                <input type="text" id="username" hidden="hidden" value="{{user.username}}"/>
+                               
                               </div>
                               <div class="form-group">
                                 <label for="country">Vers quel pays souhaitez-vous importer ?</label><select class="form-control" id="destinationId">
@@ -859,7 +865,9 @@ p {
         </main>
       </div>
     </div>
-
+  <br>
+    <br>
+    <br>
    <footer id="dk-footer" class="dk-footer">
         <div class="container">
             <div class="row">
@@ -983,13 +991,13 @@ p {
                         <div class="copyright-menu">
                             <ul>
                                 <li>
-                                    <a href="#">Accueil</a>
+                                    <a href="/sdi">Accueil</a>
                                 </li>
                                 <li>
-                                    <a href="#">Profile</a>
+                                    <a href="{% url 'up_profile'%}">Profil</a>
                                 </li>
                                 <li>
-                                    <a href="#">Nouvelle Simulation</a>
+                                    <a href="{% url 'tarification'%}">Nouvelle Simulation</a>
                                 </li>
                                 
                             </ul>
@@ -1030,6 +1038,7 @@ p {
 
          let nomenclature = $("#nomenclatureId").val();
          let regime = $("#regimeId").val();
+         let username = $("#username").val();
          let provenance = $("#provenanceId").val();
          let destination = $("#destinationId").val();
          let importateur = $("#importateurId").val();
@@ -1043,6 +1052,7 @@ p {
                 method:"POST",
                 data: {
                   'regime':regime,
+                  'username':username,
                   'nomenclature':nomenclature,
                   'provenance':provenance,
                   'destination':destination,
@@ -1079,7 +1089,10 @@ p {
     $(selector).toggleClass('in');
 });
 $('#example').DataTable( { 
-                        responsive:'true'
+                        responsive:'true',
+                            language: {
+                              url: 'https://cdn.datatables.net/plug-ins/1.10.24/i18n/French.json'
+                          }
                       });
     $(window).on('load',function(){
      //$("#wait").css("display", "block");
