@@ -96,23 +96,43 @@
     box-shadow:0 0 0 rgba(204,169,44, 0.4);
 }
 #sim.in {
-    width: 100%;
+    width: 80%;
     border:0px;
+    z-index:99999;
     
 }
 
 .pulse {
   position:fixed;
-  bottom:-20px;
-  left:-20px;
-  display: block;
-  width: 80px;
-  height: 80px;
+  bottom:85px;
+  left:20px;
+  display: none;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
   cursor: pointer;
   box-shadow: 0 0 0 rgba(204,169,44, 0.4);
   animation: pulse 2s infinite;
   z-index:99999;
+  border:0px;
+  text-decoration :none;
+  color:#ffffff; 
+  background:#002669
+}
+
+.fixedroit {
+  cursor:pointer;
+  position:fixed;
+  bottom:20px;
+  left:20px;
+  display: none;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: 0 0 0 rgba(204,169,44, 0.4);
+  animation: pulse 2s infinite;
+  z-index:9999999;
   border:0px;
   text-decoration :none;
   color:#ffffff; 
@@ -595,7 +615,7 @@ p {
                                         <td> {{tarif.exhonereTVA}}</td>
                                         <td> {{tarif.dacc}}</td>
                                         <td> {{tarif.ts}}</td>
-                                        <td><button id="{{tarif.id}}" class="btn btn-success btn-sm" onclick="javascript:ajouterLigneSimulateur(this); return false;" >Ajouter <i class="fa fa-plus-circle"></i></button></td>
+                                        <td><button id="{{tarif.id}}" class="btn btn-success btn-sm" onclick="javascript:simuler(this); return false;" >Ajouter <i class="fa fa-plus-circle"></i></button></td>
                                     
                                     </tr>
                                 {%endfor%}
@@ -628,65 +648,217 @@ p {
             
               <!-- /.row-->
               <br>
-               <button type="button"  class="pulse" data-toggle="toggle" data-target="#sim">
-                      <i class="fa fa-eye"></i><br>SIM
+                  <button type="button"  class="btn btn-danger pulse" id="visualiser"data-toggle="toggle" data-target="#sim">
+                      <i class="fa fa-eye"></i>
                   </button>
-              <div class="row" id="sim"  style="position:fixed;bottom:0px">
+                  <button type="button"  class="btn btn-primary fixedroit" id="telecharger" onclick="javascript:alert(this); return false;">
+                      <i class="fa fa-download" aria-hidden="true"></i>
+                  </button>
+                  
+              
+              <!-- /.row-->
+
+            </div>
+          </div>
+        </main>
+        <div class="row" id="sim"  style="position:fixed;bottom:0px">
+                
+
+
                 <div class="col-sm-12">
                   <div class="card fast-transition">
                     <div class="card-header"><strong>SIMULATEUR</strong>
                    
-                    
+                   
                      </div>
                     <div class="card-body">
-
-                        <div id="tabSimulateur">   
-            <table style="display:none;"  id="logo">
-            <tr>
-             <td colspan="2">SIMULATEUR DES TAXES D'IMPORTATIONS DOUANIERES / HORS CEMAC</td>
-            </tr>
-            <tr>
-            <td width="20%"><img src="{% static 'images_cgi/LOGOCGI_r.png' %}"  alt width="150" height="150"></td>
-           
-            <td width="80%">
-                <table width="100%" id="infoEntreprise">
-
-                </table>
-                <!--
-                <input type="text" id="entreprise" style="border:0px;width:100%"/><br>
-                <input type="text" id="adresse" style="border:0px;width:100%;"/>-->
-            </td>
-            </tr>
-            </table>
-            <table class="table table-responsive-sm" >
-                <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">Nomenclature</th>
-                        <th scope="col">Quotite</th>
-                        
-                        <th scope="col">Valeur Imposable</th>
-                        <th scope="col">DD</th>
-                        <th scope="col">TVA</th>
-                        <th scope="col">D ACC</th>
-                        <th scope="col">ACPTE</th>
-                        <th scope="col">RST</th>
-                        <th scope="col">TCI</th>
-                        <th scope="col"> CCI</th>
-                        <th scope="col"> TUA</th>
-                        <th scope="col"> TS</th>
-
-                    </tr>
-                </thead>
-                <tbody id="simulateur">
+                      <div id="ficheFinal">
+                          <div class="row">
+                              <div class="col-sm-6">
+                                <h6>Information Générale</h6>
+                                <hr>
+                                <table border="0">
+                                  <tr>
+                                    <td id="SimDeclarantId">Déclarant:<u style='font-size:11px;font-weight:bold'>{{user.first_name }} {{user.last_name}}</u></td>
+                                    <td id="SimTransportId">Mode de Transport:__________</td>
+                                  </tr>
+                                  <tr>
+                                    <td id="SimImporateurId">Importateur:______________</td>
+                                    <td id="SimRegimeFiscaleId">Regime Fiscale:__________</td>
+                                  </tr>
+                                  <tr>
+                                    <td id="SimProvenanceId">Provenance:______________</td>
+                                    <td id="SimDestionationId">Destination:__________</td>
+                                  </tr>
+                                  <tr>
+                                    <td id="SimDeviseId">Devise:______________</td>
+                                    <td id="SimTauxChangeId">Taux de Change:__________</td>
+                                  </tr>
+                                
+                                </table>
+                              </div>
+                              <div class="col-sm-6">
+                                <h6>Note de Valeur Import</h6>
+                                <hr>
+                                <table border="0">
+                                  <tr>
+                                    <td id="SimProduitId">Produit:______________</td>
+                                    <td id="SimQuotiteId">Quotité:__________</td>
+                                  </tr>
+                                  <tr>
+                                    <td id="SimValeurFactureId">Valeur Facture:______________</td>
+                                    <td id="SimFretNationalId">Fret National:__________</td>
+                                  </tr>
+                                  <tr>
+                                    <td id="SimFretId">Fret:______________</td>
+                                    <td id="SimAssuranceId">Assurance:__________</td>
+                                  </tr>
+                                  <tr>
+                                    <td id="SimValeurImposableId">Valeur Imposable:______________</td>
+                                    <td id="SimModePaiementId">Mode de Paiement:__________</td>
+                                  </tr>
+                                
+                                </table>
+                              </div>
+                          </div>
                     
+
+                          <table class="table table-sm table-bordered table-striped">
+                              <thead>
+                                <tr>
+                                    <th>TYPE</th>
+                                    <th>BASE IMPOSITION</th>
+                                    <th>QUOTITE</th>
+                                    <th>MONTANT</th>
+                                </tr>
+
+                              </thead>
+                              <tbody id="ficheBody">
+                              <tr>
+                                <td>DD</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                              </tr>
+                              <tr>
+                                <td>TVA</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                              </tr>
+                              <tr>
+                                <td>DACC</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                              </tr>
+                              <tr>
+                                <td>PCI</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                              </tr>
+                              <tr>
+                                <td>RST</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                              </tr>
+                              <tr>
+                                <td>TCI</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                              </tr>
+                              <tr>
+                                <td>CCI</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                              </tr>
+                              <tr>
+                                <td>TUA</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                              </tr>
+                              <tr>
+                                <td>T Sp</td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                              </tr>
+
+                              </tbody>
+                              <tfoot id="fichefoot">
+                              <tr>
+                                  <td colspan="3">TOTAL DT</td>
+                                  <td></td>
+                              </tr>
+                              <tr>
+                                  <td colspan="3">VS</td>
+                                  <td></td>
+                              </tr>
+                              <tr>
+                                  <td colspan="3">HAD DU CDA</td>
+                                  <td></td>
+                              </tr>
+                              <tr>
+                                  <td colspan="3">COUT DE REVIENT</td>
+                                  <td></td>
+                              </tr>
+
+                              </tfoot>
+                          
+                          </table>
                     
-                </tbody>
-            </table>
-            </div>
+                      </div>
+
+                      <div id="tabSimulateur">   
+                              <table style="display:none;"  id="logo">
+                              <tr>
+                              <td colspan="2">SIMULATEUR DES TAXES D'IMPORTATIONS DOUANIERES / HORS CEMAC</td>
+                              </tr>
+                              <tr>
+                              <td width="20%"><img src="{% static 'images_cgi/LOGOCGI_r.png' %}"  alt width="150" height="150"></td>
+                            
+                              <td width="80%">
+                                  <table width="100%" id="infoEntreprise">
+
+                                  </table>
+                                  <!--
+                                  <input type="text" id="entreprise" style="border:0px;width:100%"/><br>
+                                  <input type="text" id="adresse" style="border:0px;width:100%;"/>-->
+                              </td>
+                              </tr>
+                              </table>
+                           <!-- <table class="table table-responsive-sm" >
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th scope="col">Nomenclature</th>
+                                        <th scope="col">Quotite</th>
+                                        
+                                        <th scope="col">Valeur Imposable</th>
+                                        <th scope="col">DD</th>
+                                        <th scope="col">TVA</th>
+                                        <th scope="col">D ACC</th>
+                                        <th scope="col">ACPTE</th>
+                                        <th scope="col">RST</th>
+                                        <th scope="col">TCI</th>
+                                        <th scope="col"> CCI</th>
+                                        <th scope="col"> TUA</th>
+                                        <th scope="col"> TS</th>
+
+                                    </tr>
+                                </thead>
+                                <tbody id="simulateur">
+                                    
+                                    
+                                </tbody>
+                            </table>-->
+                      </div>
            
-            <button type="button"  class="btn btn-primary" style="float:right" onclick="javascript:ajoutIdentite(this); return false;">
-                 GENERER LA FACTURE
-            </button>
+                      
                       
                     </div>
                   </div>
@@ -695,12 +867,6 @@ p {
                
                 <!-- /.col-->
               </div>
-              <!-- /.row-->
-
-            </div>
-          </div>
-        </main>
-        
       </div>
     </div>
     <!-- CoreUI and necessary plugins-->
@@ -808,54 +974,47 @@ p {
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-      <div class="container">
+      <div class="modal-body"><form id="ajoutForm" class="form-control">
       <div class="row">
-   
-       
-        </div class="col-sm-10">
-            <div class="card">
-                   
-                <div class="card-body">
-          
-                    <div class="form-group">
-                        <label for="valeurFacture" >Valeur Facture</label>
-                        <input type="text" class="form-control" id="valeurFacture" placeholder="Valeur Facture">
-                    </div>
-                    <div class="form-group">
-                        <label for="fret" >Fret</label>
-                        <input type="text" class="form-control" id="fret" placeholder="Fret">
-                    </div>
-                    <div class="form-group">
-                        <label for="assurance" >Assurance</label>
-                        <input type="text" class="form-control" id="assurance" placeholder="Assurance">
-                    </div>
-                    <div class="form-group">
-                        <label for="idtotal" >Total</label>
-                        <input type="text" class="form-control" id="idtotal" placeholder="total">
-                    </div>
-                    <div class="form-group row">
+          <div class="col-sm-6">
+             
+                        <div class="form-group">
+                            <label for="idproduit" >Produit</label>
+                            <input type="text" class="form-control" id="idproduit" value="" disabled>
+                            <input type="text" class="form-control" id="idproduit2" value="" hidden="hidden">
+                        </div>
+                        <div class="form-group">
+                            <label for="valeurFacture" >Valeur Facture</label>
+                            <input type="text" class="form-control" id="valeurFacture" placeholder="Valeur Facture">
+                        </div>
+                        <div class="form-group">
+                            <label for="fret" >Fret</label>
+                            <input type="text" class="form-control" id="fret" placeholder="Fret">
+                        </div>
+                       
+                     
+        
+          </div>
+          <div class="col-sm-6">
+                      <div class="form-group ">
                         <label for="valImposable" >Valeur Imposable</label>
-                        <input type="text" class="form-control" id="valImposable" placeholder="Valeur Imposable">
-                    </div>
-                    <div class="form-group ">
-                        <label for="fretNational" >Fret national</label>
-                        <input type="text" class="form-control" id="fretNational" placeholder="Fret national">
-                    </div>
-                    <div class="form-group row">
-                        <label for="ValeurStatistique" >Valeur statistique</label>
-                        <input type="text" class="form-control" id="ValeurStatistique" placeholder="ValeurStatistique">
-                    </div>
-        
-        </div>
-        
-      </div>
-      
-        </div>
+                          <input type="text" class="form-control" id="valImposable" placeholder="Valeur Imposable">
+                      </div>
+                      <div class="form-group ">
+                          <label for="fretNational" >Fret national</label>
+                          <input type="text" class="form-control" id="fretNational" placeholder="Fret national">
+                      </div>
+                       <div class="form-group">
+                            <label for="assurance" >Assurance</label>
+                            <input type="text" class="form-control" id="assurance" placeholder="Assurance">
+                  
+          </div>
+         
+      </div> </form>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Annuler</button>
-        <button type="button" class="btn btn-primary" id="facture" onclick="javascript:genereFacture(this); return false;">Enregistrer</button>
+        <button type="button" class="btn btn-primary" id="ajoutSimulateur" onclick="javascript:ajouterLigneSimulateur(this); return false;"><i class="fa fa-microchip"></i> Ajouter au Simulateur </button>
       </div>
     </div>
   </div>
@@ -1370,13 +1529,95 @@ $('#example').DataTable( {
             tsInput.setAttribute("value",TS);
             
         }
-
-        var ajouterLigneSimulateur = function (link) {
+        var simuler = function(link){
             var row = link;
             var table = row.parentNode;
             tarifId = row.getAttribute("id");
             $("#exampleModal").modal().show();
-        
+            $.ajax({
+                url: "{% url 'ajax_gettarif' %}",
+                data: {
+                'id': tarifId
+                },
+                dataType: 'json',
+                success: function (data) {
+                  tarif = document.getElementById("idproduit2");
+                  tarif.setAttribute("value",tarifId);
+                  ib = document.getElementById("idproduit");
+                  ib.setAttribute("value",data.tarif.nomenclature);
+                   
+                }
+                });
+        }
+        var ajouterLigneSimulateur = function (link) {
+
+            let fret = $("#fret").val();
+            let fretNational = $("#fretNational").val();
+            let valImposable = $("#valImposable").val();
+            let valeurFacture = $("#valeurFacture").val();
+            let assurance = $("#assurance").val();
+            let tarifId = $("#idproduit2").val();
+            $("#visualiser").css("display","block");
+            $("#telecharger").css("display","block");
+
+              let nomenclature = $("#nomenclatureId").val();
+              let regime = $("#regimeId").val();
+              let  regimeF = document.getElementById("SimRegimeFiscaleId");
+              regimeF.innerHTML = "Regime Fiscale:<u style='font-size:11px;font-weight:bold'>"+regime+"</u>";
+              
+              let provenance = $("#provenanceId").val();
+              let provenanceSim = document.getElementById("SimProvenanceId");
+              provenanceSim.innerHTML = "Provenance : <u style='font-size:11px;font-weight:bold'>"+provenance+"</u>";
+              
+              let destination = $("#destinationId").val();
+              let destinationSim = document.getElementById("SimDestionationId");
+              destinationSim.innerHTML = "Destination : <u style='font-size:11px;font-weight:bold'>"+destination+"</u>";
+              
+              let importateur = $("#importateurId").val();
+              let importateurSim = document.getElementById("SimImporateurId");
+              importateurSim.innerHTML = "Importateur : <u style='font-size:11px;font-weight:bold'>"+importateur+"</u>";
+              
+              let devise = $("#deviseId").val();
+              let deviseSim = document.getElementById("SimDeviseId");
+              deviseSim.innerHTML = "Devise : <u style='font-size:11px;font-weight:bold'>"+devise+"</u>";
+              
+              let transport = $("#transportId").val();
+              let simTransportId = document.getElementById("SimTransportId");
+              simTransportId.innerHTML = "Transport : <u style='font-size:11px;font-weight:bold'>"+transport+"</u>";
+            
+              let produit = $("#idproduit").val();
+              let simProduitId = document.getElementById("SimProduitId");
+              simProduitId.innerHTML = "Produit : <u style='font-size:11px;font-weight:bold'>"+produit+"</u>";
+              
+              let facture = $("#valeurFacture").val();
+              let simValeurFactureId = document.getElementById("SimValeurFactureId");
+              simValeurFactureId.innerHTML = "Valeur Facture : <u style='font-size:11px;font-weight:bold'>"+facture+"</u>";
+              
+              //let fretNational = $("#fretNational").val();
+              let simFretNationalId = document.getElementById("SimFretNationalId");
+              simFretNationalId.innerHTML = "Fret National : <u style='font-size:11px;font-weight:bold'>"+fretNational+"</u>";
+              
+              //let fret = $("#fret").val();
+              let simFretId = document.getElementById("SimFretId");
+              simFretId.innerHTML = "Fret : <u style='font-size:11px;font-weight:bold'>"+fret+"</u>";
+              
+              //let assurance = $("#assurance").val();
+              let simAssuranceId = document.getElementById("SimAssuranceId");
+              simAssuranceId.innerHTML = "Assurance : <u style='font-size:11px;font-weight:bold'>"+assurance+"</u>";
+              
+              let vi = $("#valImposable").val();
+              let simValeurImposableId = document.getElementById("SimValeurImposableId");
+              simValeurImposableId.innerHTML = "Valeur Imposable : <u style='font-size:11px;font-weight:bold'>"+vi+"</u>";
+              
+              let paiement = $("#paiementId").val();
+              let simModePaiementId = document.getElementById("SimModePaiementId");
+              simModePaiementId.innerHTML = "Mode de Paiement : <u style='font-size:11px;font-weight:bold'>"+paiement+"</u>";
+
+              $("#exampleModal").modal('hide');
+                   $("#ajoutForm")[0].reset();
+              
+              }
+            /*
             $.ajax({
                 url: "{% url 'ajax_gettarif' %}",
                 data: {
@@ -1395,7 +1636,7 @@ $('#example').DataTable( {
                    tdLibelle = document.createElement('td');
                    tdLibelle.innerHTML = data.tarif.libelleNomenclature;
                    tr.appendChild(tdLibelle);*/
-
+                    /*
                    tdQuotite = document.createElement('td');
                    inputQuotite = document.createElement('input');
                    inputQuotite.setAttribute('id',"quotite-"+tarifId);
@@ -1530,11 +1771,13 @@ $('#example').DataTable( {
                    body.appendChild(tr);
                    tabId[nbclick]=tarifId;
                    nbclick++;
+                   $("#exampleModal").modal('hide');
+                   $("#ajoutForm")[0].reset(); 
 
                 }
-            });
+            });*/
         
-}
+
 
  </script>
 
