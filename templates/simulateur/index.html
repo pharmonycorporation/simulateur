@@ -1,6 +1,7 @@
 {% load static %}
 
 <!DOCTYPE html>
+# -*- coding: utf-8 -*-
 <!--
 * CoreUI - Free Bootstrap Admin Template
 * @version v3.2.0
@@ -11,6 +12,7 @@
 
 <html lang="fr">
 <head>
+    <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.10.23/b-1.6.5/b-colvis-1.6.5/b-html5-1.6.5/r-2.2.7/datatables.min.css"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" integrity="sha512-HK5fgLBL+xu6dm/Ii3z4xhlSUyZgTT9tuc/hSrtw6uzJOvgRr2a9jyxxT1ely+B+xFAmJKVSTbpM/CuL7qxO8w==" crossorigin="anonymous" />
@@ -651,7 +653,7 @@ p {
                   <button type="button"  class="btn btn-danger pulse" id="visualiser"data-toggle="toggle" data-target="#sim">
                       <i class="fa fa-eye"></i>
                   </button>
-                  <button type="button"  class="btn btn-primary fixedroit" id="telecharger" onclick="javascript:alert(this); return false;">
+                  <button type="button"  class="btn btn-primary fixedroit" id="telecharger" onclick="javascript:telechargerFiche(this); return false;">
                       <i class="fa fa-download" aria-hidden="true"></i>
                   </button>
                   
@@ -671,9 +673,9 @@ p {
                    
                    
                      </div>
-                    <div class="card-body">
+                    <div class="card-body" id="tabSimulateur">
                       <div id="ficheFinal">
-                          <div class="row">
+                          <div class="row" >
                               <div class="col-sm-6">
                                 <h6>Information Générale</h6>
                                 <hr>
@@ -736,57 +738,57 @@ p {
                               <tbody id="ficheBody">
                               <tr>
                                 <td>DD</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td id="viTd"></td>
+                                <td id="ddQuotite"></td>
+                                <td id="ddMontant"></td>
                               </tr>
                               <tr>
                                 <td>TVA</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td id="tvaTd"></td>
+                                <td id="tvaQuotite"></td>
+                                <td id="tvaMontant"></td>
                               </tr>
                               <tr>
                                 <td>DACC</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td id="daccTd"></td>
+                                <td id="daccQuotite"></td>
+                                <td id="daccMontant"></td>
                               </tr>
                               <tr>
                                 <td>PCI</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td id="pciTd"></td>
+                                <td id="pciQuotite"></td>
+                                <td id="pciMontant"></td>
                               </tr>
                               <tr>
                                 <td>RST</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td id="rstTd"></td>
+                                <td id="rstQuotite"></td>
+                                <td id="rstMontant"></td>
                               </tr>
                               <tr>
                                 <td>TCI</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td id="tciTd"></td>
+                                <td id="tciQuotite"></td>
+                                <td id="tciMontant"></td>
                               </tr>
                               <tr>
                                 <td>CCI</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td id="cciTd"></td>
+                                <td id="cciQuotite"></td>
+                                <td id="cciMontant"></td>
                               </tr>
                               <tr>
                                 <td>TUA</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td id="tuaTd"></td>
+                                <td id="tuaQuotite"></td>
+                                <td id="tuaMontant"></td>
                               </tr>
                               <tr>
                                 <td>T Sp</td>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td id="tspTd"></td>
+                                <td id="tspQuotite"></td>
+                                <td id="tspMontant"></td>
                               </tr>
 
                               </tbody>
@@ -813,8 +815,8 @@ p {
                           </table>
                     
                       </div>
-
-                      <div id="tabSimulateur">   
+                    <!-- 
+                      <div id="">   
                               <table style="display:none;"  id="logo">
                               <tr>
                               <td colspan="2">SIMULATEUR DES TAXES D'IMPORTATIONS DOUANIERES / HORS CEMAC</td>
@@ -826,13 +828,13 @@ p {
                                   <table width="100%" id="infoEntreprise">
 
                                   </table>
-                                  <!--
+                                  
                                   <input type="text" id="entreprise" style="border:0px;width:100%"/><br>
-                                  <input type="text" id="adresse" style="border:0px;width:100%;"/>-->
+                                  <input type="text" id="adresse" style="border:0px;width:100%;"/>
                               </td>
                               </tr>
                               </table>
-                           <!-- <table class="table table-responsive-sm" >
+                           <table class="table table-responsive-sm" >
                                 <thead class="thead-dark">
                                     <tr>
                                         <th scope="col">Nomenclature</th>
@@ -855,9 +857,9 @@ p {
                                     
                                     
                                 </tbody>
-                            </table>-->
+                            </table>
                       </div>
-           
+                 -->
                       
                       
                     </div>
@@ -906,6 +908,7 @@ p {
                                     <option value="{{countrie.nom}}">{{countrie.nom}}</option>
                                 {% endfor %}
                                 </select> 
+                                <input type="text" id="tvaDestination" value="18" hidden="hidden">
                               </div>
                               <div class="form-group">
                                 <label for="country">Pays de provenance</label><select class="form-control" id="provenanceId">
@@ -1193,6 +1196,20 @@ p {
     </script>
     <script type="text/javascript">
 
+    var telechargerFiche = function(link){
+      kendo.drawing
+              .drawDOM("#tabSimulateur", 
+              { 
+                  paperSize: "A4",
+                  margin: { top: "1cm", left:"0.2cm", right:"0.2cm", bottom: "1cm" },
+                  scale: 0.8,
+                  height: 500
+              })
+              .then(function(group){
+              kendo.drawing.pdf.saveAs(group, "simulateur.pdf")
+              });
+        }
+
     var debuterSimulation = function(link){
 
          let nomenclature = $("#nomenclatureId").val();
@@ -1227,6 +1244,9 @@ p {
                   if(data['success']){
                     $("#entreeModal").modal('hide');
                     alert("enregistrement effectué, debut de la simulation");
+                    rtva=document.getElementById("tvaDestination");
+                   
+                    rtva.setAttribute("value",data['tva']);
                   }else{
                     alert("une erreur s'est produite lors de l'enregistrement des données");
                   }
@@ -1551,6 +1571,8 @@ $('#example').DataTable( {
         }
         var ajouterLigneSimulateur = function (link) {
 
+          var tauxDeChange = 1;
+
             let fret = $("#fret").val();
             let fretNational = $("#fretNational").val();
             let valImposable = $("#valImposable").val();
@@ -1613,8 +1635,154 @@ $('#example').DataTable( {
               let simModePaiementId = document.getElementById("SimModePaiementId");
               simModePaiementId.innerHTML = "Mode de Paiement : <u style='font-size:11px;font-weight:bold'>"+paiement+"</u>";
 
-              $("#exampleModal").modal('hide');
+                   $("#exampleModal").modal('hide');
                    $("#ajoutForm")[0].reset();
+
+                   $.ajax({
+                    url: "{% url 'ajax_gettarif' %}",
+                    data: {
+                    'id': tarifId
+                    },
+                    dataType: 'json',
+                    success: function (data) {
+
+                     //ligne DD
+                    let VI = parseFloat(vi)*tauxDeChange;
+                    let viTd =  document.getElementById("viTd");
+                    viTd.innerHTML = VI;
+                    
+                    let ddQuotite =  document.getElementById("ddQuotite");
+                    ddQuotite.innerHTML = data.tarif.quotite+"%";
+
+                    let ddMontant =  document.getElementById("ddMontant");
+                    let DD = VI*parseFloat(data.tarif.quotite)/100;
+                    ddMontant.innerHTML = DD;
+
+                    //ligne TVA
+                    let tvaTd =  document.getElementById("tvaTd");
+                    tvaTd.innerHTML = parseInt(data.tarif.tva)*(VI*parseFloat(data.tarif.quotite)+VI);
+                    
+                    let tvaIndice = parseFloat($("#tvaDestination").val());
+                    let tvaQuotite =  document.getElementById("tvaQuotite");
+                    tvaQuotite.innerHTML = $("#tvaDestination").val()+"%";
+
+                    let tvaMontant =  document.getElementById("tvaMontant");
+                    let TVA = parseInt(data.tarif.tva)*(parseFloat(tvaIndice)/100)*(VI*parseFloat(data.tarif.quotite)+VI)
+                    tvaMontant.innerHTML = TVA;
+                    
+                    //ligne DACC
+                    let daccTd =  document.getElementById("daccTd");
+                    daccTd.innerHTML = VI+DD+TVA;
+                    
+                   
+                    let daccQuotite =  document.getElementById("daccQuotite");
+                    daccQuotite.innerHTML = data.tarif.dacc+"%";
+
+                    let daccMontant =  document.getElementById("daccMontant");
+                    let DACC = parseFloat(data.tarif.dacc)*(VI+DD+TVA)/100;
+                    daccMontant.innerHTML = DACC;
+
+                    //ligne PCI
+                    let pciTd =  document.getElementById("pciTd");
+                    pciTd.innerHTML = VI;
+                    
+                   
+                    let pciQuotite =  document.getElementById("pciQuotite");
+                    pciQuotite.innerHTML = 4+"%";
+
+                    let pciMontant =  document.getElementById("pciMontant");
+                    let PCI = 4*(VI)/100;
+                    pciMontant.innerHTML = PCI;
+
+                    //ligne RST
+                    let rstTd =  document.getElementById("rstTd");
+                    rstTd.innerHTML = VI;
+                    
+                   
+                    let rstQuotite =  document.getElementById("rstQuotite");
+                    rstQuotite.innerHTML = 2+"%";
+
+                    let rstMontant =  document.getElementById("rstMontant");
+                    let RST = 2*(VI)/100;
+                    rstMontant.innerHTML = RST;
+                    
+                    //ligne TCI
+                    let tciTd =  document.getElementById("tciTd");
+                    tciTd.innerHTML = VI;
+                    
+                   
+                    let tciQuotite =  document.getElementById("tciQuotite");
+                    tciQuotite.innerHTML = 1+"%";
+
+                    let tciMontant =  document.getElementById("tciMontant");
+                    let TCI = VI/100;
+                    tciMontant.innerHTML = TCI;
+
+                    //ligne CCI
+                    let cciTd =  document.getElementById("cciTd");
+                    cciTd.innerHTML = VI;
+                    
+                   
+                    let cciQuotite =  document.getElementById("cciQuotite");
+                    cciQuotite.innerHTML = "0,40 %";
+
+                    let cciMontant =  document.getElementById("cciMontant");
+                    let CCI = 0.4*VI/100;
+                    cciMontant.innerHTML = CCI;
+
+                    //ligne TUA
+                    let tuaTd =  document.getElementById("tuaTd");
+                    tuaTd.innerHTML = VI;
+                    
+                   
+                    let tuaQuotite =  document.getElementById("tuaQuotite");
+                    tuaQuotite.innerHTML = "0,20 %";
+
+                    let tuaMontant =  document.getElementById("tuaMontant");
+                    let TUA = 0.2*VI/100;
+                    tuaMontant.innerHTML = TUA;
+                    
+                    //ligne TSP
+                    let tspTd =  document.getElementById("tspTd");
+                    tspTd.innerHTML = VI;
+                    
+                   
+                    let tspQuotite =  document.getElementById("tspQuotite");
+                    tspQuotite.innerHTML = data.tarif.ts+"%";
+
+                    let tspMontant =  document.getElementById("tspMontant");
+                    let TSP = data.tarif.ts*VI/100;
+                    tspMontant.innerHTML = TSP;
+                    
+                    /*
+                    let B = parseInt(A*quotite)/100;
+                    //tva
+                    let valeurTVA =  parseFloat(document.getElementById("paysTva").value);
+                    //alert(valeurTVA);
+                    let assujetieTVA =  parseInt(document.getElementById("Tva2-"+donnee[1]).value);
+                    let daccQuotite =  parseInt(document.getElementById("Dacc2-"+donnee[1]).value);
+                    //alert(assujetieTVA);
+
+            let C= parseFloat(assujetieTVA*(A+B)*valeurTVA/100);
+            let D = parseFloat((A+C)*daccQuotite/100);
+            let AC4 = parseFloat(((A+B)*4)/100);
+            let RST =parseFloat(A*2/100) ;
+            let TCI = parseFloat(A/100) ; 
+            let CCI = parseFloat(A*0.4/100) ;
+            let TUA = parseFloat(A*0.2/100);
+            let TS = parseFloat(A*parseInt(tsInputValue));
+            //alert(AC4);
+            Acpteinput.setAttribute("value",AC4);
+            tvaInput.setAttribute("value",C);
+            daccInput.setAttribute("value",D);
+            taxesInput.setAttribute("value",B);
+            Tciinput.setAttribute("value",TCI);
+            Tuainput.setAttribute("value",TUA);
+            CCIinput.setAttribute("value",CCI);
+            RSTinput.setAttribute("value",RST);
+            tsInput.setAttribute("value",TS);*/
+
+                    }});
               
               }
             /*

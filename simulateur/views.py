@@ -26,7 +26,7 @@ from fpdf import FPDF, HTMLMixin
 import math
 
 
-
+# -*- coding: utf-8 -*-
 def initialisationTarif(request):
     with open('tarif2.csv', newline='') as csvfile:
         spamreader = csv.reader(csvfile, delimiter=';' )
@@ -153,13 +153,16 @@ def demarrerSimulateur(request):
     #Simulation.objects.create(importateur=importateur,regimeFiscale=regime,destination=Pays.objects.get(nom=destination),origine=Pays.objects.get(nom=provenance),modePaiement=ModePaiement.objects.get(mode=paiement),devise=Devise.objects.get(nomDevise=devise),moyenTransport=MoyenTransport.objects.get(moyen=transport))
     try:
         Simulation.objects.create(importateur=importateur, auteur=Personne.objects.get(user=user), nomenclature=nomenclature,regime=RegimeFiscale.objects.get(regime=regime),destination=Pays.objects.get(nom=destination),origine=Pays.objects.get(nom=provenance),modePaiement=ModePaiement.objects.get(mode=paiement),devise=Devise.objects.get(nomDevise=devise),moyenTransport=MoyenTransport.objects.get(moyen=transport))
+        monPays = Pays.objects.get(nom=destination)
         data = {
-        'success': True
+        'success': True,
+        'tva': monPays.tva
         }
    
     except:
         data = {
-        'success': False
+        'success': False,
+        'tva':18
         }
    
     return JsonResponse(data,safe=False)
