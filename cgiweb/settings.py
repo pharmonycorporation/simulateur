@@ -93,6 +93,7 @@ WSGI_APPLICATION = 'cgiweb.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
+
 try:
   database_url = os.environ["DATABASE_URL"]
 except KeyError:
@@ -117,8 +118,8 @@ DATABASES = { 'default': dj_database_url.config() }
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': 'sqlite',
     }
-}"""
-
+}
+"""
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
@@ -173,3 +174,5 @@ EMAIL_HOST_USER = os.environ.get('MAILGUN_SMTP_LOGIN', '')
 EMAIL_HOST_PASSWORD = os.environ.get('MAILGUN_SMTP_PASSWORD', '') 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 EMAIL_PLATFORM = "contact@cgitchad.online"
+
+API_KEY_CONVERT = "12e09af230c6cd4646dd"

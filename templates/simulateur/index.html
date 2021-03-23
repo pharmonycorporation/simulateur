@@ -88,9 +88,9 @@
     -moz-transition: width 2s ease;
     -o-transition: width 2s ease;
     transition: width 2s ease;
-    
+    overflow-y: scroll;
+    overflow-x: hidden;
     display: inline-block;
-    overflow: hidden;
     white-space: nowrap;
     background: #D20F36;
     vertical-align: middle;
@@ -101,6 +101,7 @@
     width: 80%;
     border:0px;
     z-index:99999;
+    max-height:90%;
     
 }
 
@@ -742,9 +743,9 @@ p {
                               <thead>
                                 <tr>
                                     <th>TYPE</th>
-                                    <th>BASE IMPOSITION</th>
+                                    <th>BASE IMPOSITION (FCFA)</th>
                                     <th>QUOTITE</th>
-                                    <th>MONTANT</th>
+                                    <th>MONTANT (FCFA)</th>
                                 </tr>
 
                               </thead>
@@ -807,25 +808,31 @@ p {
                               </tbody>
                               <tfoot id="fichefoot">
                               <tr>
-                                  <td colspan="3">TOTAL DT</td>
-                                  <td></td>
+                                  <td colspan="3" style="align:right;font-size:20px;font-weight:bold">TOTAL DT</td>
+                                  <td id="totalDt" style="font-weight:bold"></td>
                               </tr>
                               <tr>
-                                  <td colspan="3">VS</td>
-                                  <td></td>
+                                  <td colspan="3" style="align:right;font-size:20px;font-weight:bold">VS</td>
+                                  <td id="totalVs" style="font-weight:bold"></td>
                               </tr>
                               <tr>
-                                  <td colspan="3">HAD DU CDA</td>
-                                  <td></td>
+                                  <td colspan="3" style="align:right;font-size:20px;font-weight:bold">HAD DU CDA</td>
+                                  <td id="totalHAD" style="font-weight:bold"></td>
                               </tr>
                               <tr>
-                                  <td colspan="3">COUT DE REVIENT</td>
-                                  <td></td>
+                                  <td colspan="3" style="align:right;font-size:20px;font-weight:bold">COUT DE REVIENT</td>
+                                  <td id="coutRevient" style="font-weight:bold"></td>
                               </tr>
 
                               </tfoot>
                           
                           </table>
+                          
+                          <div style="float:right;margin-right:1.5em"> Fait à ___________________ le <u><span id="maDate"></span> </u></div>
+                          <br>
+                          <br>
+                          <br>
+                          <div style="float:right;margin-right:1.5em">Le Declarant</div>
                     
                       </div>
                     <!-- 
@@ -961,7 +968,7 @@ p {
                                 <label for="deviseId" >Devise </label>
                                 <select class="form-control" id="deviseId">
                                 {% for dev in devises %}
-                                    <option value="{{dev.nomDevise}}">{{dev.nomDevise}}-{{dev.codeDevise}}</option>
+                                    <option value="{{dev.codeDevise}}">{{dev.nomDevise}}-{{dev.codeDevise}}</option>
                                 {% endfor %}
                                 </select> 
                                   
@@ -1219,6 +1226,12 @@ p {
     </script>
     <script type="text/javascript">
 
+
+    var today = new Date();
+
+    var madate = today.getFullYear()+'-'+(today.getMonth()+1)+'-'+today.getDate();
+    ydate = document.getElementById("maDate");
+    ydate.innerHTML = madate; 
     var telechargerFiche = function(link){
       kendo.drawing
               .drawDOM("#tabSimulateur", 
@@ -1618,9 +1631,15 @@ $('#example').DataTable( {
             let tarifId = $("#idproduit2").val();
             let statistique = $("#statistique").val();
             let libelle = $("#idlibelle").val();
+            let devise = $("#deviseId").val();
             $("#visualiser").css("display","block");
             $("#telecharger").css("display","block");
 
+                const formatage = new Intl.NumberFormat('fr-FR', {
+                      style: 'currency',
+                      currency: devise,
+                      minimumFractionDigits: 2
+                    });
               let nomenclature = $("#nomenclatureId").val();
               let regime = $("#regimeId").val();
               let  regimeF = document.getElementById("SimRegimeFiscaleId");
@@ -1638,7 +1657,7 @@ $('#example').DataTable( {
               let importateurSim = document.getElementById("SimImporateurId");
               importateurSim.innerHTML = "Importateur : <u style='font-size:11px;font-weight:bold'>"+importateur+"</u>";
               
-              let devise = $("#deviseId").val();
+              
               let deviseSim = document.getElementById("SimDeviseId");
               deviseSim.innerHTML = "Devise : <u style='font-size:11px;font-weight:bold'>"+devise+"</u>";
               
@@ -1652,32 +1671,59 @@ $('#example').DataTable( {
               
               let facture = $("#valeurFacture").val();
               let simValeurFactureId = document.getElementById("SimValeurFactureId");
-              simValeurFactureId.innerHTML = "Valeur Facture : <u style='font-size:11px;font-weight:bold'>"+facture+"</u>";
+              simValeurFactureId.innerHTML = "Valeur Facture : <u style='font-size:11px;font-weight:bold'>"+formatage.format(facture)+"</u>";
               
               //let fretNational = $("#fretNational").val();
               let simFretNationalId = document.getElementById("SimFretNationalId");
-              simFretNationalId.innerHTML = "Fret National : <u style='font-size:11px;font-weight:bold'>"+fretNational+"</u>";
+              simFretNationalId.innerHTML = "Fret National : <u style='font-size:11px;font-weight:bold'>"+formatage.format(fretNational)+"</u>";
               
               
               //let SimValeurStatistique = $("#SimValeurStatistique").val();
               let simValeurStatistique = document.getElementById("SimValeurStatistique");
-              simValeurStatistique.innerHTML = "Valeur Statistique : <u style='font-size:11px;font-weight:bold'>"+statistique+"</u>";
+              simValeurStatistique.innerHTML = "Valeur Statistique : <u style='font-size:11px;font-weight:bold'>"+formatage.format(statistique)+"</u>";
               
               //let SimValeurStatistique = $("#SimValeurStatistique").val();
               let simlibelleId = document.getElementById("SimlibelleId");
               SimlibelleId.innerHTML = "Libelle : <u style='font-size:11px;font-weight:bold'>"+libelle+"</u>";
+
+              let simTauxChangeId = document.getElementById("SimTauxChangeId");
+              var url = "https://free.currconv.com/api/v7/convert?q="+devise+"_"+"XAF&compact=ultra&apiKey=12e09af230c6cd4646dd"
+              var tauxRetourner = 1
+               $.ajax({
+                    type: "GET",
+                    async: false,
+                    url: url,
+                     success: function(response){
+                        tauxRetourner = parseFloat(response[devise+"_XAF"]);
+                        simTauxChangeId.innerHTML = "Taux de Change : <u style='font-size:11px;font-weight:bold'>"+tauxRetourner+"</u>";
+              
+                    },
+                });
+              /*$.get({url,async: false}).done(function() {
+                tauxRetourner = parseFloat(response[devise+"_XAF"]);
+                })
+                .fail(function(response) {
+                  //alert( response );
+                  console.log(response)
+                })
+                .always(function(response) {
+                  console.log(response);
+                  tauxRetourner = parseFloat(response[devise+"_XAF"]);
+                  simTauxChangeId.innerHTML = "Taux de Change : <u style='font-size:11px;font-weight:bold'>"+tauxRetourner+"</u>";
+             
+                });*/
               
               //let fret = $("#fret").val();
               let simFretId = document.getElementById("SimFretId");
-              simFretId.innerHTML = "Fret : <u style='font-size:11px;font-weight:bold'>"+fret+"</u>";
+              simFretId.innerHTML = "Fret : <u style='font-size:11px;font-weight:bold'>"+formatage.format(fret)+"</u>";
               
               //let assurance = $("#assurance").val();
               let simAssuranceId = document.getElementById("SimAssuranceId");
-              simAssuranceId.innerHTML = "Assurance : <u style='font-size:11px;font-weight:bold'>"+assurance+"</u>";
+              simAssuranceId.innerHTML = "Assurance : <u style='font-size:11px;font-weight:bold'>"+formatage.format(assurance)+"</u>";
               
               let vi = $("#valImposable").val();
               let simValeurImposableId = document.getElementById("SimValeurImposableId");
-              simValeurImposableId.innerHTML = "Valeur Imposable : <u style='font-size:11px;font-weight:bold'>"+vi+"</u>";
+              simValeurImposableId.innerHTML = "Valeur Imposable : <u style='font-size:11px;font-weight:bold'>"+formatage.format(vi)+"</u>";
               
               let paiement = $("#paiementId").val();
               let simModePaiementId = document.getElementById("SimModePaiementId");
@@ -1697,10 +1743,15 @@ $('#example').DataTable( {
                      //ligne DD
 
                      //let assurance = $("#assurance").val();
+                     const cfa = new Intl.NumberFormat('fr-FR', {
+                      style: 'currency',
+                      currency: 'XAF',
+                      minimumFractionDigits: 2
+                    });
                     let simQuotiteId = document.getElementById("SimQuotiteId");
                     simQuotiteId.innerHTML = "Quotite : <u style='font-size:11px;font-weight:bold'>"+data.tarif.quotite+"% </u>";
                     
-                    let VI = parseFloat(vi)*tauxDeChange;
+                    let VI = parseFloat(vi)*tauxRetourner;
                     let viTd =  document.getElementById("viTd");
                     viTd.innerHTML = VI;
                     
@@ -1713,14 +1764,14 @@ $('#example').DataTable( {
 
                     //ligne TVA
                     let tvaTd =  document.getElementById("tvaTd");
-                    tvaTd.innerHTML = parseInt(data.tarif.tva)*(VI*parseFloat(data.tarif.quotite)+VI);
+                    tvaTd.innerHTML = VI+DD ;
                     
                     let tvaIndice = parseFloat($("#tvaDestination").val());
                     let tvaQuotite =  document.getElementById("tvaQuotite");
                     tvaQuotite.innerHTML = $("#tvaDestination").val()+"%";
 
                     let tvaMontant =  document.getElementById("tvaMontant");
-                    let TVA = parseInt(data.tarif.tva)*(parseFloat(tvaIndice)/100)*(VI*parseFloat(data.tarif.quotite)+VI)
+                    let TVA = parseInt(data.tarif.tva)*(parseFloat(tvaIndice)/100)*(VI+DD)
                     tvaMontant.innerHTML = TVA;
                     
                     //ligne DACC
@@ -1806,6 +1857,24 @@ $('#example').DataTable( {
                     let tspMontant =  document.getElementById("tspMontant");
                     let TSP = data.tarif.ts*VI/100;
                     tspMontant.innerHTML = TSP;
+
+                    let totalDt =  document.getElementById("totalDt");
+                     dot = TSP+TUA+CCI+TCI+RST+PCI+DACC+TVA+DD;
+                    totalDt.innerHTML = cfa.format(dot);
+
+                    let totalVs =  document.getElementById("totalVs");
+                    
+                    totalVs.innerHTML = cfa.format(tauxRetourner*statistique);
+
+                    let totalHAD =  document.getElementById("totalHAD");
+                    had = (0.5/100)*VI
+                    totalHAD.innerHTML = cfa.format(had);
+
+                    let coutRevient =  document.getElementById("coutRevient");
+                    
+                    
+                    
+                  coutRevient.innerHTML = cfa.format(tauxRetourner*statistique-(TVA+PCI)+dot+had);
                     
                     /*
                     let B = parseInt(A*quotite)/100;

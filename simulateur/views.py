@@ -152,7 +152,7 @@ def demarrerSimulateur(request):
     user = User.objects.get(username=request.POST.get('username'))
     #Simulation.objects.create(importateur=importateur,regimeFiscale=regime,destination=Pays.objects.get(nom=destination),origine=Pays.objects.get(nom=provenance),modePaiement=ModePaiement.objects.get(mode=paiement),devise=Devise.objects.get(nomDevise=devise),moyenTransport=MoyenTransport.objects.get(moyen=transport))
     try:
-        Simulation.objects.create(importateur=importateur, auteur=Personne.objects.get(user=user), nomenclature=nomenclature,regime=RegimeFiscale.objects.get(regime=regime),destination=Pays.objects.get(nom=destination),origine=Pays.objects.get(nom=provenance),modePaiement=ModePaiement.objects.get(mode=paiement),devise=Devise.objects.get(nomDevise=devise),moyenTransport=MoyenTransport.objects.get(moyen=transport))
+        Simulation.objects.create(importateur=importateur, auteur=Personne.objects.get(user=user), nomenclature=nomenclature,regime=RegimeFiscale.objects.get(regime=regime),destination=Pays.objects.get(nom=destination),origine=Pays.objects.get(nom=provenance),modePaiement=ModePaiement.objects.get(mode=paiement),devise=Devise.objects.filter(codeDevise=devise).first(),moyenTransport=MoyenTransport.objects.get(moyen=transport))
         monPays = Pays.objects.get(nom=destination)
         data = {
         'success': True,
