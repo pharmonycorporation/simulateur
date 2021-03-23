@@ -93,7 +93,6 @@ WSGI_APPLICATION = 'cgiweb.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-
 try:
   database_url = os.environ["DATABASE_URL"]
 except KeyError:

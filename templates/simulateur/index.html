@@ -1,7 +1,7 @@
 {% load static %}
 
 <!DOCTYPE html>
-# -*- coding: utf-8 -*-
+
 <!--
 * CoreUI - Free Bootstrap Admin Template
 * @version v3.2.0
@@ -675,10 +675,17 @@ p {
                      </div>
                     <div class="card-body" id="tabSimulateur">
                       <div id="ficheFinal">
+                          <div class="row">
+                                  <div  class="col-4" id="SimProduitId">Nomenclature:______________</div>
+                            
+                                  <div class="col-sm-8"  id="SimlibelleId" >Libelle:______________</div>
+                          </div>
+                          <hr>
+                          <br>        
                           <div class="row" >
                               <div class="col-sm-6">
-                                <h6>Information Générale</h6>
-                                <hr>
+                                <fieldset class="form-group border p-3">
+                                      <legend class="w-auto px-2">Information Générale</legend>
                                 <table border="0">
                                   <tr>
                                     <td id="SimDeclarantId">Déclarant:<u style='font-size:11px;font-weight:bold'>{{user.first_name }} {{user.last_name}}</u></td>
@@ -698,18 +705,23 @@ p {
                                   </tr>
                                 
                                 </table>
+                                </fieldset>
                               </div>
                               <div class="col-sm-6">
-                                <h6>Note de Valeur Import</h6>
-                                <hr>
+                                
+                                <fieldset class="form-group border p-3">
+                                      <legend class="w-auto px-2">Note de Valeur Import</legend>
+                               
                                 <table border="0">
+                                  
                                   <tr>
-                                    <td id="SimProduitId">Produit:______________</td>
-                                    <td id="SimQuotiteId">Quotité:__________</td>
+                                  <td id="SimValeurFactureId">Valeur Facture:______________</td>
+                                   <td id="SimQuotiteId">Quotité:__________</td>
                                   </tr>
                                   <tr>
-                                    <td id="SimValeurFactureId">Valeur Facture:______________</td>
+                                    
                                     <td id="SimFretNationalId">Fret National:__________</td>
+                                     <td id="SimValeurStatistique">VS:______________</td>
                                   </tr>
                                   <tr>
                                     <td id="SimFretId">Fret:______________</td>
@@ -721,6 +733,7 @@ p {
                                   </tr>
                                 
                                 </table>
+                                </fieldset>
                               </div>
                           </div>
                     
@@ -924,8 +937,8 @@ p {
                   <div class="card">
                     <div class="card-body">
                             <div class="form-group ">
-                                <label for="inputEmail02" >Nomenclature tarifaire </label>
-                                <input type="email" class="form-control" id="nomenclatureId" placeholder="Nomenclature tarifaire">    
+                                <!-- <label for="inputEmail02" >Nomenclature tarifaire </label> -->
+                                <input type="email" class="form-control" id="nomenclatureId" placeholder="Nomenclature tarifaire" hidden="hidden">    
                             </div>
                             <div class="form-group ">
                                 <label for="inputEmail003" >Moyen de transport </label>
@@ -982,36 +995,46 @@ p {
           <div class="col-sm-6">
              
                         <div class="form-group">
-                            <label for="idproduit" >Produit</label>
+                            <label for="idproduit" >Nomenclature Produit</label>
                             <input type="text" class="form-control" id="idproduit" value="" disabled>
                             <input type="text" class="form-control" id="idproduit2" value="" hidden="hidden">
                         </div>
                         <div class="form-group">
                             <label for="valeurFacture" >Valeur Facture</label>
-                            <input type="text" class="form-control" id="valeurFacture" placeholder="Valeur Facture">
+                            <input type="text" class="form-control" id="valeurFacture" placeholder="Valeur Facture" value="0" onBlur="javascript:ajusterValeur(this); return false;">
                         </div>
                         <div class="form-group">
                             <label for="fret" >Fret</label>
-                            <input type="text" class="form-control" id="fret" placeholder="Fret">
+                            <input type="text" class="form-control" id="fret" placeholder="Fret" value="0" onBlur="javascript:ajusterValeur(this); return false;">
                         </div>
+                        <div class="form-group">
+                            <label for="assurance" >Assurance</label>
+                            <input type="text" class="form-control" id="assurance" placeholder="Assurance" value="0" onBlur="javascript:ajusterValeur(this); return false;">
+                  
+                      </div>
+                        
                        
                      
         
           </div>
           <div class="col-sm-6">
+                        <div class="form-group">
+                            <label for="idproduit" >Libelle Produit</label>
+                            <input type="text" class="form-control" id="idlibelle" value="" disabled>
+                            
+                        </div>
                       <div class="form-group ">
                         <label for="valImposable" >Valeur Imposable</label>
-                          <input type="text" class="form-control" id="valImposable" placeholder="Valeur Imposable">
-                      </div>
+                          <input type="text" class="form-control" id="valImposable" placeholder="Valeur Imposable" disabled>
+                        </div>
                       <div class="form-group ">
                           <label for="fretNational" >Fret national</label>
-                          <input type="text" class="form-control" id="fretNational" placeholder="Fret national">
+                          <input type="text" class="form-control" id="fretNational"  value="0" placeholder="Fret national" onBlur="javascript:ajusterValeur(this); return false;">
                       </div>
                        <div class="form-group">
-                            <label for="assurance" >Assurance</label>
-                            <input type="text" class="form-control" id="assurance" placeholder="Assurance">
-                  
-          </div>
+                            <label for="statistique" >Valeur Statistique</label>
+                            <input type="text" class="form-control" id="statistique" placeholder="statistique" disabled>
+                      </div>
          
       </div> </form>
       </div>
@@ -1360,7 +1383,20 @@ $('#example').DataTable( {
         var nbclick  = 0;
         var tabId = [];
 
-              
+        var ajusterValeur = function(link){
+          let assurance = parseInt($('#assurance').val()) ;
+          let  valeurFacture = parseInt($('#valeurFacture').val());
+          let fretNational = parseInt($('#fretNational').val());
+          let fret = parseInt($('#fret').val());
+
+         
+          let vi = document.getElementById("valImposable");
+          let calVi = assurance + fret + valeurFacture;
+          vi.setAttribute("value",calVi);
+          let viValue = $("#statistique").val();
+          let vs = document.getElementById("statistique");
+          vs.setAttribute("value",calVi+fretNational);
+        }   
      
         var ajoutIdentite =  function(link){
             if(nbclick >= 1){
@@ -1565,20 +1601,23 @@ $('#example').DataTable( {
                   tarif.setAttribute("value",tarifId);
                   ib = document.getElementById("idproduit");
                   ib.setAttribute("value",data.tarif.nomenclature);
+                  ilibelle = document.getElementById("idlibelle");
+                  ilibelle.setAttribute("value",data.tarif.libelleNomenclature);
                    
                 }
                 });
         }
         var ajouterLigneSimulateur = function (link) {
 
-          var tauxDeChange = 1;
-
+            var tauxDeChange = 1;
             let fret = $("#fret").val();
             let fretNational = $("#fretNational").val();
             let valImposable = $("#valImposable").val();
             let valeurFacture = $("#valeurFacture").val();
             let assurance = $("#assurance").val();
             let tarifId = $("#idproduit2").val();
+            let statistique = $("#statistique").val();
+            let libelle = $("#idlibelle").val();
             $("#visualiser").css("display","block");
             $("#telecharger").css("display","block");
 
@@ -1619,6 +1658,15 @@ $('#example').DataTable( {
               let simFretNationalId = document.getElementById("SimFretNationalId");
               simFretNationalId.innerHTML = "Fret National : <u style='font-size:11px;font-weight:bold'>"+fretNational+"</u>";
               
+              
+              //let SimValeurStatistique = $("#SimValeurStatistique").val();
+              let simValeurStatistique = document.getElementById("SimValeurStatistique");
+              simValeurStatistique.innerHTML = "Valeur Statistique : <u style='font-size:11px;font-weight:bold'>"+statistique+"</u>";
+              
+              //let SimValeurStatistique = $("#SimValeurStatistique").val();
+              let simlibelleId = document.getElementById("SimlibelleId");
+              SimlibelleId.innerHTML = "Libelle : <u style='font-size:11px;font-weight:bold'>"+libelle+"</u>";
+              
               //let fret = $("#fret").val();
               let simFretId = document.getElementById("SimFretId");
               simFretId.innerHTML = "Fret : <u style='font-size:11px;font-weight:bold'>"+fret+"</u>";
@@ -1647,6 +1695,11 @@ $('#example').DataTable( {
                     success: function (data) {
 
                      //ligne DD
+
+                     //let assurance = $("#assurance").val();
+                    let simQuotiteId = document.getElementById("SimQuotiteId");
+                    simQuotiteId.innerHTML = "Quotite : <u style='font-size:11px;font-weight:bold'>"+data.tarif.quotite+"% </u>";
+                    
                     let VI = parseFloat(vi)*tauxDeChange;
                     let viTd =  document.getElementById("viTd");
                     viTd.innerHTML = VI;

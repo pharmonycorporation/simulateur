@@ -40,6 +40,7 @@ class Pays(models.Model):
     nom  = models.CharField(max_length=255, unique=True)
     code = models.CharField(max_length=255)
     cemac = models.BooleanField(default=False)
+    africa = models.BooleanField(default=False)
     active = models.BooleanField(default=True)
     tva =  models.FloatField(default=18)
     class Meta:
