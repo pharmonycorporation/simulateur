@@ -3,6 +3,7 @@ from gestionlicence.models import Personne
 
 class ModePaiement(models.Model):
     mode  = models.CharField(max_length=255, unique=True)
+    code  = models.CharField(max_length=255, default=0)
     class Meta:
         ordering: ['-mode']
 
@@ -10,6 +11,17 @@ class ModePaiement(models.Model):
         return self.mode
 class RegimeFiscale(models.Model):
     regime  = models.CharField(max_length=255, unique=True)
+    tauxImposition  = models.FloatField(default=0)
+    class Meta:
+        ordering: ['-regime']
+
+    def __str__(self):
+        return self.regime
+
+class RegimeDouanier(models.Model):
+    regime  = models.CharField(max_length=255, unique=True)
+    code  = models.CharField(max_length=255, default=0)
+    tauxImposition  = models.FloatField(default=0)
     class Meta:
         ordering: ['-regime']
 
@@ -18,6 +30,7 @@ class RegimeFiscale(models.Model):
 
 class MoyenTransport(models.Model):
     moyen  = models.CharField(max_length=255, unique=True)
+    code  = models.CharField(max_length=255,default=0)
     class Meta:
         ordering: ['-moyen']
 

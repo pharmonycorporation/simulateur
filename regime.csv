@@ -1,0 +1,57 @@
+﻿100;Mise en libre pratique suite admission temporaire spéciale
+1000;Exportation définitive
+1020;Exportation définitive en suite d’ Exportation Temporaire pour exposition, essai, ...
+1021;Exportation définitive en suite d’ Exportation Temporaire pour Perfectionnement Passif
+1022;Exportation définitive en suite d’ Exportation Temporaire pour retour en l'état
+1070;Exportation définitive en suite d’entrepôt de Stockage
+1080;Exportation définitive en suite de Transit
+2000;Exportation Temporaire pour exposition, essai, ...
+2100;Exportation Temporaire pour Perfectionnement Passif
+2200;Exportation Temporaire pour retour en l'état
+3050;Réexportation en suite d’Admission Temporaire Normale
+3051;Réexportation en suite d’Admission Temporaire pour Perfectionnement Actif
+3052;Réexportation en  suite d’Admission Temporaire Spéciale
+3053;Réexportation en suite d’ Importation Temporaire
+3070;Réexportation en suite de mise en entrepôt de Stockage
+3071;Réexportation en suite de mise en entrepôt de Transformation
+3080;Réexportation en suite de Transit
+3083;Réexportation en suite de Transbordement
+4000;Mise à la consommation directe
+4050;Mise à la consommation en suite d’ Admission Temporaire Normale
+4051;Mise à la consommation en suite d’ Admission Temporaire pour Perfectionnement Actif
+4052;Mise à la consommation en suite d’ Admission Temporaire Spéciale
+4053;Mise à la consommation en suite d’ Importation Temporaire
+4070;Mise à la consommation en suite de Mise en entrepôt de Stockage
+4071;Mise à la consommation en suite de Mise en entrepôt de Transformation
+4080;Mise à la consommation en suite de Transit
+4090;Mise à la consommation en suite d’autres procédures
+5000;Admission Temporaire Normale
+5050;Admission Temporaire Normale en suite d’Admission Temporaire Normale
+5070;Admission Temporaire Normale en suite de mise en entrepôt de Stockage
+5100;Admission Temporaire pour Perfectionnement Actif
+5200;Admission Temporaire Spéciale
+5250;Admission Temporaire Spéciale en suite d’Admission Temporaire Normale
+5270;Admission Temporaire Spéciale en suite de mise en entrepôt de Stockage
+5300;Importation Temporaire
+6020;Réimportation en suite d’ Exportation Temporaire pour exposition, essai, ...
+6021;Réimportation en suite d’ Exportation Temporaire pour Perfectionnement Passif
+6022;Réimportation en suite d’ Exportation Temporaire pour retour en l'état
+7000;Mise en entrepôt de Stockage
+7050;Mise en entrepôt de Stockage en suite d’Admission Temporaire Normale
+7051;Mise en entrepôt de Stockage en suite d’ Admission Temporaire pour Perfectionnement Actif
+7052;Mise en entrepôt de Stockage en suite d’ Admission Temporaire Spéciale
+7070;Mutation d’entrepôt de Stockage
+7071;Mutation d’entrepôt de Transformation vers un entrepôt de Stockage
+7100;Mise en entrepôt de Transformation
+7150;Mise en entrepôt de Transformation en suite d’Admission Temporaire Normale
+7151;Mise en entrepôt de Transformation en suite d’ Admission Temporaire pour Perfectionnement Actif
+7152;Mise en entrepôt de Transformation en suite d’ Admission Temporaire Spéciale
+7171;Mutation d’entrepôt de Transformation
+8000;Transit
+8070;Transit en suite de mise en entrepôt de Stockage
+8300;Transbordement
+9000;Autres procédures
+9100;Vente en off shore comptoir de vente
+9200;Mise à la consommation: vente offshore suite transformation
+9300;Avitaillement
+9400;Transfert de fonds par la BEAC

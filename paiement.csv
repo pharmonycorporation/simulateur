@@ -1,0 +1,34 @@
+﻿10;Espèces
+20;Cheque
+21;lettre bancaire
+22;lettre bancaire certifiée
+23;Chèque bancaire (issu par banque ou établissement financier simil.)
+24;Chèque particulier signé par la banque
+25;Chèque particulier certifié par la banque
+30;transfert de Crédit
+31;transfert de Débit
+32;C.C.P
+41;OD-Bon Engagement
+42;Paiement sur compte bancaire
+43;OD-Avoir fiscal
+50;Ordre
+60;Billet à ordre
+61;Billet à ordre signé par le débiteur
+62;Billet à ordre signé par le débiteur et endossé par la banque
+63;Billet à ordre signé par le débiteur et endossé par une tierce personne
+64;Billet à ordre signé par la banque
+65;Billet à ordre signé par la banque et endossé par une autre banque
+66;Billet à ordre signé par une tierce personne
+67;Billet à ordre signé par une tierce personne et endossé par une banque
+68;Billet à ordre signé par une tierce personne et endossé par une autre 
+70;Lettre tirée par le créditeur sur le débiteur 
+71;Lettre tirée par le créditeur sur le débiteur et acceptée
+72;Lettre tirée par le créditeur sur le débiteur, acceptée / endossée par une tierce personne
+73;Lettre tirée par le créditeur sur le débiteur et endossée par un autre débiteur
+74;Lettre tirée par le créditeur sur une banque
+75;Lettre tirée par le créditeur et endossée par une autre banque
+76;Lettre tirée par le créditeur sur une banque et endossée par un tiers
+77;Lettre tirée par le créditeur sur une tierce partie
+78;Lettre tirée par le créditeur sur une tierce partie, acceptée et endossée par une banque
+80;Paiement partiel
+90;Consentement mutuel

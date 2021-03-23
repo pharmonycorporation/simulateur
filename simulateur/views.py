@@ -49,6 +49,25 @@ def initialisationPays(request):
             pays = Pays.objects.create(nom=row[0],code=row[3],cemac=cemac,tva=float(row[2]))
             pays.save()
 
+def regimeDouanier(request):
+    with open('regime.csv', newline='') as csvfile:
+        lecture = csv.reader(csvfile, delimiter=';' )
+        for row in lecture:
+            regime = RegimeDouanier.objects.create(code=row[0],regime=row[1])
+            regime.save()
+def modePaiement(request):
+    with open('paiement.csv', newline='') as csvfile:
+        lecture = csv.reader(csvfile, delimiter=';' )
+        for row in lecture:
+            mode = ModePaiement.objects.create(code=row[0],mode=row[1])
+            mode.save()
+def moyenTransport(request):
+    with open('transport.csv', newline='') as csvfile:
+        lecture = csv.reader(csvfile, delimiter=';' )
+        for row in lecture:
+            moyen = MoyenTransport.objects.create(code=row[0],moyen=row[1])
+            moyen.save()
+
 def initialisationMonaie(request):
     with open('monnaie.csv', newline='') as csvfile:
         spamreader = csv.reader(csvfile, delimiter=';' )

@@ -1,0 +1,14 @@
+﻿10;Transport maritime
+12;Wagon sur navire de mer
+16;Véhicule routier sur navire
+17;Remorque ou s/r sur navire
+18;Bateau sur navire maritime 
+20;Transport par chemin de fer
+23;Véhicule routier sur train
+30;Transport par route
+40;Transport par air
+50;Envois postaux
+60;Transport multimodal
+70;Installation de transport fixe
+80;Transport par navigation intérieure
+90;Propulsion propre
