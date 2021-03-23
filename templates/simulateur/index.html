@@ -910,7 +910,7 @@ p {
                         <div class="card-body">
                               <div class="form-group">
                                 <label for="inputEmail3">Importateur</label>
-                                <input class="form-control" id="importateurId" type="text" placeholder="Raison sociale">
+                                <input class="form-control" id="importateurId" type="text" placeholder="Entrez la Raison sociale">
                               </div>
                               <div class="form-group">
                                 <label for="inputEmail01" >Régime Fiscale </label>
@@ -929,6 +929,8 @@ p {
                                 {% endfor %}
                                 </select> 
                                 <input type="text" id="tvaDestination" value="18" hidden="hidden">
+                                <input type="text" id="africa" value="0" hidden="hidden">
+                                <input type="text" id="cemac" value="0" hidden="hidden">
                               </div>
                               <div class="form-group">
                                 <label for="country">Pays de provenance</label><select class="form-control" id="provenanceId">
@@ -943,10 +945,18 @@ p {
                 <div class="col-sm-6">
                   <div class="card">
                     <div class="card-body">
-                            <div class="form-group ">
-                                <!-- <label for="inputEmail02" >Nomenclature tarifaire </label> -->
-                                <input type="email" class="form-control" id="nomenclatureId" placeholder="Nomenclature tarifaire" hidden="hidden">    
-                            </div>
+                            
+                            <div class="form-group">
+                             <input type="email" class="form-control" id="nomenclatureId" placeholder="Nomenclature tarifaire" hidden="hidden">
+                                <label for="inputEmail01" >Régime Douanier </label>
+                                <select class="form-control" id="regimeId">
+                                {% for regime in regimedouaniers %}
+                                    <option value="{{regime.regime}}">{{regime.regime}}</option>
+                                {% endfor %}
+                                </select> 
+                               
+                               
+                              </div>
                             <div class="form-group ">
                                 <label for="inputEmail003" >Moyen de transport </label>
                                 <select class="form-control" id="transportId">
@@ -1283,6 +1293,23 @@ p {
                     rtva=document.getElementById("tvaDestination");
                    
                     rtva.setAttribute("value",data['tva']);
+                    
+                    africa = document.getElementById("africa");
+                     cemac = document.getElementById("cemac");
+                    if(data['cemac']){
+                         
+                          cemac.setAttribute("value",1);
+                          africa.setAttribute("value",1)
+                    }else{
+                      if(data['africa']){
+                          cemac.setAttribute("value",0);
+                          africa.setAttribute("value",1);
+                      }else{
+                          cemac.setAttribute("value",0);
+                          africa.setAttribute("value",0);
+
+                      }
+                    }
                   }else{
                     alert("une erreur s'est produite lors de l'enregistrement des données");
                   }
@@ -1640,6 +1667,8 @@ $('#example').DataTable( {
                       currency: devise,
                       minimumFractionDigits: 2
                     });
+              
+             
               let nomenclature = $("#nomenclatureId").val();
               let regime = $("#regimeId").val();
               let  regimeF = document.getElementById("SimRegimeFiscaleId");
@@ -1750,8 +1779,266 @@ $('#example').DataTable( {
                     });
                     let simQuotiteId = document.getElementById("SimQuotiteId");
                     simQuotiteId.innerHTML = "Quotite : <u style='font-size:11px;font-weight:bold'>"+data.tarif.quotite+"% </u>";
-                    
+                     
+                     //debut controle cemac afric monde
+                     if(parseInt($("#cemac").val()) == 1)
+                    {
                     let VI = parseFloat(vi)*tauxRetourner;
+                    let viTd =  document.getElementById("viTd");
+                    viTd.innerHTML = VI;
+                    
+                    let ddQuotite =  document.getElementById("ddQuotite");
+                    ddQuotite.innerHTML = "origine CEMAC";
+
+                    let ddMontant =  document.getElementById("ddMontant");
+                    let DD = VI*parseFloat(0)/100;
+                    ddMontant.innerHTML = DD;
+
+                    //ligne TVA
+                    let tvaTd =  document.getElementById("tvaTd");
+                    tvaTd.innerHTML = VI+DD ;
+                    
+                    let tvaIndice = parseFloat($("#tvaDestination").val());
+                    let tvaQuotite =  document.getElementById("tvaQuotite");
+                    tvaQuotite.innerHTML = $("#tvaDestination").val()+"%";
+
+                    let tvaMontant =  document.getElementById("tvaMontant");
+                    let TVA = parseInt(data.tarif.tva)*(parseFloat(tvaIndice)/100)*(VI+DD)
+                    tvaMontant.innerHTML = TVA;
+                    
+                    //ligne DACC
+                    let daccTd =  document.getElementById("daccTd");
+                    daccTd.innerHTML = VI+DD+TVA;
+                    
+                   
+                    let daccQuotite =  document.getElementById("daccQuotite");
+                    daccQuotite.innerHTML = data.tarif.dacc+"%";
+
+                    let daccMontant =  document.getElementById("daccMontant");
+                    let DACC = parseFloat(data.tarif.dacc)*(VI+DD+TVA)/100;
+                    daccMontant.innerHTML = DACC;
+
+                    //ligne PCI
+                    let pciTd =  document.getElementById("pciTd");
+                    pciTd.innerHTML = VI;
+                    
+                   
+                    let pciQuotite =  document.getElementById("pciQuotite");
+                    pciQuotite.innerHTML = 4+"%";
+
+                    let pciMontant =  document.getElementById("pciMontant");
+                    let PCI = 4*(VI)/100;
+                    pciMontant.innerHTML = PCI;
+
+                    //ligne RST
+                    let rstTd =  document.getElementById("rstTd");
+                    rstTd.innerHTML = VI;
+                    
+                   
+                    let rstQuotite =  document.getElementById("rstQuotite");
+                    rstQuotite.innerHTML = 2+"%";
+
+                    let rstMontant =  document.getElementById("rstMontant");
+                    let RST = 2*(VI)/100;
+                    rstMontant.innerHTML = RST;
+                    
+                    //ligne TCI
+                    let tciTd =  document.getElementById("tciTd");
+                    tciTd.innerHTML = VI;
+                    
+                   
+                    let tciQuotite =  document.getElementById("tciQuotite");
+                    tciQuotite.innerHTML = "origine CEMAC";
+
+                    let tciMontant =  document.getElementById("tciMontant");
+                    let TCI = 0;
+                    tciMontant.innerHTML = TCI;
+
+                    //ligne CCI
+                    let cciTd =  document.getElementById("cciTd");
+                    cciTd.innerHTML = VI;
+                    
+                   
+                    let cciQuotite =  document.getElementById("cciQuotite");
+                    cciQuotite.innerHTML = "origine CEMAC";
+
+                    let cciMontant =  document.getElementById("cciMontant");
+                    let CCI = 0;
+                    cciMontant.innerHTML = CCI;
+
+                    //ligne TUA
+                    let tuaTd =  document.getElementById("tuaTd");
+                    tuaTd.innerHTML = VI;
+                    
+                   
+                    let tuaQuotite =  document.getElementById("tuaQuotite");
+                    tuaQuotite.innerHTML = "origine Afrique";
+
+                    let tuaMontant =  document.getElementById("tuaMontant");
+                    let TUA = 0;
+                    tuaMontant.innerHTML = TUA;
+                    
+                    //ligne TSP
+                    let tspTd =  document.getElementById("tspTd");
+                    tspTd.innerHTML = VI;
+                    
+                   
+                    let tspQuotite =  document.getElementById("tspQuotite");
+                    tspQuotite.innerHTML = data.tarif.ts+"%";
+
+                    let tspMontant =  document.getElementById("tspMontant");
+                    let TSP = data.tarif.ts*VI/100;
+                    tspMontant.innerHTML = TSP;
+
+                    let totalDt =  document.getElementById("totalDt");
+                     dot = TSP+TUA+CCI+TCI+RST+PCI+DACC+TVA+DD;
+                    totalDt.innerHTML = cfa.format(dot);
+
+                    let totalVs =  document.getElementById("totalVs");
+                    
+                    totalVs.innerHTML = cfa.format(tauxRetourner*statistique);
+
+                    let totalHAD =  document.getElementById("totalHAD");
+                    had = (0.5/100)*VI
+                    totalHAD.innerHTML = cfa.format(had);
+
+                    let coutRevient =  document.getElementById("coutRevient");
+                    
+                    
+                    
+                  coutRevient.innerHTML = cfa.format(tauxRetourner*statistique-(TVA+PCI)+dot+had);
+                    
+
+                    }else{
+                      if(parseInt($("#africa").val())== 1){
+                        let VI = parseFloat(vi)*tauxRetourner;
+                    let viTd =  document.getElementById("viTd");
+                    viTd.innerHTML = VI;
+                    
+                    let ddQuotite =  document.getElementById("ddQuotite");
+                    ddQuotite.innerHTML = data.tarif.quotite+"%";
+
+                    let ddMontant =  document.getElementById("ddMontant");
+                    let DD = VI*parseFloat(data.tarif.quotite)/100;
+                    ddMontant.innerHTML = DD;
+
+                    //ligne TVA
+                    let tvaTd =  document.getElementById("tvaTd");
+                    tvaTd.innerHTML = VI+DD ;
+                    
+                    let tvaIndice = parseFloat($("#tvaDestination").val());
+                    let tvaQuotite =  document.getElementById("tvaQuotite");
+                    tvaQuotite.innerHTML = $("#tvaDestination").val()+"%";
+
+                    let tvaMontant =  document.getElementById("tvaMontant");
+                    let TVA = parseInt(data.tarif.tva)*(parseFloat(tvaIndice)/100)*(VI+DD)
+                    tvaMontant.innerHTML = TVA;
+                    
+                    //ligne DACC
+                    let daccTd =  document.getElementById("daccTd");
+                    daccTd.innerHTML = VI+DD+TVA;
+                    
+                   
+                    let daccQuotite =  document.getElementById("daccQuotite");
+                    daccQuotite.innerHTML = data.tarif.dacc+"%";
+
+                    let daccMontant =  document.getElementById("daccMontant");
+                    let DACC = parseFloat(data.tarif.dacc)*(VI+DD+TVA)/100;
+                    daccMontant.innerHTML = DACC;
+
+                    //ligne PCI
+                    let pciTd =  document.getElementById("pciTd");
+                    pciTd.innerHTML = VI;
+                    
+                   
+                    let pciQuotite =  document.getElementById("pciQuotite");
+                    pciQuotite.innerHTML = 4+"%";
+
+                    let pciMontant =  document.getElementById("pciMontant");
+                    let PCI = 4*(VI)/100;
+                    pciMontant.innerHTML = PCI;
+
+                    //ligne RST
+                    let rstTd =  document.getElementById("rstTd");
+                    rstTd.innerHTML = VI;
+                    
+                   
+                    let rstQuotite =  document.getElementById("rstQuotite");
+                    rstQuotite.innerHTML = 2+"%";
+
+                    let rstMontant =  document.getElementById("rstMontant");
+                    let RST = 2*(VI)/100;
+                    rstMontant.innerHTML = RST;
+                    
+                    //ligne TCI
+                    let tciTd =  document.getElementById("tciTd");
+                    tciTd.innerHTML = VI;
+                    
+                   
+                    let tciQuotite =  document.getElementById("tciQuotite");
+                    tciQuotite.innerHTML = 1+"%";
+
+                    let tciMontant =  document.getElementById("tciMontant");
+                    let TCI = VI/100;
+                    tciMontant.innerHTML = TCI;
+
+                    //ligne CCI
+                    let cciTd =  document.getElementById("cciTd");
+                    cciTd.innerHTML = VI;
+                    
+                   
+                    let cciQuotite =  document.getElementById("cciQuotite");
+                    cciQuotite.innerHTML = "0,40 %";
+
+                    let cciMontant =  document.getElementById("cciMontant");
+                    let CCI = 0.4*VI/100;
+                    cciMontant.innerHTML = CCI;
+
+                    //ligne TUA
+                    let tuaTd =  document.getElementById("tuaTd");
+                    tuaTd.innerHTML = VI;
+                    
+                   
+                    let tuaQuotite =  document.getElementById("tuaQuotite");
+                    tuaQuotite.innerHTML = "origine Afrique";
+
+                    let tuaMontant =  document.getElementById("tuaMontant");
+                    let TUA = 0;
+                    tuaMontant.innerHTML = TUA;
+                    
+                    //ligne TSP
+                    let tspTd =  document.getElementById("tspTd");
+                    tspTd.innerHTML = VI;
+                    
+                   
+                    let tspQuotite =  document.getElementById("tspQuotite");
+                    tspQuotite.innerHTML = data.tarif.ts+"%";
+
+                    let tspMontant =  document.getElementById("tspMontant");
+                    let TSP = data.tarif.ts*VI/100;
+                    tspMontant.innerHTML = TSP;
+
+                    let totalDt =  document.getElementById("totalDt");
+                     dot = TSP+TUA+CCI+TCI+RST+PCI+DACC+TVA+DD;
+                    totalDt.innerHTML = cfa.format(dot);
+
+                    let totalVs =  document.getElementById("totalVs");
+                    
+                    totalVs.innerHTML = cfa.format(tauxRetourner*statistique);
+
+                    let totalHAD =  document.getElementById("totalHAD");
+                    had = (0.5/100)*VI
+                    totalHAD.innerHTML = cfa.format(had);
+
+                    let coutRevient =  document.getElementById("coutRevient");
+                    
+                    
+                    
+                  coutRevient.innerHTML = cfa.format(tauxRetourner*statistique-(TVA+PCI)+dot+had);
+                    
+
+                      }else{
+                        let VI = parseFloat(vi)*tauxRetourner;
                     let viTd =  document.getElementById("viTd");
                     viTd.innerHTML = VI;
                     
@@ -1874,7 +2161,11 @@ $('#example').DataTable( {
                     
                     
                     
-                  coutRevient.innerHTML = cfa.format(tauxRetourner*statistique-(TVA+PCI)+dot+had);
+                    coutRevient.innerHTML = cfa.format(tauxRetourner*statistique-(TVA+PCI)+dot+had);
+                    
+                        
+                      }
+                    }
                     
                     /*
                     let B = parseInt(A*quotite)/100;

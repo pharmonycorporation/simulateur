@@ -121,13 +121,14 @@ def index(request):
     if request.user.is_authenticated:
         listePays = Pays.objects.all()
         listeRegime = RegimeFiscale.objects.all()
+        listeRegimeDouanier = RegimeDouanier.objects.all()
         listePaysCemac = Pays.objects.filter(cemac=True)
         listeTransport = MoyenTransport.objects.all()
         listePaiement = ModePaiement.objects.all()
         listetarif = TarifDouanier.objects.all()
         listeDevise = Devise.objects.all()
         
-        return render(request, 'simulateur/index.html', {'tarifs' : listetarif, 'pays':listePays,'cemacs':listePaysCemac, 'transports':listeTransport, 'paiements':listePaiement,'devises':listeDevise,'regimes':listeRegime})
+        return render(request, 'simulateur/index.html', {'tarifs' : listetarif, 'pays':listePays,'cemacs':listePaysCemac, 'transports':listeTransport, 'paiements':listePaiement,'devises':listeDevise,'regimes':listeRegime,'regimedouaniers':listeRegimeDouanier})
     return redirect('authentication')
     
 def tecView(request):
@@ -173,15 +174,20 @@ def demarrerSimulateur(request):
     try:
         Simulation.objects.create(importateur=importateur, auteur=Personne.objects.get(user=user), nomenclature=nomenclature,regime=RegimeFiscale.objects.get(regime=regime),destination=Pays.objects.get(nom=destination),origine=Pays.objects.get(nom=provenance),modePaiement=ModePaiement.objects.get(mode=paiement),devise=Devise.objects.filter(codeDevise=devise).first(),moyenTransport=MoyenTransport.objects.get(moyen=transport))
         monPays = Pays.objects.get(nom=destination)
+        origine = Pays.objects.get(nom=provenance)
         data = {
         'success': True,
-        'tva': monPays.tva
+        'tva': monPays.tva,
+        'cemac':origine.cemac,
+        'africa':origine.africa
         }
    
     except:
         data = {
         'success': False,
-        'tva':18
+        'tva':18,
+        'cemac':False,
+        'africa':False
         }
    
     return JsonResponse(data,safe=False)
