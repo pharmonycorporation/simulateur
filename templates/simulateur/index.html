@@ -597,10 +597,10 @@ p {
                                 <thead>
                                     <tr>
                                         <th>Nomenclature</th>
-                                        <th>Libellé</th>
+                                        <th>Libelle</th>
                                         <th>Quotite</th>
                                       
-                                        <th>Exhonération TVA</th>
+                                        <th>Exhoneration TVA</th>
                                         <th>DACC</th>
                                         <th>T.S</th>
                                         <th>Action</th>
@@ -627,10 +627,10 @@ p {
                                 <tfoot>
                                     <tr>
                                         <th>Nomenclature</th>
-                                        <th>Libellé</th>
+                                        <th>Libelle</th>
                                         <th>Quotite</th>
                                       
-                                        <th>Exhonération TVA</th>
+                                        <th>Exhoneration TVA</th>
                                         <th>DACC</th>
                                         <th>T.S</th>
                                         <th>Action</th>
@@ -686,10 +686,10 @@ p {
                           <div class="row" >
                               <div class="col-sm-6">
                                 <fieldset class="form-group border p-3">
-                                      <legend class="w-auto px-2">Information Générale</legend>
+                                      <legend class="w-auto px-2">Information Generale</legend>
                                 <table border="0">
                                   <tr>
-                                    <td id="SimDeclarantId">Déclarant:<u style='font-size:11px;font-weight:bold'>{{user.first_name }} {{user.last_name}}</u></td>
+                                    <td id="SimDeclarantId">Declarant:<u style='font-size:11px;font-weight:bold'>{{user.first_name }} {{user.last_name}}</u></td>
                                     <td id="SimTransportId">Mode de Transport:__________</td>
                                   </tr>
                                   <tr>
@@ -717,7 +717,7 @@ p {
                                   
                                   <tr>
                                   <td id="SimValeurFactureId">Valeur Facture:______________</td>
-                                   <td id="SimQuotiteId">Quotité:__________</td>
+                                   <td id="SimQuotiteId">Quotite:__________</td>
                                   </tr>
                                   <tr>
                                     
@@ -913,7 +913,7 @@ p {
                                 <input class="form-control" id="importateurId" type="text" placeholder="Entrez la Raison sociale">
                               </div>
                               <div class="form-group">
-                                <label for="inputEmail01" >Régime Fiscale </label>
+                                <label for="inputEmail01" >Regime Fiscale </label>
                                 <select class="form-control" id="regimeId">
                                 {% for regime in regimes %}
                                     <option value="{{regime.regime}}">{{regime.regime}}</option>
@@ -948,7 +948,7 @@ p {
                             
                             <div class="form-group">
                              <input type="email" class="form-control" id="nomenclatureId" placeholder="Nomenclature tarifaire" hidden="hidden">
-                                <label for="inputEmail01" >Régime Douanier </label>
+                                <label for="inputEmail01" >Regime Douanier </label>
                                 <select class="form-control" id="regimeId">
                                 {% for regime in regimedouaniers %}
                                     <option value="{{regime.regime}}">{{regime.regime}}</option>
@@ -1070,156 +1070,7 @@ p {
   <br>
     <br>
     <br>
-   <footer id="dk-footer" class="dk-footer">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12 col-lg-4">
-                    <div class="dk-footer-box-info">
-                        <a href="index.html" class="footer-logo">
-                            <img src="{%static 'assets/img/cemac/cemac.png'%}" alt="footer_logo" class="img-fluid " style="align:center">
-                        </a>
-                        <p class="footer-info-text">
-                           Ce simultateur permet à tous les importateurs de pouvoir vérifier par eux-même les taxes et droits de douane pour leurs marchandises dans la zone CEMAC
-                        </p>
-                        <div class="footer-social-link">
-                            <h3>Réalisé par</h3>
-                             <img src="{%static 'images_cgi/lecfp.png'%}"/>
-                        </div>
-                        <!-- End Social link -->
-                    </div>
-                    <!-- End Footer info -->
-                   
-                </div>
-                <!-- End Col -->
-                <div class="col-md-12 col-lg-8">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="contact-us">
-                                <div class="contact-icon">
-                                    <i class="fa fa-map-o" aria-hidden="true"></i>
-                                </div>
-                                <!-- End contact Icon -->
-                                <div class="contact-info">
-                                    <h3>Contact</h3>
-                                    <p><i class="fa fa-envelope-square"></i> contact@cgitchad.online</p>
-                                </div>
-                                <!-- End Contact Info -->
-                            </div>
-                            <!-- End Contact Us -->
-                        </div>
-                        <!-- End Col -->
-                        <div class="col-md-6">
-                            <div class="contact-us contact-us-last">
-                                <div class="contact-icon">
-                                    <i class="fa fa-volume-control-phone" aria-hidden="true"></i>
-                                </div>
-                                <!-- End contact Icon -->
-                                <div class="contact-info">
-                                    <h3>+237 242 998 232  </h3>
-                                    <p><i class="fa fa-phone"></i>Assistance Technique</p>
-                                </div>
-                                <!-- End Contact Info -->
-                            </div>
-                            <!-- End Contact Us -->
-                        </div>
-                        <!-- End Col -->
-                    </div>
-                    <!-- End Contact Row -->
-                    <div class="row">
-                        <div class="col-md-12 col-lg-6">
-                            <div class="footer-widget footer-left-widget">
-                                <div class="section-heading">
-                                    <h3>Liens Utiles</h3>
-                                    <span class="animate-border border-black"></span>
-                                </div>
-                                <ul>
-                                    <li>
-                                        <a href="#">Le CFP</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">CGI TCHAD</a>
-                                    </li>
-                                    <li>
-                                        <a href="#">CEMAC</a>
-                                    </li>
-                                   
-                                </ul>
-                                <ul>
-                                    <li>
-                                        <a href="#">Contact</a>
-                                    </li>
-                                  
-                                    <li>
-                                        <a href="#">Faq</a>
-                                    </li>
-                                </ul>
-                            </div>
-                            <!-- End Footer Widget -->
-                        </div>
-                        <!-- End col -->
-                        <div class="col-md-12 col-lg-6">
-                            <div class="footer-widget">
-                                <div class="section-heading">
-                                    <h3>Note d'information</h3>
-                                    <span class="animate-border border-black"></span>
-                                </div>
-                                <p><!-- Don’t miss to subscribe to our new feeds, kindly fill the form below. -->
-                                 Les données fournies par le simultateur sont juste à titre indicatifs et peuvent donc différer 
-                                 de celles délivrées par l'autorité compétente</p>
-                               
-                                <!-- End form -->
-                            </div>
-                            <!-- End footer widget -->
-                        </div>
-                        <!-- End Col -->
-                    </div>
-                    <!-- End Row -->
-                </div>
-                <!-- End Col -->
-            </div>
-            <!-- End Widget Row -->
-        </div>
-        <!-- End Contact Container -->
-
-
-        <div class="copyright">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-6">
-                        <span>Copyright © 2021 <a href="http://www.lecfp.net">Le CFP </a>, Powered by <a href="https://www.pharmony-corporation.com">Pharmony Coporation</a></span>
-                    </div>
-                    <!-- End Col -->
-                    <div class="col-md-6">
-                        <div class="copyright-menu">
-                            <ul>
-                                <li>
-                                    <a href="/sdi">Accueil</a>
-                                </li>
-                                <li>
-                                    <a href="{% url 'up_profile'%}">Profil</a>
-                                </li>
-                                <li>
-                                    <a href="{% url 'tarification'%}">Nouvelle Simulation</a>
-                                </li>
-                                
-                            </ul>
-                        </div>
-                    </div>
-                    <!-- End col -->
-                </div>
-                <!-- End Row -->
-            </div>
-            <!-- End Copyright Container -->
-        </div>
-        <!-- End Copyright -->
-        <!-- Back to top -->
-        <div id="back-to-top" class="back-to-top">
-            <button class="btn btn-dark" title="Back to Top" style="display: block;">
-                <i class="fa fa-angle-up"></i>
-            </button>
-        </div>
-        <!-- End Back to top -->
-</footer>
+  
 
  
     <script src="https://code.jquery.com/jquery-2.0.3.min.js"></script>
@@ -1289,7 +1140,7 @@ p {
 
                   if(data['success']){
                     $("#entreeModal").modal('hide');
-                    alert("enregistrement effectué, debut de la simulation");
+                    alert("enregistrement effectue, debut de la simulation");
                     rtva=document.getElementById("tvaDestination");
                    
                     rtva.setAttribute("value",data['tva']);
@@ -1311,7 +1162,7 @@ p {
                       }
                     }
                   }else{
-                    alert("une erreur s'est produite lors de l'enregistrement des données");
+                    alert("une erreur s'est produite lors de l'enregistrement des donnees");
                   }
 
                 }                
@@ -1442,7 +1293,7 @@ $('#example').DataTable( {
             if(nbclick >= 1){
                     $("#exampleModal").modal().show();
             }else{
-                alert("veuillez ajouter un élément au panier");
+                alert("veuillez ajouter un element au panier");
             }
              
         }

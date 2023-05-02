@@ -176,7 +176,7 @@ class SouscriptionView(View):
 
 def signout(request):
     logout(request)
-    return redirect("home")
+    return redirect("authentication")
 
 def payment_done(request, key):
     pack = Package.objects.get(pk=int(key))

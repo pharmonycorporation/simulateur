@@ -18,6 +18,7 @@ from gendsf import views
 from rest_framework import routers, serializers, viewsets
 from django.urls import path, include
 from simulateur import views as simviews
+from gestionlicence import views as web_views
 router = routers.DefaultRouter()
 router.register(r'dsfs', views.DSFViewSet)
 router.register(r'dads', views.DADSViewSet)
@@ -42,7 +43,12 @@ router.register(r'identification', views.IdentificationViewSet)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',include('gestionlicence.urls')),
+    # path('',include('gestionlicence.urls')),
+    path('',simviews.SignInView.as_view(),name='authentication'),
+     path('signin/', web_views.SignInView.as_view(), name="signin"),
+    path('signup/', web_views.SignupView.as_view(), name="signup"),
+    path('logout/', web_views.signout, name="signout"),
+    path('profile/', web_views.ProfileView.as_view(), name="profile"),
     path('sim', simviews.initialisationTarif),
     path('mon', simviews.initialisationMonaie),
     path('authentication', simviews.SignInView.as_view(),name='authentication'),

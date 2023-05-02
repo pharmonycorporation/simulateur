@@ -28,6 +28,40 @@ class RegimeDouanier(models.Model):
     def __str__(self):
         return self.regime
 
+class Taxe(models.Model):
+    code  = models.CharField(max_length=255, unique=True)
+    nom  = models.CharField(max_length=255, unique=True)
+    quotiteFixe = models.FloatField(default=0)
+    valeurForfaitaire = models.FloatField(default=0)
+    mes_regimes_fiscaux = models.ManyToManyField(RegimeFiscale,through='TaxeRegimeFiscale', related_name="mes_taxes_fiscales")
+    mes_regimes_douaniers = models.ManyToManyField(RegimeDouanier,through='TaxeRegimeDouanier', related_name="mes_taxes_doaunieres")
+    class Meta:
+        ordering: ['-code']
+
+    def __str__(self):
+        return self.code
+
+class TaxeRegimeFiscale(models.Model):
+    taxe = models.ForeignKey(Taxe,  on_delete=models.CASCADE, null=True)
+    regime = models.ForeignKey(RegimeFiscale,  on_delete=models.CASCADE, null=True)
+    quotiteFixe = models.FloatField(default=0)
+    valeurForfaitaire = models.FloatField(default=0)
+
+    def __str__(self):
+        return "{} - {}".format(self.taxe.nom, self.regime.regime)
+
+class TaxeRegimeDouanier(models.Model):
+    taxe = models.ForeignKey(Taxe,  on_delete=models.CASCADE, null=True)
+    regime = models.ForeignKey(RegimeDouanier, on_delete=models.CASCADE, null=True)
+    quotiteFixe = models.FloatField(default=0)
+    valeurForfaitaire = models.FloatField(default=0)
+
+    def __str__(self):
+        return "{} - {}".format(self.taxe.nom, self.regime.regime)
+
+
+
+
 class MoyenTransport(models.Model):
     moyen  = models.CharField(max_length=255, unique=True)
     code  = models.CharField(max_length=255,default=0)
